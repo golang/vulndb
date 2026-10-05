@@ -1,0 +1,18 @@
+id: GO-2026-6657
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260813142806-dd2778b70d02
+summary: SiYuan Agent Tools SSRF via DNS-Rebinding TOCTOU (Bypass of CheckHostSSRF) in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-x8gv-g2g3-65fj
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-x8gv-g2g3-65fj
+    - web: https://github.com/siyuan-note/siyuan/commit/dd2778b70d020b15491ef7418f5f63214583cd63
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.1
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-x8gv-g2g3-65fj
+    created: 2026-10-05T10:39:31.878182-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-6639
+modules:
+    - module: github.com/TecharoHQ/anubis
+      versions:
+        - introduced: 1.22.0
+        - fixed: 1.26.0
+      vulnerable_at: 1.26.0-pre2
+summary: 'Anubis: Policy bypass via client controlled X-Original-URI header in github.com/TecharoHQ/anubis'
+cves:
+    - CVE-2026-62314
+ghsas:
+    - GHSA-6wcg-mqvh-fcvg
+references:
+    - advisory: https://github.com/TecharoHQ/anubis/security/advisories/GHSA-6wcg-mqvh-fcvg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62314
+    - fix: https://github.com/TecharoHQ/anubis/commit/276b537776b281b1c4e01421435bc03ade3d8fc4
+    - fix: https://github.com/TecharoHQ/anubis/pull/1630
+    - web: https://github.com/TecharoHQ/anubis/releases/tag/v1.26.0-pre1
+source:
+    id: GHSA-6wcg-mqvh-fcvg
+    created: 2026-10-05T10:40:20.218629-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6656",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-73802",
+    "GHSA-x4q3-gcj3-m6cf"
+  ],
+  "summary": "gitea-runner: workflow container.options passes host namespaces and capability flags to job container when privileged mode is disabled in gitea.com/gitea/runner",
+  "details": "gitea-runner: workflow container.options passes host namespaces and capability flags to job container when privileged mode is disabled in gitea.com/gitea/runner",
+  "affected": [
+    {
+      "package": {
+        "name": "gitea.com/gitea/runner",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.9-0.20260731160927-34bfa1915022"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-x4q3-gcj3-m6cf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gitea.com/gitea/runner/pulls/1058"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gitea.com/gitea/runner/releases/tag/v3.0.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6656",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,24 @@
+id: GO-2026-6650
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260803045322-cb67e0b4fab5
+summary: |-
+    SiYuan: Cross-Site WebSocket Hijacking on the admin-only network proxy endpoint
+    (`/ws/network/proxy`) via explicit `CheckOrigin: true` bypass in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-74802
+ghsas:
+    - GHSA-3cc2-h3v6-rqpq
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3cc2-h3v6-rqpq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-74802
+    - web: https://github.com/siyuan-note/siyuan/commit/cb67e0b4fab57c9c5f458c1fd0df5ecf4417b696
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+    - web: https://www.vulncheck.com/advisories/siyuan-cross-site-websocket-hijacking-via-network-proxy
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3cc2-h3v6-rqpq
+    created: 2026-10-05T10:40:04.369231-04:00
+review_status: UNREVIEWED

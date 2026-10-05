@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6654",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-74904",
+    "GHSA-4vpg-gwqq-w44c"
+  ],
+  "summary": "SiYuan: 17 block metadata/content endpoints in kernel/api/block.go have zero publish-access filtering, reachable by anonymous publish-mode readers in github.com/siyuan-note/siyuan/kernel",
+  "details": "SiYuan: 17 block metadata/content endpoints in kernel/api/block.go have zero publish-access filtering, reachable by anonymous publish-mode readers in github.com/siyuan-note/siyuan/kernel",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/siyuan-note/siyuan/kernel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260804015139-bd067a4fe9b2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-4vpg-gwqq-w44c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74904"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/siyuan-note/siyuan/commit/bd067a4fe9b208c0858d8d9dc6220dc8affc403e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.vulncheck.com/advisories/siyuan-before-missing-authorization-via-block-api"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6654",
+    "review_status": "UNREVIEWED"
+  }
+}

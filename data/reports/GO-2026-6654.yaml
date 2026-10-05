@@ -1,0 +1,24 @@
+id: GO-2026-6654
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260804015139-bd067a4fe9b2
+summary: |-
+    SiYuan: 17 block metadata/content endpoints in kernel/api/block.go have zero
+    publish-access filtering, reachable by anonymous publish-mode readers in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-74904
+ghsas:
+    - GHSA-4vpg-gwqq-w44c
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-4vpg-gwqq-w44c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-74904
+    - web: https://github.com/siyuan-note/siyuan/commit/bd067a4fe9b208c0858d8d9dc6220dc8affc403e
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+    - web: https://www.vulncheck.com/advisories/siyuan-before-missing-authorization-via-block-api
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-4vpg-gwqq-w44c
+    created: 2026-10-05T10:39:45.658115-04:00
+review_status: UNREVIEWED

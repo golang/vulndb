@@ -1,0 +1,21 @@
+id: GO-2026-6656
+modules:
+    - module: gitea.com/gitea/runner
+      versions:
+        - fixed: 1.0.9-0.20260731160927-34bfa1915022
+      vulnerable_at: 1.0.8
+summary: |-
+    gitea-runner: workflow container.options passes host namespaces and capability
+    flags to job container when privileged mode is disabled in gitea.com/gitea/runner
+cves:
+    - CVE-2026-73802
+ghsas:
+    - GHSA-x4q3-gcj3-m6cf
+references:
+    - advisory: https://github.com/go-gitea/gitea/security/advisories/GHSA-x4q3-gcj3-m6cf
+    - web: https://gitea.com/gitea/runner/pulls/1058
+    - web: https://gitea.com/gitea/runner/releases/tag/v3.0.0
+source:
+    id: GHSA-x4q3-gcj3-m6cf
+    created: 2026-10-05T10:39:36.167989-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-6645
+modules:
+    - module: github.com/mudler/LocalAI
+      versions:
+        - fixed: 1.40.1-0.20260703213242-2cbb3c96b34d
+      vulnerable_at: 1.40.0
+summary: |-
+    LocalAI POST /models/apply permits unauthenticated server-side request forgery
+    through gallery URLs in github.com/mudler/LocalAI
+cves:
+    - CVE-2026-59707
+ghsas:
+    - GHSA-8c5q-hx4g-qq23
+references:
+    - advisory: https://github.com/advisories/GHSA-8c5q-hx4g-qq23
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-59707
+    - fix: https://github.com/mudler/LocalAI/commit/f9b968e19d7cbc556d59dceb2e0e450b828a3fda
+    - report: https://github.com/mudler/LocalAI/issues/10665
+    - web: https://www.vulncheck.com/advisories/localai-server-side-request-forgery-via-post-models-apply
+source:
+    id: GHSA-8c5q-hx4g-qq23
+    created: 2026-10-05T10:40:12.205353-04:00
+review_status: UNREVIEWED

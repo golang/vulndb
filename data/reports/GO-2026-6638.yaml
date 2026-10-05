@@ -1,0 +1,29 @@
+id: GO-2026-6638
+modules:
+    - module: github.com/ccfos/nightingale
+      vulnerable_at: 1.4.0
+    - module: github.com/ccfos/nightingale/v4
+      vulnerable_at: 4.0.3
+    - module: github.com/ccfos/nightingale/v5
+      vulnerable_at: 5.15.1
+    - module: github.com/ccfos/nightingale/v6
+      versions:
+        - fixed: 6.7.3-0.20260528033214-762819fbaa23
+      vulnerable_at: 6.7.2
+summary: Nightingale exposes datasource credentials to low-privilege users in github.com/ccfos/nightingale
+cves:
+    - CVE-2026-58167
+ghsas:
+    - GHSA-27c6-wp53-387x
+references:
+    - advisory: https://github.com/advisories/GHSA-27c6-wp53-387x
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58167
+    - fix: https://github.com/ccfos/nightingale/commit/762819fbaa2350b73bce45bfaf6f8cf74b4abef8
+    - fix: https://github.com/ccfos/nightingale/pull/3175
+    - report: https://github.com/ccfos/nightingale/issues/3173
+    - web: https://github.com/ccfos/nightingale/releases/tag/v9.0.0-beta.2
+    - web: https://www.vulncheck.com/advisories/nightingale-beta-2-datasource-credential-disclosure-to-low-privilege-users
+source:
+    id: GHSA-27c6-wp53-387x
+    created: 2026-10-05T10:40:30.554783-04:00
+review_status: UNREVIEWED
