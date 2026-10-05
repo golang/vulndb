@@ -1,23 +1,22 @@
 id: GO-2026-6565
 modules:
     - module: github.com/hatchet-dev/hatchet
-      non_go_versions:
-        - fixed: 0.91.1
+      versions:
+        - fixed: 0.91.2
+      vulnerable_at: 0.91.1
 summary: |-
-    Hatchet: SSRF via Unsigned UnsubscribeURL in SNS UnsubscribeConfirmation Handler
-    in hatchet-dev/hatchet
+    SSRF via Unsigned UnsubscribeURL in SNS UnsubscribeConfirmation Handler
+    in github.com/hatchet-dev/hatchet
 cves:
     - CVE-2026-61681
 ghsas:
     - GHSA-fjwv-jf2v-j499
 references:
     - advisory: https://github.com/hatchet-dev/hatchet/security/advisories/GHSA-fjwv-jf2v-j499
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-61681
-    - web: https://github.com/hatchet-dev/hatchet/commit/2d211bce16e5022afaf95780de82dc30e0bcba98
+    - fix: https://github.com/hatchet-dev/hatchet/commit/2d211bce16e5022afaf95780de82dc30e0bcba98
 notes:
     - lint: 'modules[0] "hatchet-dev/hatchet": module hatchet-dev/hatchet not known to proxy'
-    - fix: 'hatchet-dev/hatchet: could not add vulnerable_at: module hatchet-dev/hatchet not known to proxy'
 source:
     id: GHSA-fjwv-jf2v-j499
     created: 2026-09-28T14:09:17.007224-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED

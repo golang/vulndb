@@ -7,8 +7,8 @@
     "CVE-2026-61687",
     "GHSA-phg3-3g28-wq9v"
   ],
-  "summary": "Hatchet - Unauthenticated OAuth state CSRF / login-CSRF via empty-state collision in ValidateOAuthState in hatchet in github.com/hatchet-dev/hatchet",
-  "details": "Hatchet - Unauthenticated OAuth state CSRF / login-CSRF via empty-state collision in ValidateOAuthState in hatchet in github.com/hatchet-dev/hatchet.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/hatchet-dev/hatchet before v0.91.1.",
+  "summary": "Unauthenticated OAuth state CSRF via empty-state collision in ValidateOAuthState in github.com/hatchet-dev/hatchet",
+  "details": "Unauthenticated OAuth state CSRF via empty-state collision in ValidateOAuthState in github.com/hatchet-dev/hatchet",
   "affected": [
     {
       "package": {
@@ -21,6 +21,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.91.2"
             }
           ]
         }
@@ -31,19 +34,6 @@
             "path": "github.com/hatchet-dev/hatchet/api/v1/server/authn",
             "symbols": [
               "SessionHelpers.ValidateOAuthState"
-            ]
-          }
-        ],
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "0"
-              },
-              {
-                "fixed": "0.91.1"
-              }
             ]
           }
         ]
@@ -62,6 +52,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-6535",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
