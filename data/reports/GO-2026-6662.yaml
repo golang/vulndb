@@ -1,0 +1,20 @@
+id: GO-2026-6662
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260816034002-035bf9a8c311
+summary: |-
+    SiYuan: /history/*path and /repo/diff/*path potentially exposing historical
+    snapshots of data/.siyuan/publishAccess.json and data/templates/* in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-3cm4-ccvw-6xr6
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-3cm4-ccvw-6xr6
+    - web: https://github.com/siyuan-note/siyuan/commit/035bf9a8c311c6f8468f2f1054b4d5e1711787e2
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.1
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-3cm4-ccvw-6xr6
+    created: 2026-10-05T15:10:10.162497-04:00
+review_status: UNREVIEWED
