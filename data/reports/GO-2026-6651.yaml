@@ -1,0 +1,23 @@
+id: GO-2026-6651
+modules:
+    - module: github.com/xtls/xray-core
+      versions:
+        - introduced: 1.260113.0
+        - fixed: 1.260327.1-0.20260710210335-64fada32b5b9
+      vulnerable_at: 1.260327.0
+summary: |-
+    Pinning a CA certificate via pinnedPeerCertSha256 can lead to the
+    success of MITM attacks in github.com/xtls/xray-core
+ghsas:
+    - GHSA-5wf9-h793-w73c
+references:
+    - advisory: https://github.com/XTLS/Xray-core/security/advisories/GHSA-5wf9-h793-w73c
+    - web: https://github.com/XTLS/Xray-core/commit/64fada32b5b9e6ae064a038fa0e4e2b766499bd5
+    - web: https://github.com/XTLS/Xray-core/pull/6472
+    - web: https://github.com/XTLS/Xray-core/releases/tag/v26.7.11
+notes:
+    - 'Failed to auto-populate symbols: no commits found'
+source:
+    id: GHSA-5wf9-h793-w73c
+    created: 2026-10-05T10:39:58.470134-04:00
+review_status: REVIEWED
