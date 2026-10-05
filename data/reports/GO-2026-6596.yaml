@@ -3,13 +3,11 @@ modules:
     - module: github.com/cilium/cilium
       versions:
         - fixed: 1.17.17
+        - introduced: 1.18.0
+        - fixed: 1.18.11
         - introduced: 1.19.0
         - fixed: 1.19.5
       vulnerable_at: 1.19.4
-    - module: github.com/cilium/cilium
-      non_go_versions:
-        - introduced: 1.18.0
-        - fixed: 1.18.11
 summary: |-
     Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in
     github.com/cilium/cilium
@@ -19,7 +17,6 @@ ghsas:
     - GHSA-w7c2-w76w-5hmj
 references:
     - advisory: https://github.com/cilium/cilium/security/advisories/GHSA-w7c2-w76w-5hmj
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-56742
     - fix: https://github.com/cilium/cilium/commit/7422068aff67ac77c7dcc57aa5b9240c91333deb
     - fix: https://github.com/cilium/cilium/commit/e0b1cef513ff910323f3743e9f3e3d86721e4857
     - fix: https://github.com/cilium/cilium/commit/f23929cff682d6ed0dc158070812cb302fc0032b
@@ -27,10 +24,7 @@ references:
     - web: https://github.com/cilium/cilium/releases/tag/v1.17.17
     - web: https://github.com/cilium/cilium/releases/tag/v1.18.11
     - web: https://github.com/cilium/cilium/releases/tag/v1.19.5
-notes:
-    - lint: 'modules[1] "github.com/cilium/ciliumCilium": module github.com/cilium/ciliumCilium not known to proxy'
-    - fix: 'github.com/cilium/ciliumCilium: could not add vulnerable_at: module github.com/cilium/ciliumCilium not known to proxy'
 source:
     id: GHSA-w7c2-w76w-5hmj
     created: 2026-09-28T14:03:18.145588-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED

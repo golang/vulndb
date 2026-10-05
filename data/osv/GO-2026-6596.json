@@ -8,7 +8,7 @@
     "GHSA-w7c2-w76w-5hmj"
   ],
   "summary": "Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in github.com/cilium/cilium",
-  "details": "Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in github.com/cilium/cilium.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: github.com/cilium/cilium from v1.18.0 before v1.18.11.",
+  "details": "Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces in github.com/cilium/cilium",
   "affected": [
     {
       "package": {
@@ -26,6 +26,12 @@
               "fixed": "1.17.17"
             },
             {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.18.11"
+            },
+            {
               "introduced": "1.19.0"
             },
             {
@@ -35,47 +41,12 @@
         }
       ],
       "ecosystem_specific": {}
-    },
-    {
-      "package": {
-        "name": "github.com/cilium/cilium",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {
-        "custom_ranges": [
-          {
-            "type": "ECOSYSTEM",
-            "events": [
-              {
-                "introduced": "1.18.0"
-              },
-              {
-                "fixed": "1.18.11"
-              }
-            ]
-          }
-        ]
-      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/cilium/cilium/security/advisories/GHSA-w7c2-w76w-5hmj"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56742"
     },
     {
       "type": "FIX",
@@ -108,6 +79,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-6596",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
