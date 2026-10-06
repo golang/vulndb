@@ -1,0 +1,25 @@
+id: GO-2026-6664
+modules:
+    - module: github.com/grafana/grafana
+      non_go_versions:
+        - fixed: 1.9.2-0.20260127141016-e702db6096e0
+      vulnerable_at: 5.4.5+incompatible
+summary: Grafana legacy correlations allow cross-tenant disclosure and deletion in github.com/grafana/grafana
+cves:
+    - CVE-2026-21727
+ghsas:
+    - GHSA-p5x9-j974-rpfp
+references:
+    - advisory: https://github.com/advisories/GHSA-p5x9-j974-rpfp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-21727
+    - fix: https://github.com/grafana/grafana/commit/2b2847625b8a77ba47128ccb5ecbcd72542cb9bc
+    - fix: https://github.com/grafana/grafana/commit/2cf0dd6fde3f5a2b92864e2376ae5378c7df45e2
+    - fix: https://github.com/grafana/grafana/commit/4010ee30bb441bc399a1f37bdc8ab55ec909f3b7
+    - fix: https://github.com/grafana/grafana/commit/8e7ea333991d913298bd68d4787da9c6977a0a8c
+    - fix: https://github.com/grafana/grafana/commit/a9a98fc4327182d1bdb9a74b5c2938d5c127e764
+    - fix: https://github.com/grafana/grafana/commit/e702db6096e0509ff2825f732697f077e9e6289f
+    - web: https://grafana.com/security/security-advisories/cve-2026-21727
+source:
+    id: GHSA-p5x9-j974-rpfp
+    created: 2026-10-06T10:12:24.958485-04:00
+review_status: UNREVIEWED
