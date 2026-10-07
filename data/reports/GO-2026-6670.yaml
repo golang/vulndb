@@ -1,0 +1,26 @@
+id: GO-2026-6670
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.4.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.0
+summary: |-
+    Coraza: Truncated multipart body bypasses MULTIPART_STRICT_ERROR (rule 200003)
+    via silent io.ErrUnexpectedEOF handling in github.com/corazawaf/coraza
+cves:
+    - CVE-2026-41508
+ghsas:
+    - GHSA-r3rm-qphw-hh76
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-r3rm-qphw-hh76
+    - fix: https://github.com/corazawaf/coraza/commit/f94c81bec209f658120c418448d0590a549b71df
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.0
+source:
+    id: GHSA-r3rm-qphw-hh76
+    created: 2026-10-07T09:53:49.911149-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,26 @@
+id: GO-2026-6669
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.0
+summary: |-
+    Coraza: Native audit-log format allows CRLF injection and log forgery via
+    request body and header fields in github.com/corazawaf/coraza
+cves:
+    - CVE-2026-41504
+ghsas:
+    - GHSA-prpw-wwv7-xjjr
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-prpw-wwv7-xjjr
+    - fix: https://github.com/corazawaf/coraza/commit/a3079325547c7c1e08522aed4d6468f25d080e25
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.0
+source:
+    id: GHSA-prpw-wwv7-xjjr
+    created: 2026-10-07T09:53:57.22221-04:00
+review_status: UNREVIEWED

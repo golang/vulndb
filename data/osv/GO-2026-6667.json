@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6667",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-26287",
+    "GHSA-q7hv-xx6h-q2x8"
+  ],
+  "summary": "External Secrets Operator: label enforcement bypass in webhook generator enables secret exfiltration in github.com/external-secrets/external-secrets",
+  "details": "External Secrets Operator: label enforcement bypass in webhook generator enables secret exfiltration in github.com/external-secrets/external-secrets",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/external-secrets/external-secrets",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.10.0"
+            },
+            {
+              "fixed": "1.3.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/external-secrets/external-secrets/security/advisories/GHSA-q7hv-xx6h-q2x8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/external-secrets/external-secrets/commit/25aa09275861e3ed6fc5d2a1a60b9ac3df4a93ba"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/external-secrets/external-secrets/pull/5901"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/external-secrets/external-secrets/releases/tag/v1.3.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6667",
+    "review_status": "UNREVIEWED"
+  }
+}

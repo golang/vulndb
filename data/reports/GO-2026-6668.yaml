@@ -1,0 +1,28 @@
+id: GO-2026-6668
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: |-
+    Coraza: Silent argument drop at ArgumentLimit allows bypass of ARGS-targeted
+    rules via parameter flooding in github.com/corazawaf/coraza
+cves:
+    - CVE-2026-41510
+ghsas:
+    - GHSA-6r3q-mjv7-xr8m
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-6r3q-mjv7-xr8m
+    - fix: https://github.com/corazawaf/coraza/commit/146c2f79f39ad16f13787e7d67ad400f8d8cb9a3
+    - fix: https://github.com/corazawaf/coraza/commit/814e1898e083d2ff2ceb644382d0da17e930f93f
+    - fix: https://github.com/corazawaf/coraza/commit/b98359bb7e7606c95100dcc7ad490d2d624e6dea
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-6r3q-mjv7-xr8m
+    created: 2026-10-07T09:54:04.507264-04:00
+review_status: UNREVIEWED
