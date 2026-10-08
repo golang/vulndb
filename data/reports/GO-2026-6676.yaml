@@ -1,0 +1,139 @@
+id: GO-2026-6676
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260816084418-46a5eb289448
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - xlsxWorksheet.checkRow
+          derived_symbols:
+            - File.AddChart
+            - File.AddComment
+            - File.AddDataValidation
+            - File.AddFormControl
+            - File.AddHeaderFooterImage
+            - File.AddIgnoredErrors
+            - File.AddPicture
+            - File.AddPictureFromBytes
+            - File.AddPivotTable
+            - File.AddShape
+            - File.AddSlicer
+            - File.AddSparkline
+            - File.AddTable
+            - File.AutoFilter
+            - File.AutoFitColWidth
+            - File.CalcCellValue
+            - File.CopySheet
+            - File.DeleteChart
+            - File.DeleteComment
+            - File.DeleteDataValidation
+            - File.DeleteFormControl
+            - File.DeletePicture
+            - File.DeletePivotTable
+            - File.DeleteSheet
+            - File.DeleteSlicer
+            - File.DeleteTable
+            - File.DuplicateRow
+            - File.DuplicateRowTo
+            - File.GetCellFormula
+            - File.GetCellHyperLink
+            - File.GetCellRichText
+            - File.GetCellStyle
+            - File.GetCellType
+            - File.GetCellValue
+            - File.GetColOutlineLevel
+            - File.GetColStyle
+            - File.GetColVisible
+            - File.GetColWidth
+            - File.GetConditionalFormats
+            - File.GetDataValidations
+            - File.GetFormControls
+            - File.GetHeaderFooter
+            - File.GetHyperLinkCells
+            - File.GetMergeCells
+            - File.GetPageLayout
+            - File.GetPageMargins
+            - File.GetPanes
+            - File.GetPictureCells
+            - File.GetPictures
+            - File.GetPivotTables
+            - File.GetRowHeight
+            - File.GetRowOutlineLevel
+            - File.GetRowVisible
+            - File.GetSheetProps
+            - File.GetSheetProtection
+            - File.GetSheetView
+            - File.GetSlicers
+            - File.GetTables
+            - File.GroupSheets
+            - File.InsertCols
+            - File.InsertPageBreak
+            - File.InsertRows
+            - File.MergeCell
+            - File.MoveSheet
+            - File.NewSheet
+            - File.NewStreamWriter
+            - File.ProtectSheet
+            - File.RemoveCol
+            - File.RemovePageBreak
+            - File.RemoveRow
+            - File.SetActiveSheet
+            - File.SetCellBool
+            - File.SetCellDefault
+            - File.SetCellFloat
+            - File.SetCellFormula
+            - File.SetCellHyperLink
+            - File.SetCellInt
+            - File.SetCellRichText
+            - File.SetCellStr
+            - File.SetCellStyle
+            - File.SetCellUint
+            - File.SetCellValue
+            - File.SetColOutlineLevel
+            - File.SetColStyle
+            - File.SetColVisible
+            - File.SetColWidth
+            - File.SetConditionalFormat
+            - File.SetHeaderFooter
+            - File.SetPageLayout
+            - File.SetPageMargins
+            - File.SetPanes
+            - File.SetRowHeight
+            - File.SetRowOutlineLevel
+            - File.SetRowStyle
+            - File.SetRowVisible
+            - File.SetSheetBackground
+            - File.SetSheetBackgroundFromBytes
+            - File.SetSheetCol
+            - File.SetSheetDimension
+            - File.SetSheetProps
+            - File.SetSheetRow
+            - File.SetSheetView
+            - File.SetSheetVisible
+            - File.UngroupSheets
+            - File.UnmergeCell
+            - File.UnprotectSheet
+            - File.UnsetConditionalFormat
+            - File.UpdateLinkedValue
+            - NewFile
+            - formulaFuncs.ANCHORARRAY
+            - formulaFuncs.FORMULATEXT
+            - formulaFuncs.INDIRECT
+            - formulaFuncs.ISFORMULA
+summary: |-
+    Panic on out-of-order cell column references when reading worksheets in
+    github.com/xuri/excelize
+cves:
+    - CVE-2026-107221
+ghsas:
+    - GHSA-8mcq-6wmr-jrjv
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-8mcq-6wmr-jrjv
+    - fix: https://github.com/qax-os/excelize/commit/46a5eb289448e40fbc7d3294589b03861fb822f0
+    - web: https://github.com/qax-os/excelize/pull/2376
+source:
+    id: GHSA-8mcq-6wmr-jrjv
+    created: 2026-10-08T08:17:49.378576-04:00
+review_status: REVIEWED

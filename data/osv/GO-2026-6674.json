@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6674",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107225",
+    "GHSA-5h23-36rv-pm65"
+  ],
+  "summary": "Excelize: GetStyle panics on a negative fillId, borderId or fontId in styles.xml in github.com/xuri/excelize",
+  "details": "Excelize: GetStyle panics on a negative fillId, borderId or fontId in styles.xml in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.8.0"
+            },
+            {
+              "fixed": "2.11.1-0.20260731010303-ae2113b410e5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-5h23-36rv-pm65"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/ae2113b410e51f6a141c396a59eda8c42b91bc22"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2367"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6674",
+    "review_status": "REVIEWED"
+  }
+}

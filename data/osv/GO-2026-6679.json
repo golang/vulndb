@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6679",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107224",
+    "GHSA-fw94-4wwp-w8pw"
+  ],
+  "summary": "Excelize: A Zip64 uncompressed-size of 2^63 panics OpenFile/OpenReader in github.com/xuri/excelize",
+  "details": "Excelize: A Zip64 uncompressed-size of 2^63 panics OpenFile/OpenReader in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/360EntSecGroup-Skylar/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/360EntSecGroup-Skylar/excelize/v2",
+            "symbols": [
+              "OpenFile",
+              "OpenReader",
+              "ReadZipReader"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1-0.20260805032953-db93f8d89de7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.ReadZipReader",
+              "OpenFile",
+              "OpenReader"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-fw94-4wwp-w8pw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/db93f8d89de71589069a54d1b998af02e3c5f7cd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2369"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6679",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,228 @@
+id: GO-2026-6677
+modules:
+    - module: github.com/xuri/excelize
+      versions:
+        - introduced: 1.1.0
+      vulnerable_at: 1.4.0
+      packages:
+        - package: github.com/xuri/excelize
+          symbols:
+            - TitleToNumber
+          derived_symbols:
+            - File.AddChart
+            - File.AddComment
+            - File.AddDataValidation
+            - File.AddPicture
+            - File.AddPictureFromBytes
+            - File.AddShape
+            - File.AddTable
+            - File.AutoFilter
+            - File.CopySheet
+            - File.DeleteSheet
+            - File.GetCellFormula
+            - File.GetCellHyperLink
+            - File.GetCellStyle
+            - File.GetCellValue
+            - File.GetColOutlineLevel
+            - File.GetColVisible
+            - File.GetColWidth
+            - File.GetPicture
+            - File.GetRowHeight
+            - File.GetRowOutlineLevel
+            - File.GetRowVisible
+            - File.GetRows
+            - File.GetSheetPrOptions
+            - File.GetSheetViewOptions
+            - File.InsertCol
+            - File.InsertRow
+            - File.MergeCell
+            - File.RemoveCol
+            - File.RemoveRow
+            - File.Rows
+            - File.SetActiveSheet
+            - File.SetCellBool
+            - File.SetCellDefault
+            - File.SetCellFormula
+            - File.SetCellHyperLink
+            - File.SetCellInt
+            - File.SetCellStr
+            - File.SetCellStyle
+            - File.SetCellValue
+            - File.SetColOutlineLevel
+            - File.SetColVisible
+            - File.SetColWidth
+            - File.SetConditionalFormat
+            - File.SetPanes
+            - File.SetRowHeight
+            - File.SetRowOutlineLevel
+            - File.SetRowVisible
+            - File.SetSheetBackground
+            - File.SetSheetPrOptions
+            - File.SetSheetRow
+            - File.SetSheetViewOptions
+            - File.SetSheetVisible
+            - File.UpdateLinkedValue
+            - NewFile
+            - Rows.Columns
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260910071107-696050fbf14e
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - ColumnNameToNumber
+            - JoinCellName
+          derived_symbols:
+            - CellNameToCoordinates
+            - Cols.Rows
+            - File.AddChart
+            - File.AddChartSheet
+            - File.AddComment
+            - File.AddDataValidation
+            - File.AddFormControl
+            - File.AddHeaderFooterImage
+            - File.AddIgnoredErrors
+            - File.AddPicture
+            - File.AddPictureFromBytes
+            - File.AddPivotTable
+            - File.AddShape
+            - File.AddSlicer
+            - File.AddSparkline
+            - File.AddTable
+            - File.AutoFilter
+            - File.AutoFitColWidth
+            - File.CalcCellValue
+            - File.Close
+            - File.Cols
+            - File.CopySheet
+            - File.DeleteChart
+            - File.DeleteComment
+            - File.DeleteDataValidation
+            - File.DeleteFormControl
+            - File.DeletePicture
+            - File.DeletePivotTable
+            - File.DeleteSheet
+            - File.DeleteSlicer
+            - File.DeleteTable
+            - File.DuplicateRow
+            - File.DuplicateRowTo
+            - File.GetCellFormula
+            - File.GetCellHyperLink
+            - File.GetCellRichText
+            - File.GetCellStyle
+            - File.GetCellType
+            - File.GetCellValue
+            - File.GetColOutlineLevel
+            - File.GetColStyle
+            - File.GetColVisible
+            - File.GetColWidth
+            - File.GetCols
+            - File.GetConditionalFormats
+            - File.GetDataValidations
+            - File.GetFormControls
+            - File.GetHeaderFooter
+            - File.GetHyperLinkCells
+            - File.GetMergeCells
+            - File.GetPageLayout
+            - File.GetPageMargins
+            - File.GetPanes
+            - File.GetPictureCells
+            - File.GetPictures
+            - File.GetPivotTables
+            - File.GetRowHeight
+            - File.GetRowOutlineLevel
+            - File.GetRowVisible
+            - File.GetRows
+            - File.GetSheetProps
+            - File.GetSheetProtection
+            - File.GetSheetView
+            - File.GetSlicers
+            - File.GetTables
+            - File.GroupSheets
+            - File.InsertCols
+            - File.InsertPageBreak
+            - File.InsertRows
+            - File.MergeCell
+            - File.MoveSheet
+            - File.NewSheet
+            - File.NewStreamWriter
+            - File.ProtectSheet
+            - File.RemoveCol
+            - File.RemovePageBreak
+            - File.RemoveRow
+            - File.Save
+            - File.SaveAs
+            - File.SearchSheet
+            - File.SetActiveSheet
+            - File.SetCellBool
+            - File.SetCellDefault
+            - File.SetCellFloat
+            - File.SetCellFormula
+            - File.SetCellHyperLink
+            - File.SetCellInt
+            - File.SetCellRichText
+            - File.SetCellStr
+            - File.SetCellStyle
+            - File.SetCellUint
+            - File.SetCellValue
+            - File.SetColOutlineLevel
+            - File.SetColStyle
+            - File.SetColVisible
+            - File.SetColWidth
+            - File.SetConditionalFormat
+            - File.SetHeaderFooter
+            - File.SetPageLayout
+            - File.SetPageMargins
+            - File.SetPanes
+            - File.SetRowHeight
+            - File.SetRowOutlineLevel
+            - File.SetRowStyle
+            - File.SetRowVisible
+            - File.SetSheetBackground
+            - File.SetSheetBackgroundFromBytes
+            - File.SetSheetCol
+            - File.SetSheetDimension
+            - File.SetSheetProps
+            - File.SetSheetRow
+            - File.SetSheetView
+            - File.SetSheetVisible
+            - File.UngroupSheets
+            - File.UnmergeCell
+            - File.UnprotectSheet
+            - File.UnsetConditionalFormat
+            - File.UpdateLinkedValue
+            - File.Write
+            - File.WriteTo
+            - File.WriteToBuffer
+            - NewFile
+            - Rows.Columns
+            - StreamWriter.AddTable
+            - StreamWriter.InsertPageBreak
+            - StreamWriter.MergeCell
+            - StreamWriter.SetRow
+            - formulaFuncs.ABS
+            - formulaFuncs.ANCHORARRAY
+            - formulaFuncs.COLUMN
+            - formulaFuncs.FORMULATEXT
+            - formulaFuncs.IF
+            - formulaFuncs.INDIRECT
+            - formulaFuncs.ISFORMULA
+            - formulaFuncs.ISNUMBER
+            - formulaFuncs.ROW
+            - xlsxMergeCell.Rect
+summary: |-
+    Integer overflow yields an out-of-domain coordinate with nil error, causing
+    panic in github.com/xuri/excelize
+cves:
+    - CVE-2026-107217
+ghsas:
+    - GHSA-c85p-xxjj-2r75
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-c85p-xxjj-2r75
+    - fix: https://github.com/qax-os/excelize/commit/696050fbf14e74e96a58eef2b16aaf72f381a6a8
+    - web: https://github.com/qax-os/excelize/pull/2394
+source:
+    id: GHSA-c85p-xxjj-2r75
+    created: 2026-10-08T08:17:40.641278-04:00
+review_status: REVIEWED

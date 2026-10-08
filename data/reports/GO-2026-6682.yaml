@@ -1,0 +1,30 @@
+id: GO-2026-6682
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - introduced: 2.7.0
+        - fixed: 2.11.1-0.20260812075026-be7a16390fa6
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - File.extractCondFmtCellIs
+            - File.extractCondFmtColorScale
+            - File.extractCondFmtDataBar
+          derived_symbols:
+            - File.GetConditionalFormats
+summary: |-
+    GetConditionalFormats indexes conditional-formatting rule sub-elements with no
+    length / nil check in github.com/xuri/excelize
+cves:
+    - CVE-2026-107222
+ghsas:
+    - GHSA-rxcj-4pj5-74gr
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-rxcj-4pj5-74gr
+    - fix: https://github.com/qax-os/excelize/commit/be7a16390fa69c71d3ca618c741d1a2b5ed362cd
+    - web: https://github.com/qax-os/excelize/pull/2375
+source:
+    id: GHSA-rxcj-4pj5-74gr
+    created: 2026-10-08T08:16:59.185889-04:00
+review_status: REVIEWED

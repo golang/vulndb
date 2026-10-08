@@ -1,0 +1,48 @@
+id: GO-2026-6678
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.1.0
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - flatCols
+          derived_symbols:
+            - File.SetColOutlineLevel
+            - File.SetColStyle
+            - File.SetColVisible
+            - File.SetColWidth
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260807015645-a54c578af309
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - flatCols
+          derived_symbols:
+            - File.AutoFitColWidth
+            - File.SetColOutlineLevel
+            - File.SetColStyle
+            - File.SetColVisible
+            - File.SetColWidth
+            - StreamWriter.SetColOutlineLevel
+            - StreamWriter.SetColStyle
+            - StreamWriter.SetColVisible
+            - StreamWriter.SetColWidth
+summary: |-
+    Unbounded <col max> lacks MaxColumns check in flatCols(), causing column
+    mutators to hang or OOM in github.com/xuri/excelize
+cves:
+    - CVE-2026-107223
+ghsas:
+    - GHSA-fq3v-74gv-27gm
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-fq3v-74gv-27gm
+    - fix: https://github.com/qax-os/excelize/commit/a54c578af309fa81f448143ed2b7a91192cc58a7
+    - web: https://github.com/qax-os/excelize/pull/2370
+source:
+    id: GHSA-fq3v-74gv-27gm
+    created: 2026-10-08T08:17:32.647482-04:00
+review_status: REVIEWED

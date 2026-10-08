@@ -27,7 +27,68 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xtls/xray-core/transport/internet/tls",
+            "symbols": [
+              "ApplyECH",
+              "Certificate.Descriptor",
+              "Certificate.ProtoReflect",
+              "Certificate.String",
+              "Certificate_Usage.EnumDescriptor",
+              "Certificate_Usage.String",
+              "Config.BuildCertificates",
+              "Config.Descriptor",
+              "Config.GetTLSConfig",
+              "Config.ProtoReflect",
+              "Config.String",
+              "Conn.Close",
+              "Conn.HandshakeContextServerName",
+              "Conn.WriteMultiBuffer",
+              "ECHCacheKey",
+              "ECHConfigCache.Update",
+              "ParseCurveName",
+              "QueryRecord",
+              "RandCarrier.Read",
+              "RandCarrier.verifyPeerCert",
+              "UConn.Close",
+              "UConn.HandshakeContextServerName",
+              "UConn.WebsocketHandshakeContext",
+              "grpcUtls.ClientHandshake"
+            ]
+          },
+          {
+            "path": "github.com/xtls/xray-core/transport/internet/hysteria",
+            "symbols": [
+              "Config.Descriptor",
+              "Config.ProtoReflect",
+              "Config.String",
+              "Dial",
+              "Listen",
+              "httpHandler.ServeHTTP",
+              "httpHandler.StreamDispatcher",
+              "interConn.Close",
+              "interConn.Read",
+              "interConn.Write"
+            ]
+          },
+          {
+            "path": "github.com/xtls/xray-core/transport/internet/grpc",
+            "symbols": [
+              "Config.Descriptor",
+              "Config.ProtoReflect",
+              "Config.String",
+              "Dial",
+              "Listen",
+              "Listener.Close",
+              "Listener.Tun",
+              "Listener.TunMulti",
+              "getGrpcClient"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -36,7 +97,7 @@
       "url": "https://github.com/XTLS/Xray-core/security/advisories/GHSA-5wf9-h793-w73c"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/XTLS/Xray-core/commit/64fada32b5b9e6ae064a038fa0e4e2b766499bd5"
     },
     {

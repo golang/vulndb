@@ -1,0 +1,47 @@
+id: GO-2026-6681
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.3.1
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - convertPasswdToKey
+          derived_symbols:
+            - Decrypt
+            - Encrypt
+            - File.Save
+            - File.SaveAs
+            - File.Write
+            - File.WriteTo
+            - File.WriteToBuffer
+            - OpenFile
+            - OpenReader
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260906004932-2badfcd5841d
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - convertPasswdToKey
+          derived_symbols:
+            - Decrypt
+            - OpenFile
+            - OpenReader
+summary: |-
+    Excelize: Unbounded spinCount in agile decryption burns CPU during OpenFile in
+    github.com/xuri/excelize
+cves:
+    - CVE-2026-107219
+ghsas:
+    - GHSA-jrfj-fhj2-jjvm
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-jrfj-fhj2-jjvm
+    - fix: https://github.com/qax-os/excelize/commit/2badfcd5841d0d88b0ffea119f5a2f3c53b4910b
+    - web: https://github.com/qax-os/excelize/pull/2389
+source:
+    id: GHSA-jrfj-fhj2-jjvm
+    created: 2026-10-08T08:17:07.526049-04:00
+review_status: REVIEWED

@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6682",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107222",
+    "GHSA-rxcj-4pj5-74gr"
+  ],
+  "summary": "GetConditionalFormats indexes conditional-formatting rule sub-elements with no length / nil check in github.com/xuri/excelize",
+  "details": "GetConditionalFormats indexes conditional-formatting rule sub-elements with no length / nil check in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.7.0"
+            },
+            {
+              "fixed": "2.11.1-0.20260812075026-be7a16390fa6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.GetConditionalFormats",
+              "File.extractCondFmtCellIs",
+              "File.extractCondFmtColorScale",
+              "File.extractCondFmtDataBar"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-rxcj-4pj5-74gr"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/be7a16390fa69c71d3ca618c741d1a2b5ed362cd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2375"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6682",
+    "review_status": "REVIEWED"
+  }
+}

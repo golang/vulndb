@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6677",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107217",
+    "GHSA-c85p-xxjj-2r75"
+  ],
+  "summary": "Integer overflow yields an out-of-domain coordinate with nil error, causing panic in github.com/xuri/excelize",
+  "details": "Integer overflow yields an out-of-domain coordinate with nil error, causing panic in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize",
+            "symbols": [
+              "File.AddChart",
+              "File.AddComment",
+              "File.AddDataValidation",
+              "File.AddPicture",
+              "File.AddPictureFromBytes",
+              "File.AddShape",
+              "File.AddTable",
+              "File.AutoFilter",
+              "File.CopySheet",
+              "File.DeleteSheet",
+              "File.GetCellFormula",
+              "File.GetCellHyperLink",
+              "File.GetCellStyle",
+              "File.GetCellValue",
+              "File.GetColOutlineLevel",
+              "File.GetColVisible",
+              "File.GetColWidth",
+              "File.GetPicture",
+              "File.GetRowHeight",
+              "File.GetRowOutlineLevel",
+              "File.GetRowVisible",
+              "File.GetRows",
+              "File.GetSheetPrOptions",
+              "File.GetSheetViewOptions",
+              "File.InsertCol",
+              "File.InsertRow",
+              "File.MergeCell",
+              "File.RemoveCol",
+              "File.RemoveRow",
+              "File.Rows",
+              "File.SetActiveSheet",
+              "File.SetCellBool",
+              "File.SetCellDefault",
+              "File.SetCellFormula",
+              "File.SetCellHyperLink",
+              "File.SetCellInt",
+              "File.SetCellStr",
+              "File.SetCellStyle",
+              "File.SetCellValue",
+              "File.SetColOutlineLevel",
+              "File.SetColVisible",
+              "File.SetColWidth",
+              "File.SetConditionalFormat",
+              "File.SetPanes",
+              "File.SetRowHeight",
+              "File.SetRowOutlineLevel",
+              "File.SetRowVisible",
+              "File.SetSheetBackground",
+              "File.SetSheetPrOptions",
+              "File.SetSheetRow",
+              "File.SetSheetViewOptions",
+              "File.SetSheetVisible",
+              "File.UpdateLinkedValue",
+              "NewFile",
+              "Rows.Columns",
+              "TitleToNumber"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1-0.20260910071107-696050fbf14e"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "CellNameToCoordinates",
+              "Cols.Rows",
+              "ColumnNameToNumber",
+              "File.AddChart",
+              "File.AddChartSheet",
+              "File.AddComment",
+              "File.AddDataValidation",
+              "File.AddFormControl",
+              "File.AddHeaderFooterImage",
+              "File.AddIgnoredErrors",
+              "File.AddPicture",
+              "File.AddPictureFromBytes",
+              "File.AddPivotTable",
+              "File.AddShape",
+              "File.AddSlicer",
+              "File.AddSparkline",
+              "File.AddTable",
+              "File.AutoFilter",
+              "File.AutoFitColWidth",
+              "File.CalcCellValue",
+              "File.Close",
+              "File.Cols",
+              "File.CopySheet",
+              "File.DeleteChart",
+              "File.DeleteComment",
+              "File.DeleteDataValidation",
+              "File.DeleteFormControl",
+              "File.DeletePicture",
+              "File.DeletePivotTable",
+              "File.DeleteSheet",
+              "File.DeleteSlicer",
+              "File.DeleteTable",
+              "File.DuplicateRow",
+              "File.DuplicateRowTo",
+              "File.GetCellFormula",
+              "File.GetCellHyperLink",
+              "File.GetCellRichText",
+              "File.GetCellStyle",
+              "File.GetCellType",
+              "File.GetCellValue",
+              "File.GetColOutlineLevel",
+              "File.GetColStyle",
+              "File.GetColVisible",
+              "File.GetColWidth",
+              "File.GetCols",
+              "File.GetConditionalFormats",
+              "File.GetDataValidations",
+              "File.GetFormControls",
+              "File.GetHeaderFooter",
+              "File.GetHyperLinkCells",
+              "File.GetMergeCells",
+              "File.GetPageLayout",
+              "File.GetPageMargins",
+              "File.GetPanes",
+              "File.GetPictureCells",
+              "File.GetPictures",
+              "File.GetPivotTables",
+              "File.GetRowHeight",
+              "File.GetRowOutlineLevel",
+              "File.GetRowVisible",
+              "File.GetRows",
+              "File.GetSheetProps",
+              "File.GetSheetProtection",
+              "File.GetSheetView",
+              "File.GetSlicers",
+              "File.GetTables",
+              "File.GroupSheets",
+              "File.InsertCols",
+              "File.InsertPageBreak",
+              "File.InsertRows",
+              "File.MergeCell",
+              "File.MoveSheet",
+              "File.NewSheet",
+              "File.NewStreamWriter",
+              "File.ProtectSheet",
+              "File.RemoveCol",
+              "File.RemovePageBreak",
+              "File.RemoveRow",
+              "File.Save",
+              "File.SaveAs",
+              "File.SearchSheet",
+              "File.SetActiveSheet",
+              "File.SetCellBool",
+              "File.SetCellDefault",
+              "File.SetCellFloat",
+              "File.SetCellFormula",
+              "File.SetCellHyperLink",
+              "File.SetCellInt",
+              "File.SetCellRichText",
+              "File.SetCellStr",
+              "File.SetCellStyle",
+              "File.SetCellUint",
+              "File.SetCellValue",
+              "File.SetColOutlineLevel",
+              "File.SetColStyle",
+              "File.SetColVisible",
+              "File.SetColWidth",
+              "File.SetConditionalFormat",
+              "File.SetHeaderFooter",
+              "File.SetPageLayout",
+              "File.SetPageMargins",
+              "File.SetPanes",
+              "File.SetRowHeight",
+              "File.SetRowOutlineLevel",
+              "File.SetRowStyle",
+              "File.SetRowVisible",
+              "File.SetSheetBackground",
+              "File.SetSheetBackgroundFromBytes",
+              "File.SetSheetCol",
+              "File.SetSheetDimension",
+              "File.SetSheetProps",
+              "File.SetSheetRow",
+              "File.SetSheetView",
+              "File.SetSheetVisible",
+              "File.UngroupSheets",
+              "File.UnmergeCell",
+              "File.UnprotectSheet",
+              "File.UnsetConditionalFormat",
+              "File.UpdateLinkedValue",
+              "File.Write",
+              "File.WriteTo",
+              "File.WriteToBuffer",
+              "JoinCellName",
+              "NewFile",
+              "Rows.Columns",
+              "StreamWriter.AddTable",
+              "StreamWriter.InsertPageBreak",
+              "StreamWriter.MergeCell",
+              "StreamWriter.SetRow",
+              "formulaFuncs.ABS",
+              "formulaFuncs.ANCHORARRAY",
+              "formulaFuncs.COLUMN",
+              "formulaFuncs.FORMULATEXT",
+              "formulaFuncs.IF",
+              "formulaFuncs.INDIRECT",
+              "formulaFuncs.ISFORMULA",
+              "formulaFuncs.ISNUMBER",
+              "formulaFuncs.ROW",
+              "xlsxMergeCell.Rect"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-c85p-xxjj-2r75"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/696050fbf14e74e96a58eef2b16aaf72f381a6a8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2394"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6677",
+    "review_status": "REVIEWED"
+  }
+}

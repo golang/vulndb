@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6680",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107220",
+    "GHSA-g27h-8qhm-6pff"
+  ],
+  "summary": "Excelize: Panic in cellInRange on a worksheet with an empty mergeCell ref in github.com/xuri/excelize",
+  "details": "Excelize: Panic in cellInRange on a worksheet with an empty mergeCell ref in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.7.1"
+            },
+            {
+              "fixed": "2.11.1-0.20260820023833-99903a3240e5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.AddPicture",
+              "File.AddPictureFromBytes",
+              "File.AddPivotTable",
+              "File.AddSlicer",
+              "File.AddTable",
+              "File.AutoFitColWidth",
+              "File.CalcCellValue",
+              "File.DuplicateRow",
+              "File.DuplicateRowTo",
+              "File.GetCellFormula",
+              "File.GetCellRichText",
+              "File.GetCellType",
+              "File.GetCellValue",
+              "File.GetMergeCells",
+              "File.GetPictureCells",
+              "File.GetPictures",
+              "File.InsertCols",
+              "File.InsertRows",
+              "File.RemoveCol",
+              "File.RemoveRow",
+              "File.SetCellBool",
+              "File.SetCellDefault",
+              "File.SetCellFloat",
+              "File.SetCellFormula",
+              "File.SetCellHyperLink",
+              "File.SetCellInt",
+              "File.SetCellRichText",
+              "File.SetCellStr",
+              "File.SetCellUint",
+              "File.SetCellValue",
+              "File.SetSheetCol",
+              "File.SetSheetRow",
+              "formulaFuncs.ANCHORARRAY",
+              "formulaFuncs.FORMULATEXT",
+              "formulaFuncs.INDIRECT",
+              "formulaFuncs.ISFORMULA",
+              "xlsxWorksheet.mergeCellsParser"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-g27h-8qhm-6pff"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/99903a3240e58a47ff28fb8e05a03bd9d496ec24"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2379"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6680",
+    "review_status": "REVIEWED"
+  }
+}

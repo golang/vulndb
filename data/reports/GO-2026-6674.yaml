@@ -1,0 +1,22 @@
+id: GO-2026-6674
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - introduced: 2.8.0
+        - fixed: 2.11.1-0.20260731010303-ae2113b410e5
+      vulnerable_at: 2.11.0
+summary: |-
+    Excelize: GetStyle panics on a negative fillId, borderId or fontId in styles.xml
+    in github.com/xuri/excelize
+cves:
+    - CVE-2026-107225
+ghsas:
+    - GHSA-5h23-36rv-pm65
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-5h23-36rv-pm65
+    - fix: https://github.com/qax-os/excelize/commit/ae2113b410e51f6a141c396a59eda8c42b91bc22
+    - web: https://github.com/qax-os/excelize/pull/2367
+source:
+    id: GHSA-5h23-36rv-pm65
+    created: 2026-10-08T08:18:06.63411-04:00
+review_status: REVIEWED

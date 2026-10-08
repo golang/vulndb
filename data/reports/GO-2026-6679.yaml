@@ -1,0 +1,39 @@
+id: GO-2026-6679
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.1.0
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - ReadZipReader
+          derived_symbols:
+            - OpenFile
+            - OpenReader
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260805032953-db93f8d89de7
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - File.ReadZipReader
+          derived_symbols:
+            - OpenFile
+            - OpenReader
+summary: |-
+    Excelize: A Zip64 uncompressed-size of 2^63 panics OpenFile/OpenReader in
+    github.com/xuri/excelize
+cves:
+    - CVE-2026-107224
+ghsas:
+    - GHSA-fw94-4wwp-w8pw
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-fw94-4wwp-w8pw
+    - fix: https://github.com/qax-os/excelize/commit/db93f8d89de71589069a54d1b998af02e3c5f7cd
+    - web: https://github.com/qax-os/excelize/pull/2369
+source:
+    id: GHSA-fw94-4wwp-w8pw
+    created: 2026-10-08T08:17:23.827582-04:00
+review_status: REVIEWED

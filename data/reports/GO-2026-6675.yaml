@@ -1,0 +1,31 @@
+id: GO-2026-6675
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - introduced: 2.10.1
+        - fixed: 2.11.1-0.20260908032718-ecd99d761fe0
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - formulaFuncs.leftRight
+          derived_symbols:
+            - formulaFuncs.LEFT
+            - formulaFuncs.LEFTB
+            - formulaFuncs.RIGHT
+            - formulaFuncs.RIGHTB
+summary: |-
+    Excelize: RIGHT() on supplementary-plane text slices with a negative index and
+    panics in github.com/xuri/excelize
+cves:
+    - CVE-2026-107218
+ghsas:
+    - GHSA-8jjq-8j9w-m2v6
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-8jjq-8j9w-m2v6
+    - fix: https://github.com/qax-os/excelize/commit/ecd99d761fe0489f1ed308e2f7dc2e0502d1a396
+    - web: https://github.com/qax-os/excelize/pull/2390
+source:
+    id: GHSA-8jjq-8j9w-m2v6
+    created: 2026-10-08T08:17:57.493059-04:00
+review_status: REVIEWED

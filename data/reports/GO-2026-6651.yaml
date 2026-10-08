@@ -5,6 +5,59 @@ modules:
         - introduced: 1.260113.0
         - fixed: 1.260327.1-0.20260710210335-64fada32b5b9
       vulnerable_at: 1.260327.0
+      packages:
+        - package: github.com/xtls/xray-core/transport/internet/tls
+          symbols:
+            - RandCarrier.verifyPeerCert
+          derived_symbols:
+            - ApplyECH
+            - Certificate.Descriptor
+            - Certificate.ProtoReflect
+            - Certificate.String
+            - Certificate_Usage.EnumDescriptor
+            - Certificate_Usage.String
+            - Config.BuildCertificates
+            - Config.Descriptor
+            - Config.GetTLSConfig
+            - Config.ProtoReflect
+            - Config.String
+            - Conn.Close
+            - Conn.HandshakeContextServerName
+            - Conn.WriteMultiBuffer
+            - ECHCacheKey
+            - ECHConfigCache.Update
+            - ParseCurveName
+            - QueryRecord
+            - RandCarrier.Read
+            - UConn.Close
+            - UConn.HandshakeContextServerName
+            - UConn.WebsocketHandshakeContext
+            - grpcUtls.ClientHandshake
+        - package: github.com/xtls/xray-core/transport/internet/hysteria
+          symbols:
+            - Dial
+          derived_symbols:
+            - Config.Descriptor
+            - Config.ProtoReflect
+            - Config.String
+            - Listen
+            - httpHandler.ServeHTTP
+            - httpHandler.StreamDispatcher
+            - interConn.Close
+            - interConn.Read
+            - interConn.Write
+        - package: github.com/xtls/xray-core/transport/internet/grpc
+          symbols:
+            - getGrpcClient
+          derived_symbols:
+            - Config.Descriptor
+            - Config.ProtoReflect
+            - Config.String
+            - Dial
+            - Listen
+            - Listener.Close
+            - Listener.Tun
+            - Listener.TunMulti
 summary: |-
     Pinning a CA certificate via pinnedPeerCertSha256 can lead to the
     success of MITM attacks in github.com/xtls/xray-core
@@ -12,11 +65,9 @@ ghsas:
     - GHSA-5wf9-h793-w73c
 references:
     - advisory: https://github.com/XTLS/Xray-core/security/advisories/GHSA-5wf9-h793-w73c
-    - web: https://github.com/XTLS/Xray-core/commit/64fada32b5b9e6ae064a038fa0e4e2b766499bd5
+    - fix: https://github.com/XTLS/Xray-core/commit/64fada32b5b9e6ae064a038fa0e4e2b766499bd5
     - web: https://github.com/XTLS/Xray-core/pull/6472
     - web: https://github.com/XTLS/Xray-core/releases/tag/v26.7.11
-notes:
-    - 'Failed to auto-populate symbols: no commits found'
 source:
     id: GHSA-5wf9-h793-w73c
     created: 2026-10-05T10:39:58.470134-04:00
