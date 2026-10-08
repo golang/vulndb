@@ -1,0 +1,22 @@
+id: GO-2026-6673
+modules:
+    - module: github.com/sipcapture/homer-app
+      non_go_versions:
+        - fixed: 0.0.0-20260625093330-5e90809657c9
+      vulnerable_at: 0.0.0-20261007082557-f9ba21cb06e4
+summary: |-
+    Homer: Complete Authentication Bypass When coordinator.jwt.secret Is Empty
+    (Default) in github.com/sipcapture/homer-app
+cves:
+    - CVE-2026-62253
+ghsas:
+    - GHSA-rqcc-94gv-wjm9
+references:
+    - advisory: https://github.com/sipcapture/homer/security/advisories/GHSA-rqcc-94gv-wjm9
+    - web: https://github.com/sipcapture/homer/commit/5e90809657c9df321db191a69c6050f873f5646b
+    - web: https://github.com/sipcapture/homer/pull/839
+    - web: https://github.com/sipcapture/homer/releases/tag/11.0.283
+source:
+    id: GHSA-rqcc-94gv-wjm9
+    created: 2026-10-08T08:18:14.87882-04:00
+review_status: UNREVIEWED

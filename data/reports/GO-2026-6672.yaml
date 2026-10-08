@@ -1,0 +1,22 @@
+id: GO-2026-6672
+modules:
+    - module: github.com/sipcapture/homer-app
+      non_go_versions:
+        - fixed: 0.0.0-20260625085520-a7d027dc684b
+      vulnerable_at: 0.0.0-20261007082557-f9ba21cb06e4
+summary: |-
+    Homer: Authenticated SQL Injection via Unvalidated rawquery Field in
+    /api/v4/statistics/query in github.com/sipcapture/homer-app
+cves:
+    - CVE-2026-62251
+ghsas:
+    - GHSA-f46q-3v67-fmm4
+references:
+    - advisory: https://github.com/sipcapture/homer/security/advisories/GHSA-f46q-3v67-fmm4
+    - web: https://github.com/sipcapture/homer/commit/a7d027dc684b210b62285c49f555ac88d64f35f0
+    - web: https://github.com/sipcapture/homer/pull/837
+    - web: https://github.com/sipcapture/homer/releases/tag/11.0.283
+source:
+    id: GHSA-f46q-3v67-fmm4
+    created: 2026-10-08T08:18:44.547967-04:00
+review_status: UNREVIEWED

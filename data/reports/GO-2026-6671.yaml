@@ -1,0 +1,22 @@
+id: GO-2026-6671
+modules:
+    - module: github.com/sipcapture/homer-app
+      non_go_versions:
+        - fixed: 0.0.0-20260625091610-b2e942031ff8
+      vulnerable_at: 0.0.0-20261007082557-f9ba21cb06e4
+summary: |-
+    Homer: Hardcoded Default Admin Password 'sipcapture' With No Forced Change on
+    First Login in github.com/sipcapture/homer-app
+cves:
+    - CVE-2026-62252
+ghsas:
+    - GHSA-6xp5-7rcx-xfgx
+references:
+    - advisory: https://github.com/sipcapture/homer/security/advisories/GHSA-6xp5-7rcx-xfgx
+    - web: https://github.com/sipcapture/homer/commit/b2e942031ff8cd7435a244ebef306ee97d16b809
+    - web: https://github.com/sipcapture/homer/pull/838
+    - web: https://github.com/sipcapture/homer/releases/tag/11.0.283
+source:
+    id: GHSA-6xp5-7rcx-xfgx
+    created: 2026-10-08T08:19:12.789164-04:00
+review_status: UNREVIEWED
