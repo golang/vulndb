@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6612",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-78663"
+  ],
+  "summary": "Double flow control refund on HTTP/2 server streams in net/http",
+  "details": "The HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.9"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http",
+            "symbols": [
+              "CanonicalHeaderKey",
+              "Client.CloseIdleConnections",
+              "Client.Do",
+              "Client.Get",
+              "Client.Head",
+              "Client.Post",
+              "Client.PostForm",
+              "ClientConn.Close",
+              "ClientConn.RoundTrip",
+              "Cookie.String",
+              "Cookie.Valid",
+              "CrossOriginProtection.AddInsecureBypassPattern",
+              "CrossOriginProtection.AddTrustedOrigin",
+              "CrossOriginProtection.Check",
+              "Dir.Open",
+              "Error",
+              "Get",
+              "Handle",
+              "HandleFunc",
+              "HandlerFunc.ServeHTTP",
+              "Head",
+              "Header.Add",
+              "Header.Del",
+              "Header.Get",
+              "Header.Set",
+              "Header.Values",
+              "Header.Write",
+              "Header.WriteSubset",
+              "ListenAndServe",
+              "ListenAndServeTLS",
+              "NewRequest",
+              "NewRequestWithContext",
+              "NotFound",
+              "ParseCookie",
+              "ParseSetCookie",
+              "ParseTime",
+              "Post",
+              "PostForm",
+              "ProxyFromEnvironment",
+              "ReadRequest",
+              "ReadResponse",
+              "Redirect",
+              "Request.AddCookie",
+              "Request.BasicAuth",
+              "Request.Cookie",
+              "Request.Cookies",
+              "Request.CookiesNamed",
+              "Request.FormFile",
+              "Request.FormValue",
+              "Request.MultipartReader",
+              "Request.ParseForm",
+              "Request.ParseMultipartForm",
+              "Request.PostFormValue",
+              "Request.Referer",
+              "Request.SetBasicAuth",
+              "Request.UserAgent",
+              "Request.Write",
+              "Request.WriteProxy",
+              "Response.Cookies",
+              "Response.Location",
+              "Response.Write",
+              "ResponseController.EnableFullDuplex",
+              "ResponseController.Flush",
+              "ResponseController.Hijack",
+              "ResponseController.SetReadDeadline",
+              "ResponseController.SetWriteDeadline",
+              "Serve",
+              "ServeContent",
+              "ServeFile",
+              "ServeFileFS",
+              "ServeMux.Handle",
+              "ServeMux.HandleFunc",
+              "ServeMux.ServeHTTP",
+              "ServeTLS",
+              "Server.Close",
+              "Server.ListenAndServe",
+              "Server.ListenAndServeTLS",
+              "Server.Serve",
+              "Server.ServeTLS",
+              "Server.SetKeepAlivesEnabled",
+              "Server.Shutdown",
+              "SetCookie",
+              "Transport.CancelRequest",
+              "Transport.Clone",
+              "Transport.CloseIdleConnections",
+              "Transport.NewClientConn",
+              "Transport.RoundTrip",
+              "body.Close",
+              "body.Read",
+              "bodyEOFSignal.Close",
+              "bodyEOFSignal.Read",
+              "bodyLocked.Read",
+              "bufioFlushWriter.Write",
+              "cancelTimerBody.Close",
+              "cancelTimerBody.Read",
+              "checkConnErrorWriter.Write",
+              "chunkWriter.Write",
+              "connReader.Read",
+              "connectMethodKey.String",
+              "expectContinueReader.Close",
+              "expectContinueReader.Read",
+              "extraHeader.Write",
+              "fileHandler.ServeHTTP",
+              "fileTransport.RoundTrip",
+              "globalOptionsHandler.ServeHTTP",
+              "gzipReader.Close",
+              "gzipReader.Read",
+              "http1ClientConn.Close",
+              "http1ClientConn.RoundTrip",
+              "http2ClientConn.Close",
+              "http2ClientConn.Ping",
+              "http2ClientConn.RoundTrip",
+              "http2ClientConn.Shutdown",
+              "http2ConnectionError.Error",
+              "http2ErrCode.String",
+              "http2FrameHeader.String",
+              "http2FrameType.String",
+              "http2FrameWriteRequest.String",
+              "http2Framer.ReadFrame",
+              "http2Framer.ReadFrameForHeader",
+              "http2Framer.ReadFrameHeader",
+              "http2Framer.WriteContinuation",
+              "http2Framer.WriteData",
+              "http2Framer.WriteDataPadded",
+              "http2Framer.WriteGoAway",
+              "http2Framer.WriteHeaders",
+              "http2Framer.WritePing",
+              "http2Framer.WritePriority",
+              "http2Framer.WritePushPromise",
+              "http2Framer.WriteRSTStream",
+              "http2Framer.WriteRawFrame",
+              "http2Framer.WriteSettings",
+              "http2Framer.WriteSettingsAck",
+              "http2Framer.WriteWindowUpdate",
+              "http2GoAwayError.Error",
+              "http2Server.ServeConn",
+              "http2Setting.String",
+              "http2SettingID.String",
+              "http2SettingsFrame.ForeachSetting",
+              "http2StreamError.Error",
+              "http2Transport.CloseIdleConnections",
+              "http2Transport.NewClientConn",
+              "http2Transport.RoundTrip",
+              "http2Transport.RoundTripOpt",
+              "http2bufferedWriter.Flush",
+              "http2bufferedWriter.Write",
+              "http2bufferedWriterTimeoutWriter.Write",
+              "http2chunkWriter.Write",
+              "http2clientConnPool.GetClientConn",
+              "http2connError.Error",
+              "http2dataBuffer.Read",
+              "http2duplicatePseudoHeaderError.Error",
+              "http2gzipReader.Close",
+              "http2gzipReader.Read",
+              "http2headerFieldNameError.Error",
+              "http2headerFieldValueError.Error",
+              "http2netHTTPClientConn.Close",
+              "http2netHTTPClientConn.RoundTrip",
+              "http2noDialClientConnPool.GetClientConn",
+              "http2noDialH2RoundTripper.NewClientConn",
+              "http2noDialH2RoundTripper.RoundTrip",
+              "http2pipe.Read",
+              "http2priorityWriteSchedulerRFC7540.CloseStream",
+              "http2priorityWriteSchedulerRFC7540.OpenStream",
+              "http2priorityWriteSchedulerRFC9218.OpenStream",
+              "http2pseudoHeaderError.Error",
+              "http2requestBody.Close",
+              "http2requestBody.Read",
+              "http2responseWriter.Flush",
+              "http2responseWriter.FlushError",
+              "http2responseWriter.Push",
+              "http2responseWriter.SetReadDeadline",
+              "http2responseWriter.SetWriteDeadline",
+              "http2responseWriter.Write",
+              "http2responseWriter.WriteHeader",
+              "http2responseWriter.WriteString",
+              "http2roundRobinWriteScheduler.OpenStream",
+              "http2serverConn.CloseConn",
+              "http2serverConn.Flush",
+              "http2serverConn.closeStream",
+              "http2serverConn.handlerDone",
+              "http2serverConn.newWriterAndRequest",
+              "http2serverConn.newWriterAndRequestNoBody",
+              "http2serverConn.noteBodyRead",
+              "http2serverConn.processHeaders",
+              "http2serverConn.runHandler",
+              "http2serverConn.scheduleHandler",
+              "http2stickyErrWriter.Write",
+              "http2transportResponseBody.Close",
+              "http2transportResponseBody.Read",
+              "http2unencryptedTransport.RoundTrip",
+              "http2writeData.String",
+              "initALPNRequest.ServeHTTP",
+              "loggingConn.Close",
+              "loggingConn.Read",
+              "loggingConn.Write",
+              "maxBytesReader.Close",
+              "maxBytesReader.Read",
+              "onceCloseListener.Close",
+              "persistConn.Read",
+              "persistConnWriter.ReadFrom",
+              "persistConnWriter.Write",
+              "populateResponse.Write",
+              "populateResponse.WriteHeader",
+              "readTrackingBody.Close",
+              "readTrackingBody.Read",
+              "readWriteCloserBody.CloseWrite",
+              "readWriteCloserBody.Read",
+              "redirectHandler.ServeHTTP",
+              "response.Flush",
+              "response.FlushError",
+              "response.Hijack",
+              "response.ReadFrom",
+              "response.Write",
+              "response.WriteHeader",
+              "response.WriteString",
+              "serverHandler.ServeHTTP",
+              "socksDialer.DialWithConn",
+              "socksUsernamePassword.Authenticate",
+              "stringWriter.WriteString",
+              "timeoutHandler.ServeHTTP",
+              "timeoutWriter.Write",
+              "timeoutWriter.WriteHeader",
+              "transportReadFromServerError.Error",
+              "unencryptedHTTP2Request.ServeHTTP"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/http/internal/http2",
+            "symbols": [
+              "Server.ServeConn",
+              "requestBody.Close",
+              "requestBody.Read",
+              "serverConn.closeStream",
+              "serverConn.handlerDone",
+              "serverConn.newWriterAndRequest",
+              "serverConn.newWriterAndRequestNoBody",
+              "serverConn.noteBodyRead",
+              "serverConn.processHeaders",
+              "serverConn.runHandler",
+              "serverConn.scheduleHandler"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "golang.org/x/net",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.60.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "golang.org/x/net/http2",
+            "symbols": [
+              "ClientConn.Close",
+              "ClientConn.Ping",
+              "ClientConn.RoundTrip",
+              "ClientConn.Shutdown",
+              "ConfigureServer",
+              "ConfigureTransport",
+              "ConfigureTransports",
+              "ConnectionError.Error",
+              "ErrCode.String",
+              "FrameHeader.String",
+              "FrameType.String",
+              "FrameWriteRequest.String",
+              "Framer.ReadFrame",
+              "Framer.ReadFrameForHeader",
+              "Framer.ReadFrameHeader",
+              "Framer.WriteContinuation",
+              "Framer.WriteData",
+              "Framer.WriteDataPadded",
+              "Framer.WriteGoAway",
+              "Framer.WriteHeaders",
+              "Framer.WritePing",
+              "Framer.WritePriority",
+              "Framer.WritePriorityUpdate",
+              "Framer.WritePushPromise",
+              "Framer.WriteRSTStream",
+              "Framer.WriteRawFrame",
+              "Framer.WriteSettings",
+              "Framer.WriteSettingsAck",
+              "Framer.WriteWindowUpdate",
+              "GoAwayError.Error",
+              "ReadFrameHeader",
+              "Server.ServeConn",
+              "Setting.String",
+              "SettingID.String",
+              "SettingsFrame.ForeachSetting",
+              "StreamError.Error",
+              "Transport.CloseIdleConnections",
+              "Transport.NewClientConn",
+              "Transport.RoundTrip",
+              "Transport.RoundTripOpt",
+              "bufferedWriter.Flush",
+              "bufferedWriter.Write",
+              "bufferedWriterTimeoutWriter.Write",
+              "chunkWriter.Write",
+              "clientConnPool.GetClientConn",
+              "connError.Error",
+              "dataBuffer.Read",
+              "duplicatePseudoHeaderError.Error",
+              "gzipReader.Close",
+              "gzipReader.Read",
+              "headerFieldNameError.Error",
+              "headerFieldValueError.Error",
+              "netHTTPClientConn.Close",
+              "netHTTPClientConn.RoundTrip",
+              "noDialClientConnPool.GetClientConn",
+              "noDialH2RoundTripper.NewClientConn",
+              "noDialH2RoundTripper.RoundTrip",
+              "pipe.Read",
+              "priorityWriteSchedulerRFC7540.CloseStream",
+              "priorityWriteSchedulerRFC7540.OpenStream",
+              "priorityWriteSchedulerRFC9218.OpenStream",
+              "pseudoHeaderError.Error",
+              "requestBody.Close",
+              "requestBody.Read",
+              "responseWriter.Flush",
+              "responseWriter.FlushError",
+              "responseWriter.Push",
+              "responseWriter.SetReadDeadline",
+              "responseWriter.SetWriteDeadline",
+              "responseWriter.Write",
+              "responseWriter.WriteHeader",
+              "responseWriter.WriteString",
+              "roundRobinWriteScheduler.OpenStream",
+              "serverConn.CloseConn",
+              "serverConn.Flush",
+              "serverConn.closeStream",
+              "serverConn.handlerDone",
+              "serverConn.newWriterAndRequest",
+              "serverConn.newWriterAndRequestNoBody",
+              "serverConn.noteBodyRead",
+              "serverConn.processHeaders",
+              "serverConn.runHandler",
+              "serverConn.scheduleHandler",
+              "stickyErrWriter.Write",
+              "transportResponseBody.Close",
+              "transportResponseBody.Read",
+              "unencryptedTransport.RoundTrip",
+              "writeData.String"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/847187"
+    },
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/847310"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/81743"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ali Sherif (https://www.linkedin.com/in/ali-sherif-13812b276/)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6612",
+    "review_status": "REVIEWED"
+  }
+}

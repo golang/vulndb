@@ -1,0 +1,43 @@
+id: GO-2026-6607
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.9
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: crypto/tls
+          symbols:
+            - decodeInnerClientHello
+          derived_symbols:
+            - Conn.Handshake
+            - Conn.HandshakeContext
+            - Conn.Read
+            - Conn.Write
+            - Dial
+            - DialWithDialer
+            - Dialer.Dial
+            - Dialer.DialContext
+            - QUICConn.Start
+summary: Reject malformed ECH outer extension references in crypto/tls
+description: |-
+    Multiple ECH outer extension references are not
+    permitted under RFC 9849; previously, a client
+    could send a well-crafted packet that could
+    trigger memory exhaustion in the server process
+    by specifying multiple references.
+
+    We now reject these as malformed and curb the
+    memory amplification vector as a result.
+references:
+    - fix: https://go.dev/cl/847312
+    - report: https://go.dev/issue/81855
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-97031
+    cwe: 'CWE-405: Asymmetric Resource Consumption'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED

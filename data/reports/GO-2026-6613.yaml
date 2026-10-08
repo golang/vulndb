@@ -1,0 +1,186 @@
+id: GO-2026-6613
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.9
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: net/http
+          symbols:
+            - chunkWriter.writeHeader
+          derived_symbols:
+            - CanonicalHeaderKey
+            - Client.CloseIdleConnections
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - ClientConn.Close
+            - ClientConn.RoundTrip
+            - Cookie.String
+            - Cookie.Valid
+            - CrossOriginProtection.AddInsecureBypassPattern
+            - CrossOriginProtection.AddTrustedOrigin
+            - CrossOriginProtection.Check
+            - Dir.Open
+            - Error
+            - Get
+            - Handle
+            - HandleFunc
+            - HandlerFunc.ServeHTTP
+            - Head
+            - Header.Add
+            - Header.Del
+            - Header.Get
+            - Header.Set
+            - Header.Values
+            - Header.Write
+            - Header.WriteSubset
+            - ListenAndServe
+            - ListenAndServeTLS
+            - NewRequest
+            - NewRequestWithContext
+            - NotFound
+            - ParseCookie
+            - ParseSetCookie
+            - ParseTime
+            - Post
+            - PostForm
+            - ProxyFromEnvironment
+            - ReadRequest
+            - ReadResponse
+            - Redirect
+            - Request.AddCookie
+            - Request.BasicAuth
+            - Request.Cookie
+            - Request.Cookies
+            - Request.CookiesNamed
+            - Request.FormFile
+            - Request.FormValue
+            - Request.MultipartReader
+            - Request.ParseForm
+            - Request.ParseMultipartForm
+            - Request.PostFormValue
+            - Request.Referer
+            - Request.SetBasicAuth
+            - Request.UserAgent
+            - Request.Write
+            - Request.WriteProxy
+            - Response.Cookies
+            - Response.Location
+            - Response.Write
+            - ResponseController.EnableFullDuplex
+            - ResponseController.Flush
+            - ResponseController.Hijack
+            - ResponseController.SetReadDeadline
+            - ResponseController.SetWriteDeadline
+            - Serve
+            - ServeContent
+            - ServeFile
+            - ServeFileFS
+            - ServeMux.Handle
+            - ServeMux.HandleFunc
+            - ServeMux.ServeHTTP
+            - ServeTLS
+            - Server.Close
+            - Server.ListenAndServe
+            - Server.ListenAndServeTLS
+            - Server.Serve
+            - Server.ServeTLS
+            - Server.SetKeepAlivesEnabled
+            - Server.Shutdown
+            - SetCookie
+            - Transport.CancelRequest
+            - Transport.Clone
+            - Transport.CloseIdleConnections
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - body.Close
+            - body.Read
+            - bodyEOFSignal.Close
+            - bodyEOFSignal.Read
+            - bodyLocked.Read
+            - bufioFlushWriter.Write
+            - cancelTimerBody.Close
+            - cancelTimerBody.Read
+            - checkConnErrorWriter.Write
+            - chunkWriter.Write
+            - connReader.Read
+            - connectMethodKey.String
+            - expectContinueReader.Close
+            - expectContinueReader.Read
+            - extraHeader.Write
+            - fileHandler.ServeHTTP
+            - fileTransport.RoundTrip
+            - globalOptionsHandler.ServeHTTP
+            - gzipReader.Close
+            - gzipReader.Read
+            - http1ClientConn.Close
+            - http1ClientConn.RoundTrip
+            - http2ClientConn.RoundTrip
+            - http2Handler.ServeHTTP
+            - http2ResponseWriter.Flush
+            - http2ResponseWriter.FlushError
+            - http2ResponseWriter.Push
+            - http2RoundTripper.RoundTrip
+            - http3ServerHandler.ServeHTTP
+            - initALPNRequest.ServeHTTP
+            - loggingConn.Close
+            - loggingConn.Read
+            - loggingConn.Write
+            - maxBytesReader.Close
+            - maxBytesReader.Read
+            - onceCloseListener.Close
+            - persistConn.Read
+            - persistConnWriter.ReadFrom
+            - persistConnWriter.Write
+            - populateResponse.Write
+            - populateResponse.WriteHeader
+            - readTrackingBody.Close
+            - readTrackingBody.Read
+            - readWriteCloserBody.CloseWrite
+            - readWriteCloserBody.Read
+            - redirectHandler.ServeHTTP
+            - response.Flush
+            - response.FlushError
+            - response.Hijack
+            - response.ReadFrom
+            - response.Write
+            - response.WriteHeader
+            - response.WriteString
+            - serverHandler.ServeHTTP
+            - socksDialer.DialWithConn
+            - socksUsernamePassword.Authenticate
+            - stringWriter.WriteString
+            - timeoutHandler.ServeHTTP
+            - timeoutWriter.Write
+            - timeoutWriter.WriteHeader
+            - transportReadFromServerError.Error
+            - unencryptedHTTP2Request.ServeHTTP
+summary: HTTP/1 server connection desynchronization after 2xx CONNECT response in net/http
+description: |-
+    When an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request
+    and returns without hijacking the connection, the server improperly continues
+    to read and serve requests from the connection. Since a 2xx response to an
+    HTTP/1 CONNECT converts the connection into a tunnel, the server should not
+    treat the connection as continuing to contain HTTP.
+
+    The impact of this misbehavior is mostly limited to potential request smuggling,
+    where an intermediate proxy considers the data on the connection to be tunneled
+    and the server considers it to be HTTP.
+credits:
+    - Jakub Ciolek (https://ciolek.dev)
+references:
+    - fix: https://go.dev/cl/847311
+    - report: https://go.dev/issue/81744
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-94439
+    cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request/Response Smuggling'')'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED

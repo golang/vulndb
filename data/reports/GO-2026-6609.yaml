@@ -1,0 +1,36 @@
+id: GO-2026-6609
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.9
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: net/http
+          symbols:
+            - parseRange
+          derived_symbols:
+            - ServeContent
+            - ServeFile
+            - ServeFileFS
+            - fileHandler.ServeHTTP
+            - fileTransport.RoundTrip
+summary: Lack of limit on size of parsed Range headers in net/http
+description: |-
+    When parsing a Range header containing a large number of small ranges,
+    FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive
+    amount of CPU.
+credits:
+    - Jakub Ciolek (https://ciolek.dev)
+references:
+    - fix: https://go.dev/cl/847309
+    - report: https://go.dev/issue/81858
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-78667
+    cwe: 'CWE-770: Allocation of Resources Without Limits or Throttling'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED

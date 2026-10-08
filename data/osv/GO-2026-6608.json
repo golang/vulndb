@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6608",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-94440"
+  ],
+  "summary": "Memory limit bypass when parsing MIME headers in net/textproto, mime/multipart",
+  "details": "Parsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.9"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "net/textproto",
+            "symbols": [
+              "Reader.ReadContinuedLine",
+              "Reader.ReadContinuedLineBytes",
+              "Reader.ReadMIMEHeader",
+              "Reader.readContinuedLineSlice",
+              "readMIMEHeader"
+            ]
+          },
+          {
+            "path": "mime/multipart",
+            "symbols": [
+              "Part.populateHeaders",
+              "Reader.NextPart",
+              "Reader.NextRawPart",
+              "Reader.ReadForm",
+              "Reader.readForm"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/847307"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/81741"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jakub Ciolek (https://ciolek.dev)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6608",
+    "review_status": "REVIEWED"
+  }
+}

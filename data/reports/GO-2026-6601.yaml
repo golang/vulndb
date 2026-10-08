@@ -1,0 +1,33 @@
+id: GO-2026-6601
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.9
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: cmd/go
+summary: Checksum bypass for golang.org/fips140 in cmd/go
+description: |-
+    Previously, a user operating inside of a malicious
+    Go project that defines a bogus golang.org/fips140
+    and operates a malicious GOMODPROXY the user chooses
+    to connect to can serve an arbitrary module in its
+    place.
+
+    We now unpack the trusted ziphash for the bundled
+    golang.org/fips140 module and construct its entry
+    in the GOMODCACHE such that it can be verified by
+    the toolchain.
+references:
+    - fix: https://go.dev/cl/840685
+    - report: https://go.dev/issue/81833
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-94444
+    cwe: 'CWE-354: Improper Validation of Integrity Check Value'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED

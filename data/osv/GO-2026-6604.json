@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6604",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-56857"
+  ],
+  "summary": "Root.Mkdir(All) can follow junctions out of the root on Windows in os",
+  "details": "On Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.9"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "os",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Root.Chmod",
+              "Root.Chown",
+              "Root.Chtimes",
+              "Root.Lchown",
+              "Root.Link",
+              "Root.Mkdir",
+              "Root.MkdirAll",
+              "Root.Remove",
+              "Root.RemoveAll",
+              "Root.Rename",
+              "Root.Symlink",
+              "doInRoot",
+              "rootMkdirAll"
+            ]
+          },
+          {
+            "path": "internal/syscall/windows",
+            "goos": [
+              "windows"
+            ],
+            "symbols": [
+              "Mkdirat"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/847305"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/81739"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Daniele Ballarini"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6604",
+    "review_status": "REVIEWED"
+  }
+}

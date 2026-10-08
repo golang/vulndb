@@ -1,0 +1,91 @@
+id: GO-2026-6610
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.9
+      vulnerable_at: 1.26.8
+      packages:
+        - package: net/http
+          symbols:
+            - http2clientConnReadLoop.handleResponse
+          derived_symbols:
+            - Client.CloseIdleConnections
+            - Client.Do
+            - Client.Get
+            - Client.Head
+            - Client.Post
+            - Client.PostForm
+            - ClientConn.Close
+            - ClientConn.RoundTrip
+            - Get
+            - Head
+            - Post
+            - PostForm
+            - Transport.CloseIdleConnections
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - http1ClientConn.Close
+            - http1ClientConn.RoundTrip
+            - http2Transport.NewClientConn
+            - http2Transport.RoundTrip
+            - http2Transport.RoundTripOpt
+            - http2clientConnPool.GetClientConn
+            - http2noDialClientConnPool.GetClientConn
+            - http2noDialH2RoundTripper.NewClientConn
+            - http2noDialH2RoundTripper.RoundTrip
+            - http2unencryptedTransport.RoundTrip
+    - module: std
+      versions:
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: net/http/internal/http2
+          symbols:
+            - clientConnReadLoop.handleResponse
+          derived_symbols:
+            - Transport.AddConn
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - Transport.RoundTripOpt
+            - clientConnPool.GetClientConn
+            - noDialClientConnPool.GetClientConn
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.60.0
+      vulnerable_at: 0.59.0
+      packages:
+        - package: golang.org/x/net/http2
+          symbols:
+            - clientConnReadLoop.handleResponse
+          derived_symbols:
+            - Transport.NewClientConn
+            - Transport.RoundTrip
+            - Transport.RoundTripOpt
+            - clientConnPool.GetClientConn
+            - noDialClientConnPool.GetClientConn
+            - noDialH2RoundTripper.NewClientConn
+            - noDialH2RoundTripper.RoundTrip
+            - unencryptedTransport.RoundTrip
+summary: HTTP/2 transport accepts malformed framing-related headers in net/http
+description: |-
+    Historically, we have been rather lax about malformed framing-related
+    headers in our HTTP/2 implementation, as they cannot interfere with
+    HTTP/2 framing. However, this makes it possible for our HTTP/2
+    implementation to forward responses containing such headers to an HTTP/1
+    client when acting as a reverse proxy. If the HTTP/1 client also does
+    not behave strictly enough, this can result in response smuggling.
+credits:
+    - TJ Barton
+references:
+    - fix: https://go.dev/cl/835145
+    - fix: https://go.dev/cl/836385
+    - report: https://go.dev/issue/81115
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-78660
+    cwe: 'CWE-444: Inconsistent Interpretation of HTTP Requests (''HTTP Request/Response Smuggling'')'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED

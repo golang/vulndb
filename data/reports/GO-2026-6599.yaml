@@ -1,0 +1,37 @@
+id: GO-2026-6599
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.9
+        - introduced: 1.27.0-0
+        - fixed: 1.27.2
+      vulnerable_at: 1.27.1
+      packages:
+        - package: html/template
+          symbols:
+            - tJSTmpl
+          derived_symbols:
+            - Template.Execute
+            - Template.ExecuteTemplate
+summary: Reset context tracking on consecutive template expressions in html/template
+description: |-
+    When a JavaScript template literal contains
+    consecutive expressions, the context tracking
+    state was not properly reset upon entering a
+    new expression.
+
+    We now ensure that template-literal expression
+    entries correctly reset context variables so all
+    subsequent regular expression literals are
+    accurately recognized and escaped.
+references:
+    - fix: https://go.dev/cl/839866
+    - report: https://go.dev/issue/81821
+    - web: https://groups.google.com/g/golang-announce/c/U2fTuyDJznI
+cve_metadata:
+    id: CVE-2026-94448
+    cwe: 'CWE-79: Improper Neutralization of Input During Web Page Generation (''Cross-site Scripting'')'
+source:
+    id: go-security-team
+    created: 2026-10-08T00:00:00Z
+review_status: REVIEWED
