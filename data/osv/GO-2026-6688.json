@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6688",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107216",
+    "GHSA-wp2g-vpjj-g53r"
+  ],
+  "summary": "Mutually-referencing array formulas recurse unboundedly, causing a fatal stack overflow in github.com/xuri/excelize",
+  "details": "Mutually-referencing array formulas recurse unboundedly, causing a fatal stack overflow in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.8.1"
+            },
+            {
+              "fixed": "2.11.1-0.20260911060113-ea12859e43c6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-wp2g-vpjj-g53r"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/ea12859e43c64d498ecf839263c5f917391f3316"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6688",
+    "review_status": "REVIEWED"
+  }
+}

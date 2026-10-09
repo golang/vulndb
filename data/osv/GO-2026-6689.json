@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6689",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107215",
+    "GHSA-x2q3-8cjh-766f"
+  ],
+  "summary": "Panic and memory exhaustion via unbounded CFB stream allocation in github.com/xuri/excelize",
+  "details": "Panic and memory exhaustion via unbounded CFB stream allocation in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/360EntSecGroup-Skylar/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/360EntSecGroup-Skylar/excelize/v2",
+            "symbols": [
+              "Decrypt",
+              "OpenFile",
+              "OpenReader",
+              "extractPart"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1-0.20260912113515-5f636f9dcde5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "Decrypt",
+              "OpenFile",
+              "OpenReader",
+              "extractPart"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-x2q3-8cjh-766f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/5f636f9dcde55911f14290060b017f0cc88cd694"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2396"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6689",
+    "review_status": "REVIEWED"
+  }
+}

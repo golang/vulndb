@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6700",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107386",
+    "GHSA-w6r9-248c-frg8"
+  ],
+  "summary": "Pre-negotiation frame limit is not enforced to 4KB in github.com/rabbitmq/amqp091-go",
+  "details": "Pre-negotiation frame limit is not enforced to 4KB in github.com/rabbitmq/amqp091-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/rabbitmq/amqp091-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.14.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/rabbitmq/amqp091-go",
+            "symbols": [
+              "Dial",
+              "DialConfig",
+              "DialTLS",
+              "DialTLS_ExternalAuth",
+              "Open"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/rabbitmq/amqp091-go/security/advisories/GHSA-w6r9-248c-frg8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/commit/6723e8cff8710f0a6bf5fb4af375e285052535b3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/rabbitmq/amqp091-go/pull/377"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rabbitmq/amqp091-go/releases/tag/v1.14.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6700",
+    "review_status": "REVIEWED"
+  }
+}

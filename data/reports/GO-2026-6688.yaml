@@ -1,0 +1,22 @@
+id: GO-2026-6688
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - introduced: 2.8.1
+        - fixed: 2.11.1-0.20260911060113-ea12859e43c6
+      vulnerable_at: 2.11.0
+summary: Mutually-referencing array formulas recurse unboundedly, causing a fatal stack overflow in github.com/xuri/excelize
+cves:
+    - CVE-2026-107216
+ghsas:
+    - GHSA-wp2g-vpjj-g53r
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-wp2g-vpjj-g53r
+    - fix: https://github.com/qax-os/excelize/commit/ea12859e43c64d498ecf839263c5f917391f3316
+notes:
+    - create: failed to auto-populate symbols
+    - lint: 'modules[0] "github.com/xuri/excelize": versions: no latest fixed version (required for NEEDS_REVIEW report)'
+source:
+    id: GHSA-wp2g-vpjj-g53r
+    created: 2026-10-09T08:02:03.427474-04:00
+review_status: REVIEWED

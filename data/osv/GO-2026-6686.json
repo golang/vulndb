@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6686",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-61801",
+    "GHSA-mjcv-p78q-w5fw"
+  ],
+  "summary": "Possible DoS via unbounded parsing of user and group database files in github.com/moby/sys/user",
+  "details": "Possible DoS via unbounded parsing of user and group database files in github.com/moby/sys/user",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/moby/sys/user",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.4.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/sys/user",
+            "symbols": [
+              "CurrentGroup",
+              "GetAdditionalGroups",
+              "GetAdditionalGroupsPath",
+              "GetExecUser",
+              "GetExecUserPath",
+              "LookupGid",
+              "LookupGroup",
+              "ParseGroup",
+              "ParseGroupFile",
+              "ParseGroupFileFilter",
+              "ParseGroupFilter"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/moby/sys/security/advisories/GHSA-mjcv-p78q-w5fw"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/moby/sys/commit/85a71bbe1faa36c552a960e6a5f3d0cfb632fbbe"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/moby/sys/pull/221"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6686",
+    "review_status": "REVIEWED"
+  }
+}

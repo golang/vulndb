@@ -1,0 +1,40 @@
+id: GO-2026-6685
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.1.0
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - Rows.Columns
+            - Rows.Next
+          derived_symbols:
+            - File.GetRows
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260930021559-01a9ff32fb3c
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - Rows.Columns
+            - Rows.Next
+          derived_symbols:
+            - File.AutoFitColWidth
+            - File.GetRows
+summary: |-
+    Excelize: Unbounded row number in Rows.Columns makes GetRows and the Rows
+    iterator loop for days in github.com/xuri/excelize
+cves:
+    - CVE-2026-107212
+ghsas:
+    - GHSA-jw42-f3rr-4cc3
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-jw42-f3rr-4cc3
+    - fix: https://github.com/qax-os/excelize/commit/01a9ff32fb3c1f873cf01205e1b8a3285b0e1d23
+    - web: https://github.com/qax-os/excelize/pull/2438
+source:
+    id: GHSA-jw42-f3rr-4cc3
+    created: 2026-10-09T08:02:30.175961-04:00
+review_status: REVIEWED

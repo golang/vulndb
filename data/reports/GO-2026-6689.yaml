@@ -1,0 +1,39 @@
+id: GO-2026-6689
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.3.1
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - Decrypt
+            - extractPart
+          derived_symbols:
+            - OpenFile
+            - OpenReader
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260912113515-5f636f9dcde5
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - Decrypt
+            - extractPart
+          derived_symbols:
+            - OpenFile
+            - OpenReader
+summary: Panic and memory exhaustion via unbounded CFB stream allocation in github.com/xuri/excelize
+cves:
+    - CVE-2026-107215
+ghsas:
+    - GHSA-x2q3-8cjh-766f
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-x2q3-8cjh-766f
+    - fix: https://github.com/qax-os/excelize/commit/5f636f9dcde55911f14290060b017f0cc88cd694
+    - web: https://github.com/qax-os/excelize/pull/2396
+source:
+    id: GHSA-x2q3-8cjh-766f
+    created: 2026-10-09T08:01:54.276266-04:00
+review_status: REVIEWED

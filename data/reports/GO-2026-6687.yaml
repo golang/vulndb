@@ -1,0 +1,31 @@
+id: GO-2026-6687
+modules:
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - introduced: 2.9.0
+        - fixed: 2.11.1-0.20260929015830-8ffeb07ec9a3
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - File.GetSlicers
+          derived_symbols:
+            - File.DeleteSlicer
+summary: |-
+    Nil-pointer dereference in GetSlicers when a worksheet has extLst
+    present but no drawing element in github.com/xuri/excelize
+cves:
+    - CVE-2026-107213
+ghsas:
+    - GHSA-r7x5-4969-99p7
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-r7x5-4969-99p7
+    - fix: https://github.com/qax-os/excelize/commit/8ffeb07ec9a350410f6922313f6b7e4f5cc79241
+    - web: https://github.com/qax-os/excelize/pull/2434
+notes:
+    - create: failed to auto-populate symbols
+    - lint: 'modules[0] "github.com/xuri/excelize": versions: no latest fixed version (required for NEEDS_REVIEW report)'
+source:
+    id: GHSA-r7x5-4969-99p7
+    created: 2026-10-09T08:02:11.908921-04:00
+review_status: REVIEWED

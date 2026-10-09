@@ -1,0 +1,65 @@
+id: GO-2026-6684
+modules:
+    - module: github.com/360EntSecGroup-Skylar/excelize/v2
+      versions:
+        - introduced: 2.3.1
+      vulnerable_at: 2.4.0
+      packages:
+        - package: github.com/360EntSecGroup-Skylar/excelize/v2
+          symbols:
+            - agileDecrypt
+            - convertPasswdToKey
+            - createIV
+            - crypt
+            - cryptPackage
+            - standardConvertPasswdToKey
+            - standardDecrypt
+          derived_symbols:
+            - Decrypt
+            - Encrypt
+            - File.Save
+            - File.SaveAs
+            - File.Write
+            - File.WriteTo
+            - File.WriteToBuffer
+            - OpenFile
+            - OpenReader
+    - module: github.com/xuri/excelize/v2
+      versions:
+        - fixed: 2.11.1-0.20260915055537-22f76f9acb94
+      vulnerable_at: 2.11.0
+      packages:
+        - package: github.com/xuri/excelize/v2
+          symbols:
+            - agileDecrypt
+            - convertPasswdToKey
+            - createIV
+            - decrypt
+            - decryptPackage
+            - standardConvertPasswdToKey
+            - standardDecrypt
+          derived_symbols:
+            - Decrypt
+            - Encrypt
+            - File.Save
+            - File.SaveAs
+            - File.Write
+            - File.WriteTo
+            - File.WriteToBuffer
+            - OpenFile
+            - OpenReader
+summary: |-
+    Excelize Decrypt: unrecoverable panics on malformed OLE/CFB encrypted workbooks
+    in github.com/xuri/excelize
+cves:
+    - CVE-2026-107214
+ghsas:
+    - GHSA-2j4c-ffch-9f23
+references:
+    - advisory: https://github.com/qax-os/excelize/security/advisories/GHSA-2j4c-ffch-9f23
+    - fix: https://github.com/qax-os/excelize/commit/22f76f9acb94b85b3eb9c4365ab4f750cebbc565
+    - web: https://github.com/qax-os/excelize/pull/2395
+source:
+    id: GHSA-2j4c-ffch-9f23
+    created: 2026-10-09T08:02:38.482081-04:00
+review_status: REVIEWED

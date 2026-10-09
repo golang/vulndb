@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6695",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107211",
+    "GHSA-mx22-3794-2vpv"
+  ],
+  "summary": "Panic via unchecked pivot-cache field index in github.com/xuri/excelize/v2",
+  "details": "Panic via unchecked pivot-cache field index in github.com/xuri/excelize/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.8.1"
+            },
+            {
+              "fixed": "2.11.1-0.20261003002531-6258dcebc4e2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.AddSlicer",
+              "File.DeletePivotTable",
+              "File.DeleteSlicer",
+              "File.GetPivotTables",
+              "File.GetSlicers",
+              "File.extractPivotTableFields"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-mx22-3794-2vpv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/6258dcebc4e2a2aed985c38a08098dfd908521d1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2435"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6695",
+    "review_status": "REVIEWED"
+  }
+}

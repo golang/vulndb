@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6684",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107214",
+    "GHSA-2j4c-ffch-9f23"
+  ],
+  "summary": "Excelize Decrypt: unrecoverable panics on malformed OLE/CFB encrypted workbooks in github.com/xuri/excelize",
+  "details": "Excelize Decrypt: unrecoverable panics on malformed OLE/CFB encrypted workbooks in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/360EntSecGroup-Skylar/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.3.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/360EntSecGroup-Skylar/excelize/v2",
+            "symbols": [
+              "Decrypt",
+              "Encrypt",
+              "File.Save",
+              "File.SaveAs",
+              "File.Write",
+              "File.WriteTo",
+              "File.WriteToBuffer",
+              "OpenFile",
+              "OpenReader",
+              "agileDecrypt",
+              "convertPasswdToKey",
+              "createIV",
+              "crypt",
+              "cryptPackage",
+              "standardConvertPasswdToKey",
+              "standardDecrypt"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.1-0.20260915055537-22f76f9acb94"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "Decrypt",
+              "Encrypt",
+              "File.Save",
+              "File.SaveAs",
+              "File.Write",
+              "File.WriteTo",
+              "File.WriteToBuffer",
+              "OpenFile",
+              "OpenReader",
+              "agileDecrypt",
+              "convertPasswdToKey",
+              "createIV",
+              "decrypt",
+              "decryptPackage",
+              "standardConvertPasswdToKey",
+              "standardDecrypt"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-2j4c-ffch-9f23"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/22f76f9acb94b85b3eb9c4365ab4f750cebbc565"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2395"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6684",
+    "review_status": "REVIEWED"
+  }
+}

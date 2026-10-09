@@ -1,0 +1,34 @@
+id: GO-2026-6686
+modules:
+    - module: github.com/moby/sys/user
+      versions:
+        - fixed: 0.4.1
+      vulnerable_at: 0.4.0
+      packages:
+        - package: github.com/moby/sys/user
+          symbols:
+            - GetExecUserPath
+            - ParseGroupFileFilter
+            - ParseGroupFilter
+          derived_symbols:
+            - CurrentGroup
+            - GetAdditionalGroups
+            - GetAdditionalGroupsPath
+            - GetExecUser
+            - LookupGid
+            - LookupGroup
+            - ParseGroup
+            - ParseGroupFile
+summary: Possible DoS via unbounded parsing of user and group database files in github.com/moby/sys/user
+cves:
+    - CVE-2026-61801
+ghsas:
+    - GHSA-mjcv-p78q-w5fw
+references:
+    - advisory: https://github.com/moby/sys/security/advisories/GHSA-mjcv-p78q-w5fw
+    - fix: https://github.com/moby/sys/commit/85a71bbe1faa36c552a960e6a5f3d0cfb632fbbe
+    - web: https://github.com/moby/sys/pull/221
+source:
+    id: GHSA-mjcv-p78q-w5fw
+    created: 2026-10-09T08:02:20.96729-04:00
+review_status: REVIEWED

@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6687",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107213",
+    "GHSA-r7x5-4969-99p7"
+  ],
+  "summary": "Nil-pointer dereference in GetSlicers when a worksheet has extLst present but no drawing element in github.com/xuri/excelize",
+  "details": "Nil-pointer dereference in GetSlicers when a worksheet has extLst present but no drawing element in github.com/xuri/excelize",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/xuri/excelize/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.9.0"
+            },
+            {
+              "fixed": "2.11.1-0.20260929015830-8ffeb07ec9a3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/xuri/excelize/v2",
+            "symbols": [
+              "File.DeleteSlicer",
+              "File.GetSlicers"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/qax-os/excelize/security/advisories/GHSA-r7x5-4969-99p7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/qax-os/excelize/commit/8ffeb07ec9a350410f6922313f6b7e4f5cc79241"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qax-os/excelize/pull/2434"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6687",
+    "review_status": "REVIEWED"
+  }
+}
