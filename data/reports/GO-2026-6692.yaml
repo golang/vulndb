@@ -1,0 +1,26 @@
+id: GO-2026-6692
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: |-
+    Coraza body processor has a JSON key collision that allows unauthenticated
+    attackers to bypass OWASP CRS inspection in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-5gj4-9gm7-2fx2
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-5gj4-9gm7-2fx2
+    - fix: https://github.com/corazawaf/coraza/commit/52af139cab5ad10c5cb0152a161063b523907bdf
+    - fix: https://github.com/corazawaf/coraza/commit/5f577a548aeb9ca836122df4258f93ef6cfab38a
+    - fix: https://github.com/corazawaf/coraza/commit/cae3c7407e7b84372c207033de03f15f89bf351a
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-5gj4-9gm7-2fx2
+    created: 2026-10-09T08:01:40.487456-04:00
+review_status: UNREVIEWED

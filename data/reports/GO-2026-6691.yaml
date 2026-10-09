@@ -1,0 +1,25 @@
+id: GO-2026-6691
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: |-
+    Coraza: Multipart filename* (RFC 5987) charset restriction lets a decoy filename
+    bypass FILES-based rules in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-3wr7-993q-jrff
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-3wr7-993q-jrff
+    - fix: https://github.com/corazawaf/coraza/commit/5427c501b2fea6ae1305903efef01b3049224a58
+    - fix: https://github.com/corazawaf/coraza/commit/b2a9264437116bdd98a86fe345b2aec1152d3d7c
+    - fix: https://github.com/corazawaf/coraza/commit/cae3c7407e7b84372c207033de03f15f89bf351a
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-3wr7-993q-jrff
+    created: 2026-10-09T08:01:45.085743-04:00
+review_status: UNREVIEWED

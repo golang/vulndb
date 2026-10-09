@@ -1,0 +1,24 @@
+id: GO-2026-6693
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: |-
+    Coraza JSON body processor: argument-limit truncation reopens an unbounded-depth
+    gjson.Valid stack overflow (process crash) in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-6gcq-wc29-5xf2
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-6gcq-wc29-5xf2
+    - fix: https://github.com/corazawaf/coraza/commit/814e1898e083d2ff2ceb644382d0da17e930f93f
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-6gcq-wc29-5xf2
+    created: 2026-10-09T08:01:35.749941-04:00
+review_status: UNREVIEWED

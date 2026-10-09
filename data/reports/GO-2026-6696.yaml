@@ -1,0 +1,24 @@
+id: GO-2026-6696
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.0
+summary: 'Coraza: jsDecode Off-by-One in Octal Escape Handling Enables WAF Bypass in github.com/corazawaf/coraza'
+cves:
+    - CVE-2026-104774
+ghsas:
+    - GHSA-pc5q-qfxp-ggqv
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-pc5q-qfxp-ggqv
+    - fix: https://github.com/corazawaf/coraza/commit/f9b7afdbcedce7ad814663eaee2e342578ea3bb2
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.0
+source:
+    id: GHSA-pc5q-qfxp-ggqv
+    created: 2026-10-09T08:01:10.825784-04:00
+review_status: UNREVIEWED

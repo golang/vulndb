@@ -1,0 +1,22 @@
+id: GO-2026-6694
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: Coraza has Cookie Parser Confusion in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-g4qm-m288-5cp9
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-g4qm-m288-5cp9
+    - fix: https://github.com/corazawaf/coraza/commit/0b940e197ad9983fb3aa36e84f1f81ff985461af
+    - fix: https://github.com/corazawaf/coraza/commit/9f8521398d1ff023b958fad0b944cac265763866
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-g4qm-m288-5cp9
+    created: 2026-10-09T08:01:31.391429-04:00
+review_status: UNREVIEWED

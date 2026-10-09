@@ -1,0 +1,24 @@
+id: GO-2026-6698
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.4
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+summary: 'Coraza: URL-encoded form Content-Type parameters bypass Coraza body inspection in github.com/corazawaf/coraza'
+ghsas:
+    - GHSA-w253-m66g-rx24
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-w253-m66g-rx24
+    - fix: https://github.com/corazawaf/coraza/commit/3b6241ef895b089c66a59e51068a81cf40986e4d
+    - fix: https://github.com/corazawaf/coraza/commit/a55950ffa161f33a29e14f87d926d7df3b85cc74
+    - fix: https://github.com/corazawaf/coraza/commit/dd100261cf1d2e2b053803a50c9db28dcaaa4b7c
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.1
+source:
+    id: GHSA-w253-m66g-rx24
+    created: 2026-10-09T08:01:00.34437-04:00
+review_status: UNREVIEWED

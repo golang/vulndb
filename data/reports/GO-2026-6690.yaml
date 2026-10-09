@@ -1,0 +1,24 @@
+id: GO-2026-6690
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.0
+summary: |-
+    Coraza: Unbounded recursion in JSON response body processor causes CPU
+    exhaustion in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-3c6w-j9xm-8h2h
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-3c6w-j9xm-8h2h
+    - fix: https://github.com/corazawaf/coraza/commit/cae3c7407e7b84372c207033de03f15f89bf351a
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.0
+source:
+    id: GHSA-3c6w-j9xm-8h2h
+    created: 2026-10-09T08:01:49.910192-04:00
+review_status: UNREVIEWED

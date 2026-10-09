@@ -1,0 +1,24 @@
+id: GO-2026-6699
+modules:
+    - module: github.com/corazawaf/coraza
+      vulnerable_at: 1.2.0
+    - module: github.com/corazawaf/coraza/v2
+      vulnerable_at: 2.0.1
+    - module: github.com/corazawaf/coraza/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.0
+      vulnerable_at: 3.7.0
+summary: |-
+    Coraza: ProcessURI silently drops QUERY_STRING and ARGS_GET on URI parse failure
+    — defense-in-depth bypass for non-net/http integrations in github.com/corazawaf/coraza
+ghsas:
+    - GHSA-x26q-wvhg-fh4m
+references:
+    - advisory: https://github.com/corazawaf/coraza/security/advisories/GHSA-x26q-wvhg-fh4m
+    - fix: https://github.com/corazawaf/coraza/commit/0321af96cef18fbafb40980cf075d7cc449a66fa
+    - web: https://github.com/corazawaf/coraza/releases/tag/v3.8.0
+source:
+    id: GHSA-x26q-wvhg-fh4m
+    created: 2026-10-09T08:00:56.003052-04:00
+review_status: UNREVIEWED
