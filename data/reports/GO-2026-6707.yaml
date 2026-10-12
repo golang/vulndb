@@ -1,0 +1,23 @@
+id: GO-2026-6707
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20250517140552-daee3ac7ade1
+        - fixed: 1.9.10-0.20260728074146-a467ed652591
+summary: |-
+    Nginx UI: Backup restore follows crafted symlinks into the live Nginx
+    configuration path before restore flags are applied in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107810
+ghsas:
+    - GHSA-p8v3-89rh-jxc7
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-p8v3-89rh-jxc7
+    - web: https://github.com/0xJacky/nginx-ui/commit/a467ed652591fc0cd1b466a1ec751b493faef9f7
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-p8v3-89rh-jxc7
+    created: 2026-10-12T08:40:06.435897-04:00
+review_status: UNREVIEWED

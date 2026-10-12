@@ -1,0 +1,19 @@
+id: GO-2026-6715
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.3.0
+      unsupported_versions:
+        - last_affected: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: WebSocket authentication ignores server-side session state, so revoked
+    sessions keep receiving live pushes in code.vikunja.io/api
+ghsas:
+    - GHSA-4hv6-xc92-j86g
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-4hv6-xc92-j86g
+source:
+    id: GHSA-4hv6-xc92-j86g
+    created: 2026-10-12T08:38:19.922174-04:00
+review_status: UNREVIEWED

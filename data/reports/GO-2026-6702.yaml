@@ -1,0 +1,23 @@
+id: GO-2026-6702
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20250517140552-daee3ac7ade1
+        - fixed: 1.9.10-0.20260728091109-0ecbd106c37b
+summary: |-
+    0xJacky/nginx-ui /api/nodes Leaks Cluster Node Tokens and Allows Cross-Node
+    Impersonation as initUser in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107811
+ghsas:
+    - GHSA-32gc-wf3m-78w9
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-32gc-wf3m-78w9
+    - web: https://github.com/0xJacky/nginx-ui/commit/0ecbd106c37b5143be14880c9447a66135151512
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-32gc-wf3m-78w9
+    created: 2026-10-12T08:41:26.316861-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,24 @@
+id: GO-2026-6724
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260904075558-e30e331303fc
+      non_go_versions:
+        - introduced: 1.9.10-0.20251005005631-6de168c9454
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx UI: Bundled reverse proxy can bypass IP allowlists and enable shared login
+    lockout in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107804
+ghsas:
+    - GHSA-9h23-53f4-q947
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-9h23-53f4-q947
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-107804
+    - web: https://github.com/0xJacky/nginx-ui/commit/e30e331303fc21cf077a2bea724bd79e66892eaf
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.6.0
+source:
+    id: GHSA-9h23-53f4-q947
+    created: 2026-10-12T08:35:53.592897-04:00
+review_status: UNREVIEWED

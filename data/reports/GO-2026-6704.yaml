@@ -1,0 +1,23 @@
+id: GO-2026-6704
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20250517140552-daee3ac7ade1
+        - fixed: 1.9.10-0.20260728074558-95cd21b70814
+summary: |-
+    Nginx UI: Authentication bypass: password login does not enforce a passkey-only
+    second factor (2FA bypass) in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107808
+ghsas:
+    - GHSA-45gv-9wjv-xh7p
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-45gv-9wjv-xh7p
+    - web: https://github.com/0xJacky/nginx-ui/commit/95cd21b70814e5d9a48a359aa238aeea1ac97429
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-45gv-9wjv-xh7p
+    created: 2026-10-12T08:40:52.897282-04:00
+review_status: UNREVIEWED

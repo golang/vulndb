@@ -1,0 +1,20 @@
+id: GO-2026-6732
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: CalDAV relation creation bypasses TaskRelation.CanCreate, allowing an
+    unauthorized write into any task by known UID in code.vikunja.io/api
+ghsas:
+    - GHSA-g38j-7v97-x298
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-g38j-7v97-x298
+    - web: https://github.com/go-vikunja/vikunja/commit/077dc4de79ce6f1ab59215a2c7bf9b30423685f2
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+source:
+    id: GHSA-g38j-7v97-x298
+    created: 2026-10-12T08:34:16.677743-04:00
+review_status: UNREVIEWED

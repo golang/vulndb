@@ -1,0 +1,22 @@
+id: GO-2026-6716
+modules:
+    - module: github.com/luskaner/ageLANServer/server
+      versions:
+        - fixed: 1.8.2-0.20260809203301-1dd40166a593
+      vulnerable_at: 1.8.1
+summary: |-
+    ageLANServer: Unbounded JSON Array Allocation in AoE3 Cloud `getFileURL`
+    Endpoint Leads to Remote Denial of Service in github.com/luskaner/ageLANServer/server
+cves:
+    - CVE-2026-107839
+ghsas:
+    - GHSA-4jfq-pmq9-257h
+references:
+    - advisory: https://github.com/luskaner/ageLANServer/security/advisories/GHSA-4jfq-pmq9-257h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-107839
+    - web: https://github.com/luskaner/ageLANServer/commit/1dd40166a59356865c0a4b1800f32d05dc8bec79
+    - web: https://github.com/luskaner/ageLANServer/releases/tag/v1.15.2
+source:
+    id: GHSA-4jfq-pmq9-257h
+    created: 2026-10-12T08:37:46.533305-04:00
+review_status: UNREVIEWED

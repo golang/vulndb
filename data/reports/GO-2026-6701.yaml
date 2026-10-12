@@ -1,0 +1,35 @@
+id: GO-2026-6701
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.11.0
+      unsupported_versions:
+        - last_affected: 2.14.21
+      vulnerable_at: 2.14.21
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.3.15
+        - introduced: 3.4.0
+        - fixed: 3.4.10
+        - introduced: 3.5.0
+        - fixed: 3.5.4
+        - introduced: 3.6.0-rc1
+        - fixed: 3.6.0-rc2
+      vulnerable_at: 3.6.0-rc1
+summary: |-
+    Argo CD repo-server command injection via crafted SSH repository SOCKS5 proxy
+    URL in github.com/argoproj/argo-cd
+cves:
+    - CVE-2026-55797
+ghsas:
+    - GHSA-j6cw-g6p4-7hch
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-j6cw-g6p4-7hch
+    - fix: https://github.com/argoproj/argo-cd/commit/1e3ddd0b7250aa23f489956b5fab8c13d0493a9f
+source:
+    id: GHSA-j6cw-g6p4-7hch
+    created: 2026-10-12T08:41:35.937466-04:00
+review_status: UNREVIEWED

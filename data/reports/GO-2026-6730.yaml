@@ -1,0 +1,19 @@
+id: GO-2026-6730
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 0.13.0
+      unsupported_versions:
+        - last_affected: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Write-level project members can delete admin-tier link shares through
+    an unloaded permission check in code.vikunja.io/api
+ghsas:
+    - GHSA-fmmf-xq98-g327
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-fmmf-xq98-g327
+source:
+    id: GHSA-fmmf-xq98-g327
+    created: 2026-10-12T08:34:53.310946-04:00
+review_status: UNREVIEWED

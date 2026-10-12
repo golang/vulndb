@@ -1,0 +1,20 @@
+id: GO-2026-6750
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.3.0
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: 'Vikunja: Scoped API token can mint unrestricted OAuth session credentials in code.vikunja.io/api'
+cves:
+    - CVE-2026-57458
+ghsas:
+    - GHSA-v3p6-34mc-hj7v
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-v3p6-34mc-hj7v
+    - web: https://github.com/go-vikunja/vikunja/commit/4ae2e093014881052ed8f8ecd8bcb9adf83dd276
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0
+source:
+    id: GHSA-v3p6-34mc-hj7v
+    created: 2026-10-12T08:29:44.276874-04:00
+review_status: UNREVIEWED

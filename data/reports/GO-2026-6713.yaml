@@ -1,0 +1,23 @@
+id: GO-2026-6713
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Any user can enumerate every team and its members by attaching
+    arbitrary teams to a throwaway project in code.vikunja.io/api
+cves:
+    - CVE-2026-91980
+ghsas:
+    - GHSA-39p5-2wrr-xh29
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-39p5-2wrr-xh29
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91980
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-team-enumeration-via-project-share
+source:
+    id: GHSA-39p5-2wrr-xh29
+    created: 2026-10-12T08:38:50.820044-04:00
+review_status: UNREVIEWED

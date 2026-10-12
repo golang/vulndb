@@ -1,0 +1,16 @@
+id: GO-2026-6745
+modules:
+    - module: code.vikunja.io/api
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Explicit lower-permission share on a sub-project is silently overridden
+    by an inherited parent permission (broken access control / privilege-management
+    regression in v2.6.0) in code.vikunja.io/api
+ghsas:
+    - GHSA-pjr3-86v4-5p7w
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-pjr3-86v4-5p7w
+source:
+    id: GHSA-pjr3-86v4-5p7w
+    created: 2026-10-12T08:32:01.474272-04:00
+review_status: UNREVIEWED

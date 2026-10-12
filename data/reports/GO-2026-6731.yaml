@@ -1,0 +1,19 @@
+id: GO-2026-6731
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 1.0.0-rc0
+      unsupported_versions:
+        - last_affected: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Saved filter creation with an empty filter string recalculates task
+    positions across all tenants in code.vikunja.io/api
+ghsas:
+    - GHSA-fprf-r6rv-xg99
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-fprf-r6rv-xg99
+source:
+    id: GHSA-fprf-r6rv-xg99
+    created: 2026-10-12T08:34:42.501865-04:00
+review_status: UNREVIEWED

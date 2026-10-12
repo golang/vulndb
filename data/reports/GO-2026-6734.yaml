@@ -1,0 +1,24 @@
+id: GO-2026-6734
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20260729084040-acb59fdd81db
+        - fixed: 1.9.10-0.20260901043436-8c9b9a1aff21
+summary: |-
+    Nginx UI: Unauthenticated signed-request body staging can exhaust temporary
+    storage in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107805
+ghsas:
+    - GHSA-j3hg-9rp3-5hw9
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-j3hg-9rp3-5hw9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-107805
+    - web: https://github.com/0xJacky/nginx-ui/commit/8c9b9a1aff218ee6c980d047b750e49da3c46796
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.6.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-j3hg-9rp3-5hw9
+    created: 2026-10-12T08:33:55.055532-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,23 @@
+id: GO-2026-6717
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Unbounded image decode on avatar and project-background uploads enables
+    decode/resize amplification in code.vikunja.io/api
+cves:
+    - CVE-2026-91971
+ghsas:
+    - GHSA-4vh2-39rq-rq8j
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-4vh2-39rq-rq8j
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91971
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-denial-of-service-via-avatar-upload
+source:
+    id: GHSA-4vh2-39rq-rq8j
+    created: 2026-10-12T08:37:32.679385-04:00
+review_status: UNREVIEWED

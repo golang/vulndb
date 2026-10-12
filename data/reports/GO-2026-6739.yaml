@@ -1,0 +1,19 @@
+id: GO-2026-6739
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.2.0
+      unsupported_versions:
+        - last_affected: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Permissive Cross-domain Security Policy trusts every localhost origin
+    which should not be trusted in code.vikunja.io/api
+ghsas:
+    - GHSA-m687-p538-r5hp
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-m687-p538-r5hp
+source:
+    id: GHSA-m687-p538-r5hp
+    created: 2026-10-12T08:33:12.361621-04:00
+review_status: UNREVIEWED

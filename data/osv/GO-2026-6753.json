@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6753",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-68581",
+    "GHSA-vvcv-vpph-h844"
+  ],
+  "summary": "Vikunja: Link-share principal ID collision allows cross-account API token issuance and management in code.vikunja.io/api",
+  "details": "Vikunja: Link-share principal ID collision allows cross-account API token issuance and management in code.vikunja.io/api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: code.vikunja.io/api before v2.4.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "code.vikunja.io/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.22.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "0"
+              },
+              {
+                "fixed": "2.4.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vikunja/vikunja/security/advisories/GHSA-vvcv-vpph-h844"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-68581"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/commit/95b7e673fb5ee407498fa4b13e8b4c57847a4a0b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/commit/e6b25bd57b537ef9a72b5acdadf446ca5ef77bfa"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.vulncheck.com/advisories/vikunja-through-authentication-bypass-via-principal-id-collision"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6753",
+    "review_status": "UNREVIEWED"
+  }
+}

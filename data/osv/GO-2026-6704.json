@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6704",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107808",
+    "GHSA-45gv-9wjv-xh7p"
+  ],
+  "summary": "Nginx UI: Authentication bypass: password login does not enforce a passkey-only second factor (2FA bypass) in github.com/0xJacky/Nginx-UI",
+  "details": "Nginx UI: Authentication bypass: password login does not enforce a passkey-only second factor (2FA bypass) in github.com/0xJacky/Nginx-UI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.10-0.20250517140552-daee3ac7ade1"
+            },
+            {
+              "fixed": "1.9.10-0.20260728074558-95cd21b70814"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-45gv-9wjv-xh7p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/commit/95cd21b70814e5d9a48a359aa238aeea1ac97429"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6704",
+    "review_status": "UNREVIEWED"
+  }
+}

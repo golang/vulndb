@@ -1,0 +1,21 @@
+id: GO-2026-6711
+modules:
+    - module: code.vikunja.io/api
+      unsupported_versions:
+        - last_affected: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Link-share principal-type confusion enables cross-account team removal,
+    bot takeover, and roster disclosure in code.vikunja.io/api
+cves:
+    - CVE-2026-76216
+ghsas:
+    - GHSA-32r8-5843-4qw2
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-32r8-5843-4qw2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-76216
+    - web: https://www.vulncheck.com/advisories/vikunja-through-principal-type-confusion-via-linksharing
+source:
+    id: GHSA-32r8-5843-4qw2
+    created: 2026-10-12T08:39:10.997162-04:00
+review_status: UNREVIEWED

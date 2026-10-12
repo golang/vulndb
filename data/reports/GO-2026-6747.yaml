@@ -1,0 +1,25 @@
+id: GO-2026-6747
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Read-only project members can obtain any link share's access hash via
+    the single-share read endpoint (v1 and v2) and escalate to the share's
+    permission level in code.vikunja.io/api
+cves:
+    - CVE-2026-91985
+ghsas:
+    - GHSA-qfwc-vx6f-3g6g
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-qfwc-vx6f-3g6g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91985
+    - web: https://github.com/go-vikunja/vikunja/commit/077dc4de79ce6f1ab59215a2c7bf9b30423685f2
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-privilege-escalation-via-link-share-hash
+source:
+    id: GHSA-qfwc-vx6f-3g6g
+    created: 2026-10-12T08:31:16.727628-04:00
+review_status: UNREVIEWED

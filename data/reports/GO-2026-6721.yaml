@@ -1,0 +1,22 @@
+id: GO-2026-6721
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Every /api/v2 pre-auth endpoint is unthrottled on a stock install while
+    its /api/v1 twin is rate limited in code.vikunja.io/api
+cves:
+    - CVE-2026-91972
+ghsas:
+    - GHSA-6rvj-qwjf-3m4q
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-6rvj-qwjf-3m4q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91972
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-authentication-bypass-via-unthrottled-api
+source:
+    id: GHSA-6rvj-qwjf-3m4q
+    created: 2026-10-12T08:36:46.682411-04:00
+review_status: UNREVIEWED

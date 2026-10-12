@@ -1,0 +1,25 @@
+id: GO-2026-6755
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Cross-tenant task-position rows can be injected into arbitrary project
+    views via the unvalidated project_view_id in the task position endpoint (v1 and
+    v2) in code.vikunja.io/api
+cves:
+    - CVE-2026-91984
+ghsas:
+    - GHSA-w39f-h553-h2mx
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-w39f-h553-h2mx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91984
+    - web: https://github.com/go-vikunja/vikunja/commit/077dc4de79ce6f1ab59215a2c7bf9b30423685f2
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-broken-object-level-authorization-via-task-position
+source:
+    id: GHSA-w39f-h553-h2mx
+    created: 2026-10-12T08:27:53.583946-04:00
+review_status: UNREVIEWED

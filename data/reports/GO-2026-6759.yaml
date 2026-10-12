@@ -1,0 +1,22 @@
+id: GO-2026-6759
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.5.0
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: 'Vikunja: Unbounded nested task-filter recursion permits API process termination in code.vikunja.io/api'
+cves:
+    - CVE-2026-91968
+ghsas:
+    - GHSA-xxc3-xpmc-vmvr
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-xxc3-xpmc-vmvr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91968
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-denial-of-service-via-unbounded-filter-recursion
+source:
+    id: GHSA-xxc3-xpmc-vmvr
+    created: 2026-10-12T08:27:12.456679-04:00
+review_status: UNREVIEWED

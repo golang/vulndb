@@ -1,0 +1,24 @@
+id: GO-2026-6706
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20250517140552-daee3ac7ade1
+        - fixed: 1.9.10-0.20260728074433-a3999bd78a3b
+summary: |-
+    Nginx UI: Incomplete fix of CVE-2026-84315 - the api/cluster router was not -
+    wrapped in RequireSecureSession, so those sensitive mutations run without OTP
+    step-up in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107813
+ghsas:
+    - GHSA-h246-wpgf-vmq5
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-h246-wpgf-vmq5
+    - web: https://github.com/0xJacky/nginx-ui/commit/a3999bd78a3b97ab22e6b5e9fd478ac57598a954
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-h246-wpgf-vmq5
+    created: 2026-10-12T08:40:24.333889-04:00
+review_status: UNREVIEWED

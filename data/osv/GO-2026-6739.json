@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6739",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-m687-p538-r5hp"
+  ],
+  "summary": "Vikunja: Permissive Cross-domain Security Policy trusts every localhost origin which should not be trusted in code.vikunja.io/api",
+  "details": "Vikunja: Permissive Cross-domain Security Policy trusts every localhost origin which should not be trusted in code.vikunja.io/api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "affected": [
+    {
+      "package": {
+        "name": "code.vikunja.io/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.2.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vikunja/vikunja/security/advisories/GHSA-m687-p538-r5hp"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6739",
+    "review_status": "UNREVIEWED"
+  }
+}

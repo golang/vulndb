@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6724",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107804",
+    "GHSA-9h23-53f4-q947"
+  ],
+  "summary": "Nginx UI: Bundled reverse proxy can bypass IP allowlists and enable shared login lockout in github.com/0xJacky/Nginx-UI",
+  "details": "Nginx UI: Bundled reverse proxy can bypass IP allowlists and enable shared login lockout in github.com/0xJacky/Nginx-UI.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.10-0.20260904075558-e30e331303fc"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.9.10-0.20251005005631-6de168c9454"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-9h23-53f4-q947"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107804"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/commit/e30e331303fc21cf077a2bea724bd79e66892eaf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.6.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6724",
+    "review_status": "UNREVIEWED"
+  }
+}

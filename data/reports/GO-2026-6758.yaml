@@ -1,0 +1,22 @@
+id: GO-2026-6758
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 1.0.0
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: OIDC email-fallback account linking ignores email_verified, enabling
+    local-account takeover in code.vikunja.io/api
+cves:
+    - CVE-2026-62367
+ghsas:
+    - GHSA-xv7q-fvmc-jx96
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-xv7q-fvmc-jx96
+    - web: https://github.com/go-vikunja/vikunja/commit/7854f2729ab72000210b61c25929678fd6901630
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0
+source:
+    id: GHSA-xv7q-fvmc-jx96
+    created: 2026-10-12T08:27:27.574913-04:00
+review_status: UNREVIEWED

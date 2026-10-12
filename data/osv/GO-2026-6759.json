@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6759",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-91968",
+    "GHSA-xxc3-xpmc-vmvr"
+  ],
+  "summary": "Vikunja: Unbounded nested task-filter recursion permits API process termination in code.vikunja.io/api",
+  "details": "Vikunja: Unbounded nested task-filter recursion permits API process termination in code.vikunja.io/api.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: code.vikunja.io/api from v2.5.0 before v2.6.0.",
+  "affected": [
+    {
+      "package": {
+        "name": "code.vikunja.io/api",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "2.5.0"
+              },
+              {
+                "fixed": "2.6.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/go-vikunja/vikunja/security/advisories/GHSA-xxc3-xpmc-vmvr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-91968"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/pull/3688"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.vulncheck.com/advisories/vikunja-before-2.6.0-denial-of-service-via-unbounded-filter-recursion"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6759",
+    "review_status": "UNREVIEWED"
+  }
+}

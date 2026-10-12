@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6741",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-107806",
+    "GHSA-p393-cf76-4jmr"
+  ],
+  "summary": "Nginx UI: Authenticated Remote Code Execution via Backup Restore App Config Overwrite in github.com/0xJacky/Nginx-UI",
+  "details": "Nginx UI: Authenticated Remote Code Execution via Backup Restore App Config Overwrite in github.com/0xJacky/Nginx-UI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.9.10-0.20260421071512-7864e378f5cf"
+            },
+            {
+              "fixed": "1.9.10-0.20260728074146-a467ed652591"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-p393-cf76-4jmr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107806"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/commit/a467ed652591fc0cd1b466a1ec751b493faef9f7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6741",
+    "review_status": "UNREVIEWED"
+  }
+}

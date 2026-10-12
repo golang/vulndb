@@ -1,0 +1,19 @@
+id: GO-2026-6733
+modules:
+    - module: code.vikunja.io/api
+      versions:
+        - introduced: 0.22.0
+      unsupported_versions:
+        - last_affected: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Webhooks and link shares survive every revocation path, so a removed
+    collaborator keeps a live feed in code.vikunja.io/api
+ghsas:
+    - GHSA-hjx8-qv73-f7cm
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-hjx8-qv73-f7cm
+source:
+    id: GHSA-hjx8-qv73-f7cm
+    created: 2026-10-12T08:34:09.465111-04:00
+review_status: UNREVIEWED

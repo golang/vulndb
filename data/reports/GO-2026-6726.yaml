@@ -1,0 +1,25 @@
+id: GO-2026-6726
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 1.0.0
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: API token scopes bypassed via task expand parameter (comments,
+    reactions, time entry counts) in code.vikunja.io/api
+cves:
+    - CVE-2026-91983
+ghsas:
+    - GHSA-9rg3-v78m-26q8
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-9rg3-v78m-26q8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91983
+    - web: https://github.com/go-vikunja/vikunja/commit/077dc4de79ce6f1ab59215a2c7bf9b30423685f2
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-api-token-scope-bypass-via-expand-parameter
+source:
+    id: GHSA-9rg3-v78m-26q8
+    created: 2026-10-12T08:35:12.609933-04:00
+review_status: UNREVIEWED

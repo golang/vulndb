@@ -1,0 +1,24 @@
+id: GO-2026-6757
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - introduced: 2.5.0
+        - fixed: 2.6.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Planka migration retains an unbounded aggregate of attacker-served
+    attachments and can OOM the API in code.vikunja.io/api
+cves:
+    - CVE-2026-91970
+ghsas:
+    - GHSA-wq92-8x3r-fm38
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-wq92-8x3r-fm38
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-91970
+    - web: https://github.com/go-vikunja/vikunja/pull/3688
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.6.0
+    - web: https://www.vulncheck.com/advisories/vikunja-before-2.6.0-resource-exhaustion-via-planka-migration
+source:
+    id: GHSA-wq92-8x3r-fm38
+    created: 2026-10-12T08:27:37.193635-04:00
+review_status: UNREVIEWED

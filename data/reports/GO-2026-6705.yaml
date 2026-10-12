@@ -1,0 +1,23 @@
+id: GO-2026-6705
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20250517140552-daee3ac7ade1
+        - fixed: 1.9.10-0.20260728114330-580585516dd8
+summary: |-
+    Nginx UI: Self-upgrade runs an unsigned binary verified only by a same-origin
+    digest → RCE via a compromised mirror or MITM in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107812
+ghsas:
+    - GHSA-662p-52hx-cmh2
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-662p-52hx-cmh2
+    - web: https://github.com/0xJacky/nginx-ui/commit/580585516dd87a8b176bcdac258db70c3b64b7ec
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-662p-52hx-cmh2
+    created: 2026-10-12T08:40:41.433512-04:00
+review_status: UNREVIEWED

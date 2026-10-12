@@ -1,0 +1,23 @@
+id: GO-2026-6748
+modules:
+    - module: code.vikunja.io/api
+      non_go_versions:
+        - fixed: 2.4.0
+      vulnerable_at: 0.24.6
+summary: |-
+    Vikunja: Plaintext storage of password-reset/email-confirm tokens in database
+    enables account takeover on DB read access in code.vikunja.io/api
+cves:
+    - CVE-2026-62376
+ghsas:
+    - GHSA-r6w9-259g-gwrv
+references:
+    - advisory: https://github.com/go-vikunja/vikunja/security/advisories/GHSA-r6w9-259g-gwrv
+    - web: https://github.com/go-vikunja/vikunja/commit/00fd2c6155c01faae99be4226b931d8091fd6323
+    - web: https://github.com/go-vikunja/vikunja/commit/3a0ea15d8c18ff960bc98ae39950fa7a14b0af7d
+    - web: https://github.com/go-vikunja/vikunja/commit/e31ea2de5040fa63bc97cf4df63bafed3bd9ad85
+    - web: https://github.com/go-vikunja/vikunja/releases/tag/v2.4.0
+source:
+    id: GHSA-r6w9-259g-gwrv
+    created: 2026-10-12T08:30:36.974884-04:00
+review_status: UNREVIEWED

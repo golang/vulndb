@@ -1,0 +1,24 @@
+id: GO-2026-6741
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - introduced: 1.9.10-0.20260421071512-7864e378f5cf
+        - fixed: 1.9.10-0.20260728074146-a467ed652591
+summary: |-
+    Nginx UI: Authenticated Remote Code Execution via Backup Restore App Config
+    Overwrite in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-107806
+ghsas:
+    - GHSA-p393-cf76-4jmr
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-p393-cf76-4jmr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-107806
+    - web: https://github.com/0xJacky/nginx-ui/commit/a467ed652591fc0cd1b466a1ec751b493faef9f7
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.5.0
+notes:
+    - fix: 'github.com/0xJacky/Nginx-UI: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-p393-cf76-4jmr
+    created: 2026-10-12T08:32:21.385232-04:00
+review_status: UNREVIEWED

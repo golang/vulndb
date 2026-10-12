@@ -1,0 +1,25 @@
+id: GO-2026-6720
+modules:
+    - module: github.com/jhaals/yopass
+      versions:
+        - fixed: 0.0.0-20260727191436-61e31ead04a4
+summary: |-
+    yopass Prometheus metrics middleware allows remote memory exhaustion through
+    unbounded method labels in github.com/jhaals/yopass
+cves:
+    - CVE-2026-107840
+ghsas:
+    - GHSA-6r69-c6wg-7g8m
+references:
+    - advisory: https://github.com/jhaals/yopass/security/advisories/GHSA-6r69-c6wg-7g8m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-107840
+    - fix: https://github.com/jhaals/yopass/commit/61e31ead04a4fc27ce80bed226af41c7c0426ccf
+    - fix: https://github.com/jhaals/yopass/commit/78d0c14f7085048130199662a2ec8a18ec8d6ebb
+    - fix: https://github.com/jhaals/yopass/pull/3773
+    - web: https://github.com/jhaals/yopass/releases/tag/14.7.0
+notes:
+    - fix: 'github.com/jhaals/yopass: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-6r69-c6wg-7g8m
+    created: 2026-10-12T08:37:04.563864-04:00
+review_status: UNREVIEWED
