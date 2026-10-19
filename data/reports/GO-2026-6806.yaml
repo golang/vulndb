@@ -1,0 +1,24 @@
+id: GO-2026-6806
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      vulnerable_at: 1.20.0
+    - module: github.com/getarcaneapp/arcane/backend/v2
+      versions:
+        - fixed: 2.11.0
+      vulnerable_at: 2.10.2
+summary: |-
+    Arcane: Environment access token bypasses the admin-required authorization gate
+    on `/api/debug/pprof` in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-96628
+ghsas:
+    - GHSA-mp22-58ff-6fhr
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-mp22-58ff-6fhr
+    - web: https://github.com/getarcaneapp/arcane/commit/4fe4c7ed9483dff7d43e3c4bee6a92037ce886b4
+    - web: https://github.com/getarcaneapp/arcane/pull/3881
+    - web: https://github.com/getarcaneapp/arcane/releases/tag/backend/v2.11.0
+source:
+    id: GHSA-mp22-58ff-6fhr
+    created: 2026-10-19T08:39:48.361101-04:00
+review_status: UNREVIEWED

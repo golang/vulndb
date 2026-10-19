@@ -1,0 +1,23 @@
+id: GO-2026-6782
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260703131214-23d1934099b0
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx UI: nginx config directive denylist (ValidateConfigFile) is bypassable via
+    same-line ";" separation → authenticated directive injection (RCE on the
+    official image) in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84316
+ghsas:
+    - GHSA-cf23-7qxj-xmhr
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-cf23-7qxj-xmhr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-84316
+    - web: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-cf23-7qxj-xmhr
+    created: 2026-10-19T08:58:32.655305-04:00
+review_status: UNREVIEWED

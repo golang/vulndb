@@ -1,0 +1,27 @@
+id: GO-2026-6796
+modules:
+    - module: github.com/containerd/containerd
+      versions:
+        - fixed: 1.7.35
+      vulnerable_at: 1.7.34
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - fixed: 2.0.12
+        - introduced: 2.2.0
+        - fixed: 2.2.8
+        - introduced: 2.3.0
+        - fixed: 2.3.5
+      vulnerable_at: 2.3.4
+summary: 'containerd: Unpack DoS via repeated opaque whiteouts in github.com/containerd/containerd'
+cves:
+    - CVE-2026-95838
+ghsas:
+    - GHSA-rp3h-jf77-q9p4
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-rp3h-jf77-q9p4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-95838
+    - fix: https://github.com/containerd/containerd/commit/e6ca378dcfa610d06589a3ac96aa992de866e4f0
+source:
+    id: GHSA-rp3h-jf77-q9p4
+    created: 2026-10-19T08:41:32.690634-04:00
+review_status: UNREVIEWED

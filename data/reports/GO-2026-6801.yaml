@@ -1,0 +1,22 @@
+id: GO-2026-6801
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260703131214-23d1934099b0
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx UI: Standalone short tokens survive administrative revocation in cache and
+    authenticate again after account re-enable in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84321
+ghsas:
+    - GHSA-wq4w-vwvq-q3x9
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-wq4w-vwvq-q3x9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-84321
+    - web: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-wq4w-vwvq-q3x9
+    created: 2026-10-19T08:40:41.957081-04:00
+review_status: UNREVIEWED

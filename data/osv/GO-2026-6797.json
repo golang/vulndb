@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6797",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-82416",
+    "GHSA-v3ph-cgqh-r8p5"
+  ],
+  "summary": "FrankenPHP: Cross-request PHP session ID leak in worker mode when the session extension is a shared module in github.com/dunglas/frankenphp",
+  "details": "FrankenPHP: Cross-request PHP session ID leak in worker mode when the session extension is a shared module in github.com/dunglas/frankenphp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/dunglas/frankenphp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.12.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/php/frankenphp/security/advisories/GHSA-v3ph-cgqh-r8p5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82416"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/commit/be24d82531675f90862b8cde1e9fc7e9ee855aa5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/pull/2523"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/php/frankenphp/releases/tag/caddy/v1.12.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6797",
+    "review_status": "UNREVIEWED"
+  }
+}

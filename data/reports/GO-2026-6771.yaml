@@ -1,0 +1,22 @@
+id: GO-2026-6771
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260703131214-23d1934099b0
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx UI: Account Takeover via Missing `RequireSecureSession` on User Management
+    Endpoint in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84314
+ghsas:
+    - GHSA-2gc7-j998-5xx6
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-2gc7-j998-5xx6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-84314
+    - web: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-2gc7-j998-5xx6
+    created: 2026-10-19T09:00:06.999922-04:00
+review_status: UNREVIEWED

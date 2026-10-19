@@ -1,0 +1,43 @@
+id: GO-2026-6784
+modules:
+    - module: github.com/argoproj/argo-cd
+      vulnerable_at: 1.8.6
+    - module: github.com/argoproj/argo-cd/v2
+      versions:
+        - introduced: 2.10.0
+      unsupported_versions:
+        - last_affected: 2.14.21
+      vulnerable_at: 2.14.21
+    - module: github.com/argoproj/argo-cd/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.3.15
+        - introduced: 3.4.0
+        - fixed: 3.4.10
+        - introduced: 3.5.0
+        - fixed: 3.5.4
+        - introduced: 3.6.0-rc1
+        - fixed: 3.6.0-rc2
+      vulnerable_at: 3.6.0-rc1
+summary: |-
+    Argo CD: AppProject destination-namespace and resource restrictions bypassed by
+    PreDelete/PostDelete resource hooks in github.com/argoproj/argo-cd
+cves:
+    - CVE-2026-77459
+ghsas:
+    - GHSA-fmxq-cgp8-87wp
+references:
+    - advisory: https://github.com/argoproj/argo-cd/security/advisories/GHSA-fmxq-cgp8-87wp
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77459
+    - fix: https://github.com/argoproj/argo-cd/commit/1149cdc6e932208c4402183cc3d7b7485239940c
+    - fix: https://github.com/argoproj/argo-cd/commit/4bc8085b0a6d2296b849539d3d09fc7be7a4a511
+    - fix: https://github.com/argoproj/argo-cd/commit/7f0a05834b05103d69d7c150e1ee36541b314696
+    - fix: https://github.com/argoproj/argo-cd/commit/d5dd7019ee65be8895133fe4df554e28074242c4
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v3.3.15
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v3.4.10
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v3.5.4
+    - web: https://github.com/argoproj/argo-cd/releases/tag/v3.6.0-rc2
+source:
+    id: GHSA-fmxq-cgp8-87wp
+    created: 2026-10-19T08:58:03.11824-04:00
+review_status: UNREVIEWED

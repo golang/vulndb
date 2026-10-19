@@ -1,0 +1,24 @@
+id: GO-2026-6807
+modules:
+    - module: github.com/getarcaneapp/arcane/backend
+      vulnerable_at: 1.20.0
+    - module: github.com/getarcaneapp/arcane/backend/v2
+      versions:
+        - fixed: 2.6.0
+      vulnerable_at: 2.5.0
+summary: |-
+    Arcane: Delegated users:update permission allows admin account takeover via
+    password reset (no privilege-hierarchy check) in github.com/getarcaneapp/arcane/backend
+cves:
+    - CVE-2026-96627
+ghsas:
+    - GHSA-pw5q-rjx4-7f7p
+references:
+    - advisory: https://github.com/getarcaneapp/arcane/security/advisories/GHSA-pw5q-rjx4-7f7p
+    - web: https://github.com/getarcaneapp/arcane/commit/21ea962f86d967dac8ae02a050f6e5f043d10fa1
+    - web: https://github.com/getarcaneapp/arcane/pull/3426
+    - web: https://github.com/getarcaneapp/arcane/releases/tag/backend/v2.6.0
+source:
+    id: GHSA-pw5q-rjx4-7f7p
+    created: 2026-10-19T08:39:39.515633-04:00
+review_status: UNREVIEWED

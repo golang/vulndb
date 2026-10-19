@@ -1,0 +1,24 @@
+id: GO-2026-6767
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.97.0
+      vulnerable_at: 2.96.0
+summary: |-
+    GitHub CLI allows attestation verification bypass through unescaped regex
+    metacharacters in github.com/cli/cli
+cves:
+    - CVE-2026-64655
+ghsas:
+    - GHSA-mm27-mwq9-fr5g
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-mm27-mwq9-fr5g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-64655
+    - fix: https://github.com/cli/cli/commit/55dbb4dc6b7edb10b48e3d7fc5bccd32318d1b55
+    - web: https://github.com/cli/cli/releases/tag/v2.97.0
+source:
+    id: GHSA-mm27-mwq9-fr5g
+    created: 2026-10-19T09:00:58.384821-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-6765
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.97.0
+      vulnerable_at: 2.96.0
+summary: GitHub CLI allows path traversal through unescaped request URL components in github.com/cli/cli
+cves:
+    - CVE-2026-64653
+ghsas:
+    - GHSA-4fjg-2h4q-fwg3
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-4fjg-2h4q-fwg3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-64653
+    - fix: https://github.com/cli/cli/commit/0c2eea6338a2323cfff000160b9b5a56a38d2a06
+    - web: https://github.com/cli/cli/releases/tag/v2.97.0
+source:
+    id: GHSA-4fjg-2h4q-fwg3
+    created: 2026-10-19T09:01:17.326358-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-6791
+modules:
+    - module: github.com/containerd/containerd
+      vulnerable_at: 1.7.36
+    - module: github.com/containerd/containerd/v2
+      versions:
+        - introduced: 2.1.0
+        - fixed: 2.2.7
+        - introduced: 2.3.0
+        - fixed: 2.3.4
+      vulnerable_at: 2.3.3
+summary: 'containerd CRI plugin: Checkpoint restore bypasses destination security context in github.com/containerd/containerd'
+cves:
+    - CVE-2026-95837
+ghsas:
+    - GHSA-p7v4-vr35-mj6f
+references:
+    - advisory: https://github.com/containerd/containerd/security/advisories/GHSA-p7v4-vr35-mj6f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-95837
+    - fix: https://github.com/containerd/containerd/commit/928c03c6898cad95f795300281fdff0dbc55a32f
+    - fix: https://github.com/containerd/containerd/pull/13913
+source:
+    id: GHSA-p7v4-vr35-mj6f
+    created: 2026-10-19T08:56:45.653673-04:00
+review_status: UNREVIEWED

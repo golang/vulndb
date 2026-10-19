@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6807",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-96627",
+    "GHSA-pw5q-rjx4-7f7p"
+  ],
+  "summary": "Arcane: Delegated users:update permission allows admin account takeover via password reset (no privilege-hierarchy check) in github.com/getarcaneapp/arcane/backend",
+  "details": "Arcane: Delegated users:update permission allows admin account takeover via password reset (no privilege-hierarchy check) in github.com/getarcaneapp/arcane/backend",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/getarcaneapp/arcane/backend",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/getarcaneapp/arcane/backend/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/getarcaneapp/arcane/security/advisories/GHSA-pw5q-rjx4-7f7p"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getarcaneapp/arcane/commit/21ea962f86d967dac8ae02a050f6e5f043d10fa1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getarcaneapp/arcane/pull/3426"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getarcaneapp/arcane/releases/tag/backend/v2.6.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6807",
+    "review_status": "UNREVIEWED"
+  }
+}

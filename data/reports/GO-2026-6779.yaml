@@ -1,0 +1,22 @@
+id: GO-2026-6779
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260703131214-23d1934099b0
+      vulnerable_at: 1.9.9
+summary: |-
+    Nginx UI: MCP nginx_config_add skips config directive validation →
+    authenticated nginx directive injection (RCE on the official image) in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84317
+ghsas:
+    - GHSA-76pm-mq2q-9gcr
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-76pm-mq2q-9gcr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-84317
+    - web: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-76pm-mq2q-9gcr
+    created: 2026-10-19T08:58:46.951679-04:00
+review_status: UNREVIEWED

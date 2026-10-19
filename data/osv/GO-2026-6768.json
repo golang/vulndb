@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6768",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-64672",
+    "GHSA-wv6g-x823-wx9m"
+  ],
+  "summary": "Terragrunt catalog predictable temp symlink clobber in github.com/gruntwork-io/terragrunt",
+  "details": "Terragrunt catalog predictable temp symlink clobber in github.com/gruntwork-io/terragrunt",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gruntwork-io/terragrunt",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gruntwork-io/terragrunt/security/advisories/GHSA-wv6g-x823-wx9m"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gruntwork-io/terragrunt/commit/668891c5a2ad2996f134bb8b00098754674ea94a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gruntwork-io/terragrunt/pull/6438"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6768",
+    "review_status": "UNREVIEWED"
+  }
+}

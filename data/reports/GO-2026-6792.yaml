@@ -1,0 +1,22 @@
+id: GO-2026-6792
+modules:
+    - module: github.com/drakkan/sftpgo
+      vulnerable_at: 1.2.2
+    - module: github.com/drakkan/sftpgo/v2
+      versions:
+        - fixed: 2.7.5
+      vulnerable_at: 2.7.4
+summary: 'SFTPGo: Denial of service via malformed SSH channel request in github.com/drakkan/sftpgo'
+cves:
+    - CVE-2026-77375
+ghsas:
+    - GHSA-q7pc-356p-hggc
+references:
+    - advisory: https://github.com/drakkan/sftpgo/security/advisories/GHSA-q7pc-356p-hggc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77375
+    - fix: https://github.com/drakkan/sftpgo/commit/4f751232d7025cf2f7360e01ee8dca81e74b48b0
+    - web: https://github.com/drakkan/sftpgo/releases/tag/v2.7.5
+source:
+    id: GHSA-q7pc-356p-hggc
+    created: 2026-10-19T08:56:38.388215-04:00
+review_status: UNREVIEWED

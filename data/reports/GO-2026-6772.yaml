@@ -1,0 +1,28 @@
+id: GO-2026-6772
+modules:
+    - module: github.com/gotify/server
+      vulnerable_at: 1.2.1
+    - module: github.com/gotify/server/v2
+      unsupported_versions:
+        - last_affected: 2.9.1
+      vulnerable_at: 2.9.1
+    - module: github.com/gotify/server/v3
+      versions:
+        - fixed: 3.0.0
+summary: 'Gotify: Insufficiently Protected Password Change endpoint in github.com/gotify/server'
+cves:
+    - CVE-2026-102603
+ghsas:
+    - GHSA-3hcj-9m7p-wwm9
+references:
+    - advisory: https://github.com/gotify/server/security/advisories/GHSA-3hcj-9m7p-wwm9
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-102603
+    - fix: https://github.com/gotify/server/commit/a8744482c668e07a61798573ec8e17bd3f6009f9
+    - fix: https://github.com/gotify/server/pull/952
+    - web: https://github.com/gotify/server/releases/tag/v3.0.0
+notes:
+    - fix: 'github.com/gotify/server/v3: could not add vulnerable_at: could not find tagged version between introduced and fixed'
+source:
+    id: GHSA-3hcj-9m7p-wwm9
+    created: 2026-10-19T08:59:55.378608-04:00
+review_status: UNREVIEWED

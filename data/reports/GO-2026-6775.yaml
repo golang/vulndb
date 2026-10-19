@@ -1,0 +1,20 @@
+id: GO-2026-6775
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      versions:
+        - fixed: 1.9.10-0.20260703131214-23d1934099b0
+      vulnerable_at: 1.9.9
+summary: Nginx UI OTP secure-session step-up is missing on sensitive mutation routes in github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84315
+ghsas:
+    - GHSA-5v7c-xpfp-p65m
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-5v7c-xpfp-p65m
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-84315
+    - web: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-5v7c-xpfp-p65m
+    created: 2026-10-19T08:59:34.903124-04:00
+review_status: UNREVIEWED

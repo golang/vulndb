@@ -1,0 +1,23 @@
+id: GO-2026-6797
+modules:
+    - module: github.com/dunglas/frankenphp
+      versions:
+        - fixed: 1.12.5
+      vulnerable_at: 1.12.4
+summary: |-
+    FrankenPHP: Cross-request PHP session ID leak in worker mode when the session
+    extension is a shared module in github.com/dunglas/frankenphp
+cves:
+    - CVE-2026-82416
+ghsas:
+    - GHSA-v3ph-cgqh-r8p5
+references:
+    - advisory: https://github.com/php/frankenphp/security/advisories/GHSA-v3ph-cgqh-r8p5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-82416
+    - web: https://github.com/php/frankenphp/commit/be24d82531675f90862b8cde1e9fc7e9ee855aa5
+    - web: https://github.com/php/frankenphp/pull/2523
+    - web: https://github.com/php/frankenphp/releases/tag/caddy/v1.12.5
+source:
+    id: GHSA-v3ph-cgqh-r8p5
+    created: 2026-10-19T08:41:23.963126-04:00
+review_status: UNREVIEWED

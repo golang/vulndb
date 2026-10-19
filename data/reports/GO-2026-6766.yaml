@@ -1,0 +1,22 @@
+id: GO-2026-6766
+modules:
+    - module: github.com/cli/cli
+      vulnerable_at: 1.14.0
+    - module: github.com/cli/cli/v2
+      versions:
+        - fixed: 2.97.0
+      vulnerable_at: 2.96.0
+summary: GitHub CLI partially discloses authentication tokens in `gh auth status` output in github.com/cli/cli
+cves:
+    - CVE-2026-64652
+ghsas:
+    - GHSA-cg6r-mpgc-h9mm
+references:
+    - advisory: https://github.com/cli/cli/security/advisories/GHSA-cg6r-mpgc-h9mm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-64652
+    - fix: https://github.com/cli/cli/commit/3f6a16a9f8c7fe9676aa8d8f47b399310dd231c3
+    - web: https://github.com/cli/cli/releases/tag/v2.97.0
+source:
+    id: GHSA-cg6r-mpgc-h9mm
+    created: 2026-10-19T09:01:08.3227-04:00
+review_status: UNREVIEWED

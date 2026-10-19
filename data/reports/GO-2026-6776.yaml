@@ -1,0 +1,26 @@
+id: GO-2026-6776
+modules:
+    - module: github.com/kedacore/keda
+      unsupported_versions:
+        - last_affected: 1.5.0
+      vulnerable_at: 1.5.0
+    - module: github.com/kedacore/keda/v2
+      versions:
+        - fixed: 2.21.0
+      vulnerable_at: 2.20.2
+summary: |-
+    KEDA: Privilege escalation from namespace admin to cluster admin via KEDA
+    TriggerAuthentication in github.com/kedacore/keda
+cves:
+    - CVE-2026-77524
+ghsas:
+    - GHSA-637c-6jxx-4rwm
+references:
+    - advisory: https://github.com/kedacore/keda/security/advisories/GHSA-637c-6jxx-4rwm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77524
+    - fix: https://github.com/kedacore/keda/commit/1e21cc798dedd079e696cdb45388eddc5e18365d
+    - web: https://github.com/kedacore/keda/releases/tag/v2.21.0
+source:
+    id: GHSA-637c-6jxx-4rwm
+    created: 2026-10-19T08:59:26.916127-04:00
+review_status: UNREVIEWED
