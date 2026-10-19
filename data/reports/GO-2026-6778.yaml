@@ -1,0 +1,38 @@
+id: GO-2026-6778
+modules:
+    - module: github.com/distribution/distribution
+      vulnerable_at: 2.8.3+incompatible
+      packages:
+        - package: github.com/distribution/distribution/registry/client
+          symbols:
+            - manifests.Get
+    - module: github.com/distribution/distribution/v3
+      versions:
+        - fixed: 3.1.2
+      vulnerable_at: 3.1.1
+      packages:
+        - package: github.com/distribution/distribution/v3/internal/client
+          symbols:
+            - manifests.Get
+    - module: github.com/docker/distribution
+      vulnerable_at: 2.8.3+incompatible
+      packages:
+        - package: github.com/docker/distribution/registry/client
+          symbols:
+            - manifests.Get
+summary: |-
+    Distribution: Client does not verify returned content against requested digest
+    in github.com/distribution/distribution
+cves:
+    - CVE-2026-85747
+ghsas:
+    - GHSA-685w-q87j-wqw3
+references:
+    - advisory: https://github.com/distribution/distribution/security/advisories/GHSA-685w-q87j-wqw3
+    - fix: https://github.com/distribution/distribution/commit/8f91c26c8888a95a36c2357a6e30bc15d4dd76d3
+    - fix: https://github.com/distribution/distribution/commit/960439b09f342cdeb8f1c0e18e8c7349bdcfbf80
+    - web: https://github.com/distribution/distribution/releases/tag/v3.1.2
+source:
+    id: GHSA-685w-q87j-wqw3
+    created: 2026-10-19T08:58:54.088556-04:00
+review_status: REVIEWED

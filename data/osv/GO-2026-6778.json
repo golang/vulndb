@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6778",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-85747",
+    "GHSA-685w-q87j-wqw3"
+  ],
+  "summary": "Distribution: Client does not verify returned content against requested digest in github.com/distribution/distribution",
+  "details": "Distribution: Client does not verify returned content against requested digest in github.com/distribution/distribution",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/distribution/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/distribution/distribution/registry/client",
+            "symbols": [
+              "manifests.Get"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/distribution/distribution/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/distribution/distribution/v3/internal/client",
+            "symbols": [
+              "manifests.Get"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/docker/distribution",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/distribution/registry/client",
+            "symbols": [
+              "manifests.Get"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/distribution/distribution/security/advisories/GHSA-685w-q87j-wqw3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/8f91c26c8888a95a36c2357a6e30bc15d4dd76d3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/distribution/distribution/commit/960439b09f342cdeb8f1c0e18e8c7349bdcfbf80"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/distribution/distribution/releases/tag/v3.1.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6778",
+    "review_status": "REVIEWED"
+  }
+}
