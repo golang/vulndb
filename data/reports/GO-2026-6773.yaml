@@ -1,0 +1,82 @@
+id: GO-2026-6773
+modules:
+    - module: github.com/0xJacky/Nginx-UI
+      vulnerable_at: 1.9.9
+      packages:
+        - package: github.com/0xJacky/Nginx-UI/api/user
+          symbols:
+            - UpdateCurrentUserPassword
+            - InitUserRouter
+            - InitManageUserRouter
+            - EnrollTOTP
+            - GetCasdoorUri
+            - CasdoorCallback
+            - BeginPasskeyRegistration
+        - package: github.com/0xJacky/Nginx-UI/api/backup
+          symbols:
+            - InitRouter
+            - InitAutoBackupRouter
+        - package: github.com/0xJacky/Nginx-UI/api/streams
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/api/settings
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/internal/middleware
+          symbols:
+            - RequireSecureSession
+        - package: github.com/0xJacky/Nginx-UI/internal/backup
+          symbols:
+            - ValidateAutoBackupConfig
+            - createEncryptedBackup
+            - createCustomDirectoryBackup
+        - package: github.com/0xJacky/Nginx-UI/api/certificate
+          symbols:
+            - InitAcmeUserRouter
+            - InitDNSCredentialRouter
+            - InitCertificateWebSocketRouter
+            - InitCertificateRouter
+        - package: github.com/0xJacky/Nginx-UI/api/terminal
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/api/nginx
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/api/sites
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/mcp/config
+          symbols:
+            - handleNginxConfigAdd
+        - package: github.com/0xJacky/Nginx-UI/internal/user
+          symbols:
+            - DeleteToken
+            - DeleteUserTokens
+            - GetTokenUserByShortToken
+        - package: github.com/0xJacky/Nginx-UI/mcp
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/api/dns
+          symbols:
+            - InitRouter
+        - package: github.com/0xJacky/Nginx-UI/internal/config
+          symbols:
+            - loadsRestrictedDynamicModule
+            - configuresRootWorkers
+            - firstDirectiveToken
+            - ValidateConfigDirectives
+summary: |-
+    Casdoor SSO callback uses a constant state parameter (login CSRF) in
+    github.com/0xJacky/Nginx-UI
+cves:
+    - CVE-2026-84312
+ghsas:
+    - GHSA-44xr-mrhh-qm78
+references:
+    - advisory: https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-44xr-mrhh-qm78
+    - fix: https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2
+    - web: https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1
+source:
+    id: GHSA-44xr-mrhh-qm78
+    created: 2026-10-19T08:59:48.95537-04:00
+review_status: REVIEWED

@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6773",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-84312",
+    "GHSA-44xr-mrhh-qm78"
+  ],
+  "summary": "Casdoor SSO callback uses a constant state parameter (login CSRF) in github.com/0xJacky/Nginx-UI",
+  "details": "Casdoor SSO callback uses a constant state parameter (login CSRF) in github.com/0xJacky/Nginx-UI",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/0xJacky/Nginx-UI",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/user",
+            "symbols": [
+              "BeginPasskeyRegistration",
+              "CasdoorCallback",
+              "EnrollTOTP",
+              "GetCasdoorUri",
+              "InitManageUserRouter",
+              "InitUserRouter",
+              "UpdateCurrentUserPassword"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/backup",
+            "symbols": [
+              "InitAutoBackupRouter",
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/streams",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/settings",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/internal/middleware",
+            "symbols": [
+              "RequireSecureSession"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/internal/backup",
+            "symbols": [
+              "ValidateAutoBackupConfig",
+              "createCustomDirectoryBackup",
+              "createEncryptedBackup"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/certificate",
+            "symbols": [
+              "InitAcmeUserRouter",
+              "InitCertificateRouter",
+              "InitCertificateWebSocketRouter",
+              "InitDNSCredentialRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/terminal",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/nginx",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/sites",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/mcp/config",
+            "symbols": [
+              "handleNginxConfigAdd"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/internal/user",
+            "symbols": [
+              "DeleteToken",
+              "DeleteUserTokens",
+              "GetTokenUserByShortToken"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/mcp",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/api/dns",
+            "symbols": [
+              "InitRouter"
+            ]
+          },
+          {
+            "path": "github.com/0xJacky/Nginx-UI/internal/config",
+            "symbols": [
+              "ValidateConfigDirectives",
+              "configuresRootWorkers",
+              "firstDirectiveToken",
+              "loadsRestrictedDynamicModule"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/0xJacky/nginx-ui/security/advisories/GHSA-44xr-mrhh-qm78"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/0xJacky/nginx-ui/commit/23d1934099b05b2a01589b48129dc3d3159d91c2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/0xJacky/nginx-ui/releases/tag/v2.4.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6773",
+    "review_status": "REVIEWED"
+  }
+}
