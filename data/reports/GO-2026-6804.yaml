@@ -1,0 +1,34 @@
+id: GO-2026-6804
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.146.0
+      vulnerable_at: 0.145.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - decodeValue
+          derived_symbols:
+            - MultipartBodyDecoder
+            - UrlencodedBodyDecoder
+            - ValidateParameter
+            - ValidateRequest
+            - ValidateRequestBody
+            - ValidateResponse
+            - ValidationHandler.ServeHTTP
+summary: |-
+    kin-openapi openapi3filter: nil-pointer panic in ValidateResponse on a response
+    header declared with content in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100349
+ghsas:
+    - GHSA-74vm-87hj-r66f
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-74vm-87hj-r66f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100349
+    - fix: https://github.com/getkin/kin-openapi/commit/f5441d67f855ed34d975b3b85665764644ab1459
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.146.0
+source:
+    id: GHSA-74vm-87hj-r66f
+    created: 2026-10-19T08:40:06.71023-04:00
+review_status: NEEDS_REVIEW

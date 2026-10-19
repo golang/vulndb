@@ -1,0 +1,34 @@
+id: GO-2026-6789
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.145.0
+      vulnerable_at: 0.144.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3
+          symbols:
+            - Loader.resolveComponent
+          derived_symbols:
+            - Loader.LoadFromData
+            - Loader.LoadFromDataWithPath
+            - Loader.LoadFromFile
+            - Loader.LoadFromIoReader
+            - Loader.LoadFromStdin
+            - Loader.LoadFromURI
+            - Loader.ResolveRefsIn
+summary: |-
+    kin-openapi spec loader panics on a self-referential additionalProperties $ref
+    (nil-pointer DoS) in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100348
+ghsas:
+    - GHSA-mh7x-f8wq-4jhx
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-mh7x-f8wq-4jhx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100348
+    - fix: https://github.com/getkin/kin-openapi/commit/88aa64c7cbd03ecadbb419c473bdcaa8b0124c6b
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.145.0
+source:
+    id: GHSA-mh7x-f8wq-4jhx
+    created: 2026-10-19T08:57:07.269627-04:00
+review_status: NEEDS_REVIEW

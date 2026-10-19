@@ -1,0 +1,41 @@
+id: GO-2026-6800
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - introduced: 0.136.0
+        - fixed: 0.149.0
+      vulnerable_at: 0.148.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - urlValuesDecoder.parseArray
+            - buildResObj
+          derived_symbols:
+            - MultipartBodyDecoder
+            - UrlencodedBodyDecoder
+            - ValidateParameter
+            - ValidateRequest
+            - ValidateRequestBody
+            - ValidateResponse
+            - ValidationHandler.ServeHTTP
+            - cookieParamDecoder.DecodeObject
+            - headerParamDecoder.DecodeObject
+            - pathParamDecoder.DecodeObject
+            - urlValuesDecoder.DecodeArray
+            - urlValuesDecoder.DecodeObject
+summary: |-
+    kin-openapi: Incomplete Fix for GHSA-p6wj-qrr4-pgh5: Three Unpatched nil-Items
+    Panic Paths in openapi3filter in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100353
+ghsas:
+    - GHSA-vrcc-3ch7-hppw
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-vrcc-3ch7-hppw
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100353
+    - fix: https://github.com/getkin/kin-openapi/commit/9814d1f2b212f3508bf52296aa9e248b2122a5a9
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.149.0
+source:
+    id: GHSA-vrcc-3ch7-hppw
+    created: 2026-10-19T08:40:50.238377-04:00
+review_status: NEEDS_REVIEW

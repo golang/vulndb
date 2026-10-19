@@ -1,0 +1,32 @@
+id: GO-2026-6783
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.145.0
+      vulnerable_at: 0.144.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3
+          symbols:
+            - PathItem.GetOperation
+        - package: github.com/getkin/kin-openapi/openapi2
+          symbols:
+            - PathItem.GetOperation
+        - package: github.com/getkin/kin-openapi/routers/gorillamux
+          symbols:
+            - Router.FindRoute
+summary: |-
+    kin-openapi: Unauthenticated panic (DoS) in openapi3filter legacy router via
+    non-canonical/unsupported HTTP method on a static path in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100347
+ghsas:
+    - GHSA-fh4f-47mf-f2gj
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-fh4f-47mf-f2gj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100347
+    - fix: https://github.com/getkin/kin-openapi/commit/f1a5b523b82868d2d9be2e116b4e942892be72c3
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.145.0
+source:
+    id: GHSA-fh4f-47mf-f2gj
+    created: 2026-10-19T08:58:15.508077-04:00
+review_status: NEEDS_REVIEW

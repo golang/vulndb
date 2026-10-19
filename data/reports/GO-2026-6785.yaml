@@ -1,0 +1,71 @@
+id: GO-2026-6785
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.149.0
+      vulnerable_at: 0.148.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3
+          symbols:
+            - Schema.visitJSON
+          derived_symbols:
+            - Callback.Validate
+            - CallbackRef.Validate
+            - Components.Validate
+            - Content.Validate
+            - Encoding.Validate
+            - Header.Validate
+            - HeaderRef.Validate
+            - MediaType.Validate
+            - Operation.Validate
+            - Parameter.Validate
+            - ParameterRef.Validate
+            - Parameters.Validate
+            - PathItem.Validate
+            - Paths.Validate
+            - RequestBody.Validate
+            - RequestBodyRef.Validate
+            - Response.Validate
+            - ResponseRef.Validate
+            - Responses.Validate
+            - Schema.IsMatching
+            - Schema.IsMatchingJSONArray
+            - Schema.IsMatchingJSONBoolean
+            - Schema.IsMatchingJSONNumber
+            - Schema.IsMatchingJSONObject
+            - Schema.IsMatchingJSONString
+            - Schema.Validate
+            - Schema.VisitJSON
+            - Schema.VisitJSONArray
+            - Schema.VisitJSONObject
+            - SchemaRef.Validate
+            - T.Validate
+            - T.ValidateSchemaJSON
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - decodeValue
+          derived_symbols:
+            - MultipartBodyDecoder
+            - UrlencodedBodyDecoder
+            - ValidateParameter
+            - ValidateRequest
+            - ValidateRequestBody
+            - ValidateResponse
+            - ValidationHandler.Load
+            - ValidationHandler.ServeHTTP
+summary: |-
+    kin-openapi: Uncontrolled Recursion on Circular allOf/anyOf/oneOf Schemas Causes
+    Fatal Process Crash in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100354
+ghsas:
+    - GHSA-g8cf-rcjf-c8cf
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-g8cf-rcjf-c8cf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100354
+    - fix: https://github.com/getkin/kin-openapi/commit/9245cef66c840e27a08409a8a5cd0ee930c5bcff
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.149.0
+source:
+    id: GHSA-g8cf-rcjf-c8cf
+    created: 2026-10-19T08:57:48.468632-04:00
+review_status: NEEDS_REVIEW

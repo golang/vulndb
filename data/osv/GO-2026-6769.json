@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6769",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-100351",
+    "GHSA-23vg-4cjm-66q5"
+  ],
+  "summary": "kin-openapi: ValidationHandler security-requirement bypass via encoded-path operation confusion in github.com/getkin/kin-openapi",
+  "details": "kin-openapi: ValidationHandler security-requirement bypass via encoded-path operation confusion in github.com/getkin/kin-openapi",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/getkin/kin-openapi",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.144.0"
+            },
+            {
+              "fixed": "0.147.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/getkin/kin-openapi/openapi3filter",
+            "symbols": [
+              "ValidationHandler.ServeHTTP",
+              "ValidationHandler.validateRequest"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/getkin/kin-openapi/security/advisories/GHSA-23vg-4cjm-66q5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-100351"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/getkin/kin-openapi/commit/eda80e2676e9f577ceed2dd80e64f16083edb041"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getkin/kin-openapi/releases/tag/v0.147.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6769",
+    "review_status": "UNREVIEWED"
+  }
+}

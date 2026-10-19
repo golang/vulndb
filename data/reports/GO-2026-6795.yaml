@@ -1,0 +1,24 @@
+id: GO-2026-6795
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - fixed: 0.148.0
+      vulnerable_at: 0.147.0
+summary: |-
+    kin-openapi: YAML NaN/Inf Values Bypass Built-in Guards and Panic via OAS 3.1
+    Validation Path in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100352
+ghsas:
+    - GHSA-rj39-cv6w-8wv7
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-rj39-cv6w-8wv7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100352
+    - fix: https://github.com/getkin/kin-openapi/commit/4487f198ab8be0c37d6ca72c54f5dca4dc25270e
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.148.0
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-rj39-cv6w-8wv7
+    created: 2026-10-19T08:41:40.545999-04:00
+review_status: NEEDS_REVIEW

@@ -1,0 +1,29 @@
+id: GO-2026-6769
+modules:
+    - module: github.com/getkin/kin-openapi
+      versions:
+        - introduced: 0.144.0
+        - fixed: 0.147.0
+      vulnerable_at: 0.146.0
+      packages:
+        - package: github.com/getkin/kin-openapi/openapi3filter
+          symbols:
+            - ValidationHandler.validateRequest
+          derived_symbols:
+            - ValidationHandler.ServeHTTP
+summary: |-
+    kin-openapi: ValidationHandler security-requirement bypass via encoded-path
+    operation confusion in github.com/getkin/kin-openapi
+cves:
+    - CVE-2026-100351
+ghsas:
+    - GHSA-23vg-4cjm-66q5
+references:
+    - advisory: https://github.com/getkin/kin-openapi/security/advisories/GHSA-23vg-4cjm-66q5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-100351
+    - fix: https://github.com/getkin/kin-openapi/commit/eda80e2676e9f577ceed2dd80e64f16083edb041
+    - web: https://github.com/getkin/kin-openapi/releases/tag/v0.147.0
+source:
+    id: GHSA-23vg-4cjm-66q5
+    created: 2026-10-19T09:00:37.138661-04:00
+review_status: NEEDS_REVIEW

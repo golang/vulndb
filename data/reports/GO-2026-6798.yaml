@@ -1,0 +1,30 @@
+id: GO-2026-6798
+modules:
+    - module: vitess.io/vitess
+      versions:
+        - fixed: 0.23.5
+        - introduced: 0.24.0
+        - fixed: 0.24.2
+      vulnerable_at: 0.24.1
+summary: Vitess vttablet /twopcz reflected XSS in vitess.io/vitess
+cves:
+    - CVE-2026-104252
+ghsas:
+    - GHSA-v75v-6fpf-gvw8
+references:
+    - advisory: https://github.com/vitessio/vitess/security/advisories/GHSA-v75v-6fpf-gvw8
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-104252
+    - web: https://github.com/vitessio/vitess/commit/3140c1846cd120db34f33b2083139b4ab638aed2
+    - web: https://github.com/vitessio/vitess/commit/976e1e0d78f9d29d02e5e31b4aa7e180648f08af
+    - web: https://github.com/vitessio/vitess/commit/c1ed96302e658190168c971afdac730cf70e43f7
+    - web: https://github.com/vitessio/vitess/pull/20255
+    - web: https://github.com/vitessio/vitess/pull/20273
+    - web: https://github.com/vitessio/vitess/pull/20274
+    - web: https://github.com/vitessio/vitess/releases/tag/v23.0.5
+    - web: https://github.com/vitessio/vitess/releases/tag/v24.0.2
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-v75v-6fpf-gvw8
+    created: 2026-10-19T08:41:10.397998-04:00
+review_status: NEEDS_REVIEW
