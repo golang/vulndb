@@ -1,0 +1,33 @@
+id: GO-2026-6809
+modules:
+    - module: std
+      versions:
+        - fixed: 1.26.10
+        - introduced: 1.27.0-0
+        - fixed: 1.27.3
+      vulnerable_at: 1.27.2
+      packages:
+        - package: crypto/x509
+          symbols:
+            - Certificate.Verify
+summary: Distrust compromised intermediate certificates in crypto/x509
+description: |-
+    On most platforms, Go uses the given system root certificates.
+    However, in some narrower cases, the system trust stores may
+    not be updated without further action.
+
+    To defend against the narrower set of cases that may remain affected,
+    a denylist was added in crypto/x509 to return an error when calling
+    Verify with any of the known intermediate certificates that are no longer
+    considered to be trustworthy.
+references:
+    - fix: https://go.dev/cl/851047
+    - report: https://go.dev/issue/82345
+    - web: https://groups.google.com/g/golang-announce/c/66pojueaQek
+cve_metadata:
+    id: CVE-2026-111943
+    cwe: 'CWE-299: Improper Check for Certificate Revocation'
+source:
+    id: go-security-team
+    created: 2026-10-20T19:11:00Z
+review_status: REVIEWED

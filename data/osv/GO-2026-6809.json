@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6809",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-111943"
+  ],
+  "summary": "Distrust compromised intermediate certificates in crypto/x509",
+  "details": "On most platforms, Go uses the given system root certificates. However, in some narrower cases, the system trust stores may not be updated without further action.\n\nTo defend against the narrower set of cases that may remain affected, a denylist was added in crypto/x509 to return an error when calling Verify with any of the known intermediate certificates that are no longer considered to be trustworthy.",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.10"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "Certificate.Verify"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/851047"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82345"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/66pojueaQek"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6809",
+    "review_status": "REVIEWED"
+  }
+}
