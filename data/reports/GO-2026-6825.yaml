@@ -1,0 +1,36 @@
+id: GO-2026-6825
+modules:
+    - module: github.com/openchoreo/openchoreo
+      versions:
+        - introduced: 1.0.0
+        - fixed: 1.0.6
+        - introduced: 1.1.0
+        - fixed: 1.1.7
+        - introduced: 1.2.0
+        - fixed: 1.2.5
+      vulnerable_at: 1.2.4
+summary: |-
+    OpenChoreo: Authorization bypass on WorkflowRun update allows cross-project
+    takeover of workflow runs in github.com/openchoreo/openchoreo
+cves:
+    - CVE-2026-113727
+ghsas:
+    - GHSA-46r4-q7wv-32fc
+references:
+    - advisory: https://github.com/openchoreo/openchoreo/security/advisories/GHSA-46r4-q7wv-32fc
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-113727
+    - fix: https://github.com/openchoreo/openchoreo/commit/0e311468bb704b0dce7753b89c9d0204009285ca
+    - fix: https://github.com/openchoreo/openchoreo/commit/477031c6fece0666f144942fb02c0b579dacc0bb
+    - fix: https://github.com/openchoreo/openchoreo/commit/91e1e868eb8e0e67274109018d00a767b22eda14
+    - fix: https://github.com/openchoreo/openchoreo/commit/d5ed0ef62d9c9af7b05a72aed2bcbc0ac9d45426
+    - fix: https://github.com/openchoreo/openchoreo/pull/4596
+    - fix: https://github.com/openchoreo/openchoreo/pull/4618
+    - fix: https://github.com/openchoreo/openchoreo/pull/4626
+    - fix: https://github.com/openchoreo/openchoreo/pull/4627
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.0.6
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.1.7
+    - web: https://github.com/openchoreo/openchoreo/releases/tag/v1.2.5
+source:
+    id: GHSA-46r4-q7wv-32fc
+    created: 2026-10-23T10:30:28.64487-04:00
+review_status: UNREVIEWED

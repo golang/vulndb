@@ -1,0 +1,22 @@
+id: GO-2026-6826
+modules:
+    - module: github.com/moov-io/signedxml
+      versions:
+        - fixed: 1.4.1
+      vulnerable_at: 1.4.0
+summary: |-
+    Moov signedxml: Unauthenticated denial of service in exclusive XML
+    canonicalization in github.com/moov-io/signedxml
+cves:
+    - CVE-2026-113729
+ghsas:
+    - GHSA-5588-rp99-5fjh
+references:
+    - advisory: https://github.com/moov-io/signedxml/security/advisories/GHSA-5588-rp99-5fjh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-113729
+    - fix: https://github.com/moov-io/signedxml/commit/da2cd6126c4c53b7e59a367d287786e6f6a2d0d3
+    - web: https://github.com/moov-io/signedxml/releases/tag/v1.4.1
+source:
+    id: GHSA-5588-rp99-5fjh
+    created: 2026-10-23T10:30:19.111127-04:00
+review_status: UNREVIEWED

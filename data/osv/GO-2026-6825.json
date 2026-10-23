@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6825",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-113727",
+    "GHSA-46r4-q7wv-32fc"
+  ],
+  "summary": "OpenChoreo: Authorization bypass on WorkflowRun update allows cross-project takeover of workflow runs in github.com/openchoreo/openchoreo",
+  "details": "OpenChoreo: Authorization bypass on WorkflowRun update allows cross-project takeover of workflow runs in github.com/openchoreo/openchoreo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/openchoreo/openchoreo",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.0.6"
+            },
+            {
+              "introduced": "1.1.0"
+            },
+            {
+              "fixed": "1.1.7"
+            },
+            {
+              "introduced": "1.2.0"
+            },
+            {
+              "fixed": "1.2.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/openchoreo/openchoreo/security/advisories/GHSA-46r4-q7wv-32fc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113727"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/0e311468bb704b0dce7753b89c9d0204009285ca"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/477031c6fece0666f144942fb02c0b579dacc0bb"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/91e1e868eb8e0e67274109018d00a767b22eda14"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/commit/d5ed0ef62d9c9af7b05a72aed2bcbc0ac9d45426"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4596"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4618"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4626"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/openchoreo/openchoreo/pull/4627"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.0.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.1.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openchoreo/openchoreo/releases/tag/v1.2.5"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6825",
+    "review_status": "UNREVIEWED"
+  }
+}
