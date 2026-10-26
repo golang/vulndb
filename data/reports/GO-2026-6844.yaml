@@ -1,0 +1,104 @@
+id: GO-2026-6844
+modules:
+    - module: github.com/labstack/echo/v5
+      versions:
+        - introduced: 5.0.0
+        - fixed: 5.4.1
+      vulnerable_at: 5.4.0
+      packages:
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - proxyHTTP
+            - BodyDumpConfig.ToMiddleware
+            - ProxyConfig.ToMiddleware
+            - proxyRaw
+            - limitedGzipReader.Read
+          derived_symbols:
+            - AddTrailingSlash
+            - AddTrailingSlashWithConfig
+            - BasicAuth
+            - BasicAuthWithConfig
+            - BodyDump
+            - BodyDumpWithConfig
+            - BodyLimit
+            - BodyLimitWithConfig
+            - CORS
+            - CORSConfig.ToMiddleware
+            - CORSWithConfig
+            - CSRF
+            - CSRFConfig.ToMiddleware
+            - CSRFWithConfig
+            - ContextTimeout
+            - ContextTimeoutWithConfig
+            - CreateExtractors
+            - Decompress
+            - DecompressWithConfig
+            - Gzip
+            - GzipWithConfig
+            - HTTPSNonWWWRedirect
+            - HTTPSNonWWWRedirectWithConfig
+            - HTTPSRedirect
+            - HTTPSRedirectWithConfig
+            - HTTPSWWWRedirect
+            - HTTPSWWWRedirectWithConfig
+            - KeyAuth
+            - KeyAuthConfig.ToMiddleware
+            - KeyAuthWithConfig
+            - MethodOverride
+            - MethodOverrideWithConfig
+            - NonWWWRedirect
+            - NonWWWRedirectWithConfig
+            - PanicStackError.Error
+            - Proxy
+            - ProxyWithConfig
+            - RateLimiter
+            - RateLimiterMemoryStore.AllowContext
+            - RateLimiterWithConfig
+            - Recover
+            - RecoverWithConfig
+            - RemoveTrailingSlash
+            - RemoveTrailingSlashWithConfig
+            - RequestID
+            - RequestIDWithConfig
+            - RequestLogger
+            - RequestLoggerConfig.ToMiddleware
+            - RequestLoggerWithConfig
+            - Rewrite
+            - RewriteConfig.ToMiddleware
+            - RewriteWithConfig
+            - Secure
+            - SecureConfig.ToMiddleware
+            - SecureWithConfig
+            - Static
+            - StaticConfig.ToMiddleware
+            - StaticWithConfig
+            - WWWRedirect
+            - WWWRedirectWithConfig
+            - bodyDumpResponseWriter.Flush
+            - bodyDumpResponseWriter.Hijack
+            - bodyDumpResponseWriter.Write
+            - bodyDumpResponseWriter.WriteHeader
+            - gzipResponseWriter.Flush
+            - gzipResponseWriter.Hijack
+            - gzipResponseWriter.Write
+            - gzipResponseWriter.WriteHeader
+            - limitedReader.Close
+            - limitedReader.Read
+            - limitedWriter.Write
+        - package: github.com/labstack/echo/v5
+          symbols:
+            - ExtractIPFromRealIPHeader
+summary: |-
+    Echo: BodyDump can discard BodyLimit overflow errors for unknown-length requests
+    in github.com/labstack/echo
+ghsas:
+    - GHSA-x9ff-22gv-65f4
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-x9ff-22gv-65f4
+    - fix: https://github.com/labstack/echo/commit/1855061e572ae9dab727c811d8382f266bfbaaec
+    - fix: https://github.com/labstack/echo/pull/3105
+    - web: https://github.com/labstack/echo/releases/tag/v5.4.1
+source:
+    id: GHSA-x9ff-22gv-65f4
+    created: 2026-10-26T10:51:43.12625-04:00
+review_status: REVIEWED

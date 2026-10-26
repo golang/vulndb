@@ -1,0 +1,33 @@
+id: GO-2026-6842
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.16.1
+      vulnerable_at: 4.16.0
+      packages:
+        - package: github.com/labstack/echo/v4/middleware
+          symbols:
+            - DecompressWithConfig
+            - proxyHTTP
+            - BodyDumpWithConfig
+            - proxyRaw
+            - ProxyWithConfig
+          derived_symbols:
+            - BodyDump
+            - Decompress
+            - Proxy
+summary: |-
+    Echo: Decompress permits unbounded gzip expansion in v4 in
+    github.com/labstack/echo
+ghsas:
+    - GHSA-h7wr-284f-5qvc
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-h7wr-284f-5qvc
+    - fix: https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f
+    - fix: https://github.com/labstack/echo/pull/3136
+    - web: https://github.com/labstack/echo/releases/tag/v4.16.1
+source:
+    id: GHSA-h7wr-284f-5qvc
+    created: 2026-10-26T10:51:56.223865-04:00
+review_status: REVIEWED

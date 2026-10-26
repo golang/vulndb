@@ -1,0 +1,33 @@
+id: GO-2026-6840
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.16.1
+      vulnerable_at: 4.16.0
+      packages:
+        - package: github.com/labstack/echo/v4/middleware
+          symbols:
+            - proxyHTTP
+            - BodyDumpWithConfig
+            - ProxyWithConfig
+            - proxyRaw
+            - DecompressWithConfig
+          derived_symbols:
+            - BodyDump
+            - Decompress
+            - Proxy
+summary: |-
+    Echo: BodyDump captures request and response bodies without size limits in v4 in
+    github.com/labstack/echo
+ghsas:
+    - GHSA-f48p-c9v4-h7xv
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-f48p-c9v4-h7xv
+    - fix: https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f
+    - fix: https://github.com/labstack/echo/pull/3105
+    - web: https://github.com/labstack/echo/releases/tag/v4.16.1
+source:
+    id: GHSA-f48p-c9v4-h7xv
+    created: 2026-10-26T10:52:07.704693-04:00
+review_status: REVIEWED

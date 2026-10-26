@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6842",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-h7wr-284f-5qvc"
+  ],
+  "summary": "Echo: Decompress permits unbounded gzip expansion in v4 in github.com/labstack/echo",
+  "details": "Echo: Decompress permits unbounded gzip expansion in v4 in github.com/labstack/echo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            },
+            {
+              "fixed": "4.16.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v4/middleware",
+            "symbols": [
+              "BodyDump",
+              "BodyDumpWithConfig",
+              "Decompress",
+              "DecompressWithConfig",
+              "Proxy",
+              "ProxyWithConfig",
+              "proxyHTTP",
+              "proxyRaw"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/labstack/echo/security/advisories/GHSA-h7wr-284f-5qvc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/pull/3136"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v4.16.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6842",
+    "review_status": "REVIEWED"
+  }
+}
