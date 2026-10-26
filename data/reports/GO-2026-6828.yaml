@@ -1,0 +1,25 @@
+id: GO-2026-6828
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260731093152-c7522b8db586
+summary: |-
+    SiYuan: authFilePublishAccess distinguishes hidden and forbidden documents from
+    public and nonexistent ones, and issues a publish-auth cookie for documents it
+    reports as forbidden in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-73630
+ghsas:
+    - GHSA-4pjg-x8qj-33j5
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-4pjg-x8qj-33j5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73630
+    - web: https://github.com/siyuan-note/siyuan/commit/c7522b8db586ef1e1d6fa98bbe7ca0eb9d019efe
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.4-alpha.4
+    - web: https://www.vulncheck.com/advisories/siyuan-before-information-disclosure-via-authfilepublishaccess
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-4pjg-x8qj-33j5
+    created: 2026-10-26T10:53:10.392513-04:00
+review_status: UNREVIEWED

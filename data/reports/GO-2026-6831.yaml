@@ -1,0 +1,24 @@
+id: GO-2026-6831
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260731131820-67bc300b6ea6
+summary: |-
+    SiYuan: A parser differential between the WebSocket keepalive exemption and the
+    session quarantine allows unauthenticated access to the broadcast event stream in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-73054
+ghsas:
+    - GHSA-c8w8-3pqp-wr83
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-c8w8-3pqp-wr83
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-73054
+    - web: https://github.com/siyuan-note/siyuan/commit/67bc300b6ea6650d99dae55c827aeced419c8ac4
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.4-alpha.4
+    - web: https://www.vulncheck.com/advisories/siyuan-before-authentication-bypass-via-websocket
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-c8w8-3pqp-wr83
+    created: 2026-10-26T10:52:57.647559-04:00
+review_status: UNREVIEWED

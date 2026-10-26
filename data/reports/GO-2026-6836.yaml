@@ -1,0 +1,20 @@
+id: GO-2026-6836
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260729005258-4daee87d4152
+summary: |-
+    SiYuan: The publish filter for local storage returns the administrator's entire
+    storage map with only three keys sanitized in github.com/siyuan-note/siyuan/kernel
+ghsas:
+    - GHSA-xp3q-r38w-vgqm
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-xp3q-r38w-vgqm
+    - web: https://github.com/siyuan-note/siyuan/commit/4daee87d41521d119979f2edda67e87f2be7b6ef
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.7.4-alpha.3
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-xp3q-r38w-vgqm
+    created: 2026-10-26T10:52:30.605169-04:00
+review_status: UNREVIEWED
