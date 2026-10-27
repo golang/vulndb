@@ -1,0 +1,36 @@
+id: GO-2026-6866
+modules:
+    - module: golang.org/x/net
+      versions:
+        - fixed: 0.62.0
+      vulnerable_at: 0.61.0
+      packages:
+        - package: golang.org/x/net/html
+          symbols:
+            - childTextNodesAreLiteral
+          derived_symbols:
+            - Render
+summary: Check all ancestor namespace transitions when rendering raw text in html in golang.org/x/net
+description: |-
+    In childTextNodesAreLiteral, walking up the tree previously stopped at the
+    nearest foreign ancestor once an HTML integration point was found. However, that
+    integration point may itself be a descendant of an element that was
+    foster-parented into a foreign namespace (such as <mglyph> or <malignmark>
+    fostered under <mtext>), causing a parser to resolve the subtree in a different
+    foreign namespace upon re-parsing the rendered output.
+
+    Continue walking the full ancestor chain and verify that every transition from a
+    non-empty namespace occurs at an HTML integration point before emitting literal
+    text.
+credits:
+    - Ali Sherif (https://www.linkedin.com/in/ali-sherif-13812b276)
+references:
+    - fix: https://go.dev/cl/855121
+    - report: https://go.dev/issue/82622
+    - web: https://groups.google.com/g/golang-announce/c/sqrs2vTx_Xs
+cve_metadata:
+    id: CVE-2026-97045
+    cwe: CWE-79
+source:
+    id: go-security-team
+review_status: REVIEWED
