@@ -1,0 +1,35 @@
+id: GO-2026-6865
+modules:
+    - module: github.com/klauspost/compress
+      versions:
+        - fixed: 1.20.2
+      vulnerable_at: 1.20.1
+      packages:
+        - package: github.com/klauspost/compress/fse
+          symbols:
+            - Scratch.validateNorm
+            - Scratch.readNCount
+          derived_symbols:
+            - Compress
+            - Decompress
+        - package: github.com/klauspost/compress/huff0
+          symbols:
+            - ReadTable
+          derived_symbols:
+            - Compress1X
+            - Compress4X
+            - EstimateSizes
+            - Scratch.AppendTable
+summary: Panic on two-block frames in github.com/klauspost/compress
+cves:
+    - CVE-2026-116591
+ghsas:
+    - GHSA-fpmh-frq8-7rj8
+references:
+    - advisory: https://github.com/klauspost/compress/security/advisories/GHSA-fpmh-frq8-7rj8
+    - fix: https://github.com/klauspost/compress/commit/7f5d8528720c895a6106f201719f87eb030a565d
+    - web: https://github.com/klauspost/compress/releases/tag/v1.20.2
+source:
+    id: GHSA-fpmh-frq8-7rj8
+    created: 2026-10-29T08:36:25.067566-04:00
+review_status: REVIEWED

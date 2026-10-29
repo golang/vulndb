@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6879",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-118657",
+    "GHSA-2ffq-g2xg-c22p"
+  ],
+  "summary": "Echo: HTTPS Redirect and HSTS Bypass via Unconditional Trust of Forwarded Scheme Headers in github.com/labstack/echo",
+  "details": "Echo: HTTPS Redirect and HSTS Bypass via Unconditional Trust of Forwarded Scheme Headers in github.com/labstack/echo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.16.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v4/middleware",
+            "symbols": [
+              "MethodOverride",
+              "MethodOverrideWithConfig",
+              "Proxy",
+              "ProxyWithConfig",
+              "Secure",
+              "SecureWithConfig",
+              "Static",
+              "StaticWithConfig",
+              "sanitizeURI"
+            ]
+          },
+          {
+            "path": "github.com/labstack/echo/v4",
+            "symbols": [
+              "Echo.ServeHTTP",
+              "Echo.Start",
+              "Echo.StartAutoTLS",
+              "Echo.StartH2CServer",
+              "Echo.StartServer",
+              "Echo.StartTLS",
+              "Echo.Static",
+              "Echo.StaticFS",
+              "Group.Static",
+              "Group.StaticFS",
+              "StaticDirectoryHandler",
+              "context.JSONP",
+              "context.JSONPBlob",
+              "context.Scheme",
+              "context.jsonPBlob",
+              "isValidProto",
+              "sanitizeURI"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v5",
+            "symbols": [
+              "Context.JSONP",
+              "Context.JSONPBlob",
+              "Context.Scheme",
+              "Context.jsonPBlob",
+              "Echo.ServeHTTP",
+              "Echo.Start",
+              "Echo.Static",
+              "Echo.StaticFS",
+              "Group.Static",
+              "Group.StaticFS",
+              "NewWithConfig",
+              "StartConfig.Start",
+              "StartConfig.StartTLS",
+              "StaticDirectoryHandler",
+              "isValidProto",
+              "sanitizeURI"
+            ]
+          },
+          {
+            "path": "github.com/labstack/echo/v5/middleware",
+            "symbols": [
+              "AddTrailingSlash",
+              "AddTrailingSlashWithConfig",
+              "BasicAuth",
+              "BasicAuthWithConfig",
+              "BodyDump",
+              "BodyDumpWithConfig",
+              "BodyLimit",
+              "BodyLimitWithConfig",
+              "CORS",
+              "CORSWithConfig",
+              "CSRF",
+              "CSRFWithConfig",
+              "ContextTimeout",
+              "ContextTimeoutWithConfig",
+              "Decompress",
+              "DecompressWithConfig",
+              "Gzip",
+              "GzipWithConfig",
+              "HTTPSNonWWWRedirect",
+              "HTTPSNonWWWRedirectWithConfig",
+              "HTTPSRedirect",
+              "HTTPSRedirectWithConfig",
+              "HTTPSWWWRedirect",
+              "HTTPSWWWRedirectWithConfig",
+              "KeyAuth",
+              "KeyAuthWithConfig",
+              "MethodOverride",
+              "MethodOverrideConfig.ToMiddleware",
+              "MethodOverrideWithConfig",
+              "NonWWWRedirect",
+              "NonWWWRedirectWithConfig",
+              "Proxy",
+              "ProxyConfig.ToMiddleware",
+              "ProxyWithConfig",
+              "RateLimiter",
+              "RateLimiterWithConfig",
+              "Recover",
+              "RecoverWithConfig",
+              "RemoveTrailingSlash",
+              "RemoveTrailingSlashWithConfig",
+              "RequestID",
+              "RequestIDWithConfig",
+              "Rewrite",
+              "RewriteWithConfig",
+              "Secure",
+              "SecureConfig.ToMiddleware",
+              "SecureWithConfig",
+              "Static",
+              "StaticConfig.ToMiddleware",
+              "StaticWithConfig",
+              "WWWRedirect",
+              "WWWRedirectWithConfig",
+              "sanitizeURI"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/labstack/echo/security/advisories/GHSA-2ffq-g2xg-c22p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/fc410094b2f3415cf2bf5204082137b205bfd5af"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v4.16.0"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v5.4.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6879",
+    "review_status": "REVIEWED"
+  }
+}

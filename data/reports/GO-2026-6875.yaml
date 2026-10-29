@@ -1,0 +1,42 @@
+id: GO-2026-6875
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - introduced: 4.0.0
+      vulnerable_at: 4.16.2
+    - module: github.com/labstack/echo/v5
+      versions:
+        - fixed: 5.4.0
+      vulnerable_at: 5.3.1
+      packages:
+        - package: github.com/labstack/echo/v5
+          symbols:
+            - Context.Scheme
+            - Context.JSONPBlob
+            - StaticDirectoryHandler
+            - NewWithConfig
+            - sanitizeURI
+            - Context.jsonPBlob
+            - isValidProto
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - sanitizeURI
+            - StaticConfig.ToMiddleware
+            - MethodOverrideConfig.ToMiddleware
+            - SecureConfig.ToMiddleware
+            - ProxyConfig.ToMiddleware
+summary: |-
+    Reverse Proxy Forwards Attacker-Supplied X-Real-IP to Upstream by Default in
+    github.com/labstack/echo
+cves:
+    - CVE-2026-118651
+ghsas:
+    - GHSA-99jh-6h7p-pp36
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-99jh-6h7p-pp36
+    - fix: https://github.com/labstack/echo/commit/fc410094b2f3415cf2bf5204082137b205bfd5af
+    - web: https://github.com/labstack/echo/releases/tag/v5.4.0
+source:
+    id: GHSA-99jh-6h7p-pp36
+    created: 2026-10-29T08:30:45.839312-04:00
+review_status: REVIEWED

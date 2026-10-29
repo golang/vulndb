@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6878",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-118658",
+    "GHSA-23wf-92cp-8pcj"
+  ],
+  "summary": "Arbitrary Scheme Injection in WWWRedirect/NonWWWRedirect Middlewares via X-Forwarded-Proto in github.com/labstack/echo",
+  "details": "Arbitrary Scheme Injection in WWWRedirect/NonWWWRedirect Middlewares via X-Forwarded-Proto in github.com/labstack/echo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.15.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v4",
+            "symbols": [
+              "context.Scheme"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.1.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v5",
+            "symbols": [
+              "Context.Scheme"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/labstack/echo/security/advisories/GHSA-23wf-92cp-8pcj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/ca4f38a474302aabee93c66bdd0052359882e181"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/d1d8ad3f99dd9b80542cd0c357d56a8916c515df"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/pull/2953"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v4.15.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v5.1.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6878",
+    "review_status": "REVIEWED"
+  }
+}

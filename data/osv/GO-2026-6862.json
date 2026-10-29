@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6862",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-34157",
+    "GHSA-47hv-j4px-h3c9"
+  ],
+  "summary": "Wails: wildcardPatternToRegex allows Origin bypass via suffix match in BindingsAllowedOrigins in github.com/wailsapp/wails",
+  "details": "Wails: wildcardPatternToRegex allows Origin bypass via suffix match in BindingsAllowedOrigins in github.com/wailsapp/wails",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/wailsapp/wails/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.13.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/wailsapp/wails/v2/internal/frontend/originvalidator",
+            "symbols": [
+              "OriginValidator.IsOriginAllowed",
+              "OriginValidator.wildcardPatternToRegex"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/wailsapp/wails/security/advisories/GHSA-47hv-j4px-h3c9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/wailsapp/wails/commit/bcc5941b72fdab6a13942b58871a2696faa85b81"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/wailsapp/wails/pull/5074"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6862",
+    "review_status": "REVIEWED"
+  }
+}

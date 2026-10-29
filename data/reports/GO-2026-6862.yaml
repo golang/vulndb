@@ -1,0 +1,28 @@
+id: GO-2026-6862
+modules:
+    - module: github.com/wailsapp/wails/v2
+      versions:
+        - introduced: 2.0.0
+        - fixed: 2.13.0
+      vulnerable_at: 2.12.0
+      packages:
+        - package: github.com/wailsapp/wails/v2/internal/frontend/originvalidator
+          symbols:
+            - OriginValidator.wildcardPatternToRegex
+          derived_symbols:
+            - OriginValidator.IsOriginAllowed
+summary: |-
+    Wails: wildcardPatternToRegex allows Origin bypass via suffix match in
+    BindingsAllowedOrigins in github.com/wailsapp/wails
+cves:
+    - CVE-2026-34157
+ghsas:
+    - GHSA-47hv-j4px-h3c9
+references:
+    - advisory: https://github.com/wailsapp/wails/security/advisories/GHSA-47hv-j4px-h3c9
+    - fix: https://github.com/wailsapp/wails/commit/bcc5941b72fdab6a13942b58871a2696faa85b81
+    - fix: https://github.com/wailsapp/wails/pull/5074
+source:
+    id: GHSA-47hv-j4px-h3c9
+    created: 2026-10-29T08:38:07.861122-04:00
+review_status: REVIEWED

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6865",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-116591",
+    "GHSA-fpmh-frq8-7rj8"
+  ],
+  "summary": "Panic on two-block frames in github.com/klauspost/compress",
+  "details": "Panic on two-block frames in github.com/klauspost/compress",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/klauspost/compress",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.20.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/klauspost/compress/fse",
+            "symbols": [
+              "Compress",
+              "Decompress",
+              "Scratch.readNCount",
+              "Scratch.validateNorm"
+            ]
+          },
+          {
+            "path": "github.com/klauspost/compress/huff0",
+            "symbols": [
+              "Compress1X",
+              "Compress4X",
+              "EstimateSizes",
+              "ReadTable",
+              "Scratch.AppendTable"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/klauspost/compress/security/advisories/GHSA-fpmh-frq8-7rj8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/klauspost/compress/commit/7f5d8528720c895a6106f201719f87eb030a565d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/klauspost/compress/releases/tag/v1.20.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6865",
+    "review_status": "REVIEWED"
+  }
+}

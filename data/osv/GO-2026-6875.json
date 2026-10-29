@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6875",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-118651",
+    "GHSA-99jh-6h7p-pp36"
+  ],
+  "summary": "Reverse Proxy Forwards Attacker-Supplied X-Real-IP to Upstream by Default in github.com/labstack/echo",
+  "details": "Reverse Proxy Forwards Attacker-Supplied X-Real-IP to Upstream by Default in github.com/labstack/echo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v5",
+            "symbols": [
+              "Context.JSONPBlob",
+              "Context.Scheme",
+              "Context.jsonPBlob",
+              "NewWithConfig",
+              "StaticDirectoryHandler",
+              "isValidProto",
+              "sanitizeURI"
+            ]
+          },
+          {
+            "path": "github.com/labstack/echo/v5/middleware",
+            "symbols": [
+              "MethodOverrideConfig.ToMiddleware",
+              "ProxyConfig.ToMiddleware",
+              "SecureConfig.ToMiddleware",
+              "StaticConfig.ToMiddleware",
+              "sanitizeURI"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/labstack/echo/security/advisories/GHSA-99jh-6h7p-pp36"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/fc410094b2f3415cf2bf5204082137b205bfd5af"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v5.4.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6875",
+    "review_status": "REVIEWED"
+  }
+}

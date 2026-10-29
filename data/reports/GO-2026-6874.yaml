@@ -1,0 +1,20 @@
+id: GO-2026-6874
+modules:
+    - module: github.com/caddyserver/caddy/v2
+      versions:
+        - fixed: 2.11.5
+      vulnerable_at: 2.11.4
+summary: |-
+    Caddy has an RFC 7230 §6.1 compliance issue / Hop-by-hop headers that leak
+    through in github.com/caddyserver/caddy
+cves:
+    - CVE-2026-55458
+ghsas:
+    - GHSA-8qx7-j2v2-x6q5
+references:
+    - advisory: https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5
+    - web: https://github.com/caddyserver/caddy/releases/tag/v2.11.5
+source:
+    id: GHSA-8qx7-j2v2-x6q5
+    created: 2026-10-29T08:31:51.79074-04:00
+review_status: REVIEWED

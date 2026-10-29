@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6872",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-118653",
+    "GHSA-246p-cpwv-v3jq"
+  ],
+  "summary": "Rate Limiter Bypass via Spoofed X-Forwarded-For Header in Default Configuration in github.com/labstack/echo",
+  "details": "Rate Limiter Bypass via Spoofed X-Forwarded-For Header in Default Configuration in github.com/labstack/echo",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/labstack/echo/v5",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/labstack/echo/v5",
+            "symbols": [
+              "Context.RealIP"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/labstack/echo/security/advisories/GHSA-246p-cpwv-v3jq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/labstack/echo/commit/22e4b71109ef072ef011a489066ec662ca9565b2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/labstack/echo/releases/tag/v5.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6872",
+    "review_status": "REVIEWED"
+  }
+}

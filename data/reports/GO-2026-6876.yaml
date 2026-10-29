@@ -1,0 +1,134 @@
+id: GO-2026-6876
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - fixed: 4.16.0
+      vulnerable_at: 4.15.4
+      packages:
+        - package: github.com/labstack/echo/v4/middleware
+          symbols:
+            - SecureWithConfig
+            - ProxyWithConfig
+            - StaticWithConfig
+            - sanitizeURI
+            - MethodOverrideWithConfig
+          derived_symbols:
+            - MethodOverride
+            - Proxy
+            - Secure
+            - Static
+        - package: github.com/labstack/echo/v4
+          symbols:
+            - StaticDirectoryHandler
+            - isValidProto
+            - sanitizeURI
+            - context.JSONPBlob
+            - context.Scheme
+            - context.jsonPBlob
+          derived_symbols:
+            - Echo.ServeHTTP
+            - Echo.Start
+            - Echo.StartAutoTLS
+            - Echo.StartH2CServer
+            - Echo.StartServer
+            - Echo.StartTLS
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
+            - context.JSONP
+    - module: github.com/labstack/echo/v5
+      versions:
+        - fixed: 5.4.0
+      vulnerable_at: 5.3.1
+      packages:
+        - package: github.com/labstack/echo/v5
+          symbols:
+            - Context.Scheme
+            - sanitizeURI
+            - Context.JSONPBlob
+            - isValidProto
+            - Context.jsonPBlob
+            - StaticDirectoryHandler
+            - NewWithConfig
+          derived_symbols:
+            - Context.JSONP
+            - Echo.ServeHTTP
+            - Echo.Start
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
+            - StartConfig.Start
+            - StartConfig.StartTLS
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - sanitizeURI
+            - MethodOverrideConfig.ToMiddleware
+            - ProxyConfig.ToMiddleware
+            - SecureConfig.ToMiddleware
+            - StaticConfig.ToMiddleware
+          derived_symbols:
+            - AddTrailingSlash
+            - AddTrailingSlashWithConfig
+            - BasicAuth
+            - BasicAuthWithConfig
+            - BodyDump
+            - BodyDumpWithConfig
+            - BodyLimit
+            - BodyLimitWithConfig
+            - CORS
+            - CORSWithConfig
+            - CSRF
+            - CSRFWithConfig
+            - ContextTimeout
+            - ContextTimeoutWithConfig
+            - Decompress
+            - DecompressWithConfig
+            - Gzip
+            - GzipWithConfig
+            - HTTPSNonWWWRedirect
+            - HTTPSNonWWWRedirectWithConfig
+            - HTTPSRedirect
+            - HTTPSRedirectWithConfig
+            - HTTPSWWWRedirect
+            - HTTPSWWWRedirectWithConfig
+            - KeyAuth
+            - KeyAuthWithConfig
+            - MethodOverride
+            - MethodOverrideWithConfig
+            - NonWWWRedirect
+            - NonWWWRedirectWithConfig
+            - Proxy
+            - ProxyWithConfig
+            - RateLimiter
+            - RateLimiterWithConfig
+            - Recover
+            - RecoverWithConfig
+            - RemoveTrailingSlash
+            - RemoveTrailingSlashWithConfig
+            - RequestID
+            - RequestIDWithConfig
+            - Rewrite
+            - RewriteWithConfig
+            - Secure
+            - SecureWithConfig
+            - Static
+            - StaticWithConfig
+            - WWWRedirect
+            - WWWRedirectWithConfig
+summary: Cross-Site Scripting (XSS) via unsanitized JSONP callback in github.com/labstack/echo
+cves:
+    - CVE-2026-118652
+ghsas:
+    - GHSA-h9g5-28mm-hx3g
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-h9g5-28mm-hx3g
+    - fix: https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1
+    - fix: https://github.com/labstack/echo/commit/fc410094b2f3415cf2bf5204082137b205bfd5af
+    - web: https://github.com/labstack/echo/releases/tag/v4.16.0
+    - web: https://github.com/labstack/echo/releases/tag/v5.4.0
+source:
+    id: GHSA-h9g5-28mm-hx3g
+    created: 2026-10-29T08:30:20.011156-04:00
+review_status: REVIEWED

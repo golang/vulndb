@@ -1,0 +1,96 @@
+id: GO-2026-6885
+modules:
+    - module: github.com/labstack/echo/v4
+      versions:
+        - fixed: 4.15.3
+      vulnerable_at: 4.15.2
+      packages:
+        - package: github.com/labstack/echo/v4/middleware
+          symbols:
+            - StaticWithConfig
+          derived_symbols:
+            - Static
+        - package: github.com/labstack/echo/v4
+          symbols:
+            - StaticDirectoryHandler
+          derived_symbols:
+            - Echo.Static
+            - Echo.StaticFS
+            - Group.Static
+            - Group.StaticFS
+    - module: github.com/labstack/echo/v5
+      versions:
+        - fixed: 5.2.0
+      vulnerable_at: 5.1.1
+      packages:
+        - package: github.com/labstack/echo/v5/middleware
+          symbols:
+            - StaticConfig.ToMiddleware
+          derived_symbols:
+            - AddTrailingSlash
+            - AddTrailingSlashWithConfig
+            - BasicAuth
+            - BasicAuthWithConfig
+            - BodyDump
+            - BodyDumpWithConfig
+            - BodyLimit
+            - BodyLimitWithConfig
+            - CORS
+            - CORSWithConfig
+            - CSRF
+            - CSRFWithConfig
+            - ContextTimeout
+            - ContextTimeoutWithConfig
+            - Decompress
+            - DecompressWithConfig
+            - Gzip
+            - GzipWithConfig
+            - HTTPSNonWWWRedirect
+            - HTTPSNonWWWRedirectWithConfig
+            - HTTPSRedirect
+            - HTTPSRedirectWithConfig
+            - HTTPSWWWRedirect
+            - HTTPSWWWRedirectWithConfig
+            - KeyAuth
+            - KeyAuthWithConfig
+            - MethodOverride
+            - MethodOverrideWithConfig
+            - NonWWWRedirect
+            - NonWWWRedirectWithConfig
+            - Proxy
+            - ProxyWithConfig
+            - RateLimiter
+            - RateLimiterWithConfig
+            - Recover
+            - RecoverWithConfig
+            - RemoveTrailingSlash
+            - RemoveTrailingSlashWithConfig
+            - RequestID
+            - RequestIDWithConfig
+            - Rewrite
+            - RewriteWithConfig
+            - Secure
+            - SecureWithConfig
+            - Static
+            - StaticWithConfig
+            - WWWRedirect
+            - WWWRedirectWithConfig
+summary: |-
+    Echo has a Static Middleware Double-Unescape Path Traversal in
+    github.com/labstack/echo
+cves:
+    - CVE-2026-118655
+ghsas:
+    - GHSA-xwq5-6cqp-vx96
+references:
+    - advisory: https://github.com/labstack/echo/security/advisories/GHSA-xwq5-6cqp-vx96
+    - fix: https://github.com/labstack/echo/commit/a9ede66a5a7196411131beb1ee801e75bbaf7ac6
+    - fix: https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725
+    - fix: https://github.com/labstack/echo/pull/3006
+    - report: https://github.com/labstack/echo/issues/2599
+    - web: https://github.com/labstack/echo/releases/tag/v4.15.3
+    - web: https://github.com/labstack/echo/releases/tag/v5.2.0
+source:
+    id: GHSA-xwq5-6cqp-vx96
+    created: 2026-10-29T08:27:48.26376-04:00
+review_status: REVIEWED
