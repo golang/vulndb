@@ -1,0 +1,26 @@
+id: GO-2026-6880
+modules:
+    - module: knative.dev/pkg
+      versions:
+        - fixed: 0.0.0-20260531000007-52dbd5ece63f
+      vulnerable_at: 0.0.0-20260528211432-22799592cdf6
+      packages:
+        - package: knative.dev/pkg/webhook
+          symbols:
+            - Webhook.ServeHTTP
+          derived_symbols:
+            - Webhook.Run
+            - routeLabeler.ServeHTTP
+summary: |-
+    Admission webhooks allow unbounded request-body memory exhaustion in
+    knative.dev/pkg
+ghsas:
+    - GHSA-2hw4-c9m4-f2fj
+references:
+    - advisory: https://github.com/knative/pkg/security/advisories/GHSA-2hw4-c9m4-f2fj
+    - fix: https://github.com/knative/pkg/commit/52dbd5ece63fe6d2d340ecbebec160550f460818
+    - fix: https://github.com/knative/pkg/pull/3363
+source:
+    id: GHSA-2hw4-c9m4-f2fj
+    created: 2026-10-29T08:29:04.497137-04:00
+review_status: REVIEWED
