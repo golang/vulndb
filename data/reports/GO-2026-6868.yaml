@@ -1,0 +1,28 @@
+id: GO-2026-6868
+modules:
+    - module: github.com/ctfer-io/terraform-provider-ctfd
+      versions:
+        - introduced: 0.1.5
+      unsupported_versions:
+        - last_affected: 1.1.0
+      vulnerable_at: 1.1.0
+    - module: github.com/ctfer-io/terraform-provider-ctfd/v2
+      versions:
+        - fixed: 2.8.2
+      vulnerable_at: 2.8.1
+summary: |-
+    CTFer.io's CTFd Terraform Provider allows a local or remote attacker to read
+    team passwords in state as non sensitive values in github.com/ctfer-io/terraform-provider-ctfd
+cves:
+    - CVE-2026-116683
+ghsas:
+    - GHSA-vg84-c5mg-76xh
+references:
+    - advisory: https://github.com/ctfer-io/terraform-provider-ctfd/security/advisories/GHSA-vg84-c5mg-76xh
+    - fix: https://github.com/ctfer-io/terraform-provider-ctfd/commit/b4acaef1df23ea3ca36936fc2d8ef8d157a58e04
+    - fix: https://github.com/ctfer-io/terraform-provider-ctfd/pull/376
+    - web: https://github.com/ctfer-io/terraform-provider-ctfd/releases/tag/v2.8.2
+source:
+    id: GHSA-vg84-c5mg-76xh
+    created: 2026-10-29T08:36:15.127978-04:00
+review_status: UNREVIEWED

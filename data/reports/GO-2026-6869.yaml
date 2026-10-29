@@ -1,0 +1,23 @@
+id: GO-2026-6869
+modules:
+    - module: github.com/m1k1o/neko/server
+      versions:
+        - introduced: 0.0.0-20250401220545-fe94c999c6af
+        - fixed: 0.0.0-20260805142851-395ca1a6f62b
+summary: 'Neko: Authorization bypass in legacy WebRTC input handling in github.com/m1k1o/neko/server'
+cves:
+    - CVE-2026-116679
+ghsas:
+    - GHSA-5cp7-fp4j-wwcv
+references:
+    - advisory: https://github.com/m1k1o/neko/security/advisories/GHSA-5cp7-fp4j-wwcv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-116679
+    - web: https://github.com/m1k1o/neko/commit/395ca1a6f62b7b0e270e654d366a2d57b8042efd
+    - web: https://github.com/m1k1o/neko/pull/675
+    - web: https://github.com/m1k1o/neko/releases/tag/v3.1.5
+notes:
+    - fix: 'github.com/m1k1o/neko/server: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-5cp7-fp4j-wwcv
+    created: 2026-10-29T08:36:05.115728-04:00
+review_status: UNREVIEWED

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6868",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-116683",
+    "GHSA-vg84-c5mg-76xh"
+  ],
+  "summary": "CTFer.io's CTFd Terraform Provider allows a local or remote attacker to read team passwords in state as non sensitive values in github.com/ctfer-io/terraform-provider-ctfd",
+  "details": "CTFer.io's CTFd Terraform Provider allows a local or remote attacker to read team passwords in state as non sensitive values in github.com/ctfer-io/terraform-provider-ctfd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/ctfer-io/terraform-provider-ctfd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.1.5"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/ctfer-io/terraform-provider-ctfd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/ctfer-io/terraform-provider-ctfd/security/advisories/GHSA-vg84-c5mg-76xh"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ctfer-io/terraform-provider-ctfd/commit/b4acaef1df23ea3ca36936fc2d8ef8d157a58e04"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/ctfer-io/terraform-provider-ctfd/pull/376"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ctfer-io/terraform-provider-ctfd/releases/tag/v2.8.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6868",
+    "review_status": "UNREVIEWED"
+  }
+}

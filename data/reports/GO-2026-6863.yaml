@@ -1,0 +1,25 @@
+id: GO-2026-6863
+modules:
+    - module: github.com/siyuan-note/siyuan/kernel
+      versions:
+        - fixed: 0.0.0-20260808051406-3542530c505f
+summary: |-
+    SiYuan: MCP file tool's blocklist is incomplete relative to the HTTP file API it
+    claims to align with, exposing publish-mode passwords and other sensitive
+    workspace files in github.com/siyuan-note/siyuan/kernel
+cves:
+    - CVE-2026-60083
+ghsas:
+    - GHSA-c8r8-95hg-mp34
+references:
+    - advisory: https://github.com/siyuan-note/siyuan/security/advisories/GHSA-c8r8-95hg-mp34
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-60083
+    - web: https://github.com/siyuan-note/siyuan/commit/3542530c505f13aa3fbd0343627409ca6c000dd2
+    - web: https://github.com/siyuan-note/siyuan/releases/tag/v3.8.0
+    - web: https://www.vulncheck.com/advisories/siyuan-before-incomplete-path-blocklist-via-mcp-file-tool
+notes:
+    - fix: 'github.com/siyuan-note/siyuan/kernel: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-c8r8-95hg-mp34
+    created: 2026-10-29T08:37:56.858668-04:00
+review_status: UNREVIEWED

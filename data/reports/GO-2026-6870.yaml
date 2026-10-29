@@ -1,0 +1,27 @@
+id: GO-2026-6870
+modules:
+    - module: github.com/gtsteffaniak/filebrowser/backend
+      versions:
+        - fixed: 0.0.0-20260814233832-4126edeb07a0
+summary: |-
+    FileBrowser: Symlink following escapes user scope allowing arbitrary file read
+    outside the served directory in github.com/gtsteffaniak/filebrowser/backend
+cves:
+    - CVE-2026-116682
+ghsas:
+    - GHSA-mgqf-5mf5-prfj
+references:
+    - advisory: https://github.com/gtsteffaniak/filebrowser/security/advisories/GHSA-mgqf-5mf5-prfj
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-116682
+    - web: https://github.com/gtsteffaniak/filebrowser/commit/3c8c02414eefd3351ffe437fa39ff6eb150ffa67
+    - web: https://github.com/gtsteffaniak/filebrowser/commit/4126edeb07a015c3809a89249b283e07a4e50c38
+    - web: https://github.com/gtsteffaniak/filebrowser/pull/2795
+    - web: https://github.com/gtsteffaniak/filebrowser/pull/2800
+    - web: https://github.com/gtsteffaniak/filebrowser/releases/tag/v1.5.2-stable
+    - web: https://github.com/gtsteffaniak/filebrowser/releases/tag/v2.0.1-beta
+notes:
+    - fix: 'github.com/gtsteffaniak/filebrowser/backend: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-mgqf-5mf5-prfj
+    created: 2026-10-29T08:35:52.386632-04:00
+review_status: UNREVIEWED
