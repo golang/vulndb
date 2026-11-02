@@ -1,0 +1,27 @@
+id: GO-2026-6898
+modules:
+    - module: github.com/imgproxy/imgproxy
+      vulnerable_at: 1.1.8
+    - module: github.com/imgproxy/imgproxy/v2
+      vulnerable_at: 2.17.0
+    - module: github.com/imgproxy/imgproxy/v3
+      versions:
+        - introduced: 3.3.0
+      vulnerable_at: 3.31.4
+    - module: github.com/imgproxy/imgproxy/v4
+      versions:
+        - fixed: 4.0.16
+      vulnerable_at: 4.0.15
+summary: |-
+    imgproxy has unbounded memory allocation in ICO loader that allows
+    unauthenticated memory-exhaustion DoS via crafted data_size field in github.com/imgproxy/imgproxy
+ghsas:
+    - GHSA-mmq5-xm89-9pfg
+references:
+    - advisory: https://github.com/imgproxy/imgproxy/security/advisories/GHSA-mmq5-xm89-9pfg
+    - fix: https://github.com/imgproxy/imgproxy/commit/a821b6a4cb07a1bf2bb9077431d1c1e734d79917
+    - web: https://github.com/imgproxy/imgproxy/releases/tag/v4.0.16
+source:
+    id: GHSA-mmq5-xm89-9pfg
+    created: 2026-11-02T09:15:34.542436-05:00
+review_status: UNREVIEWED

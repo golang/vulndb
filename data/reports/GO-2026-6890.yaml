@@ -1,0 +1,19 @@
+id: GO-2026-6890
+modules:
+    - module: github.com/daptin/daptin
+      unsupported_versions:
+        - last_affected: 0.12.15
+      vulnerable_at: 0.13.45
+summary: |-
+    Daptin: ParseAcceptLanguage `_` separator bypass enables >250x CPU amplification
+    via Accept-Language header in LanguageMiddleware in github.com/daptin/daptin
+cves:
+    - CVE-2026-62160
+ghsas:
+    - GHSA-rhj7-vh3v-mcq6
+references:
+    - advisory: https://github.com/daptin/daptin/security/advisories/GHSA-rhj7-vh3v-mcq6
+source:
+    id: GHSA-rhj7-vh3v-mcq6
+    created: 2026-11-02T09:17:44.743774-05:00
+review_status: UNREVIEWED

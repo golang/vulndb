@@ -1,0 +1,21 @@
+id: GO-2026-6892
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - introduced: 0.5.0
+        - fixed: 0.12.3
+      vulnerable_at: 0.12.2
+summary: |-
+    charmbracelet/soft-serve HTTP responses disclose the existence and names of
+    private repositories in github.com/charmbracelet/soft-serve
+ghsas:
+    - GHSA-fgxm-5hvv-x4vh
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-fgxm-5hvv-x4vh
+    - fix: https://github.com/charmbracelet/soft-serve/commit/74e41543304d1e12fd54fc59e410bd428373dd34
+    - fix: https://github.com/charmbracelet/soft-serve/commit/dc351aa0d824c8bef528c6924a7acdfb9f20c852
+    - web: https://github.com/charmbracelet/soft-serve/releases/tag/v0.12.3
+source:
+    id: GHSA-fgxm-5hvv-x4vh
+    created: 2026-11-02T09:17:33.441016-05:00
+review_status: UNREVIEWED

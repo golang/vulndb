@@ -1,0 +1,22 @@
+id: GO-2026-6891
+modules:
+    - module: github.com/charmbracelet/soft-serve
+      versions:
+        - introduced: 0.6.0
+        - fixed: 0.12.3
+      vulnerable_at: 0.12.2
+summary: |-
+    charmbracelet/soft-serve: Race in `SetPrivate` leaves a private repository
+    readable by unauthenticated users in github.com/charmbracelet/soft-serve
+ghsas:
+    - GHSA-f3fj-9625-rv3m
+references:
+    - advisory: https://github.com/charmbracelet/soft-serve/security/advisories/GHSA-f3fj-9625-rv3m
+    - fix: https://github.com/charmbracelet/soft-serve/commit/0a4e6f0b7e063927c7128756e1c1b3db871edabf
+    - fix: https://github.com/charmbracelet/soft-serve/commit/5b307b4da4db285f797cc028b381ba4d3d853019
+    - fix: https://github.com/charmbracelet/soft-serve/commit/e398b4dde723437f637b06710e0938d349b360e8
+    - web: https://github.com/charmbracelet/soft-serve/releases/tag/v0.12.3
+source:
+    id: GHSA-f3fj-9625-rv3m
+    created: 2026-11-02T09:17:38.310093-05:00
+review_status: UNREVIEWED

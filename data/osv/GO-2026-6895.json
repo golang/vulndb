@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6895",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-494m-4556-wf5p"
+  ],
+  "summary": "imgproxy has out-of-bounds heap read/write in ICO loader BMP header reconstruction that allows unauthenticated remote worker crash in github.com/imgproxy/imgproxy",
+  "details": "imgproxy has out-of-bounds heap read/write in ICO loader BMP header reconstruction that allows unauthenticated remote worker crash in github.com/imgproxy/imgproxy",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.3.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/imgproxy/imgproxy/v4",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.0.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/imgproxy/imgproxy/security/advisories/GHSA-494m-4556-wf5p"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/imgproxy/imgproxy/commit/39fd9e844a8a46084161502e993d5a3c16ccf28d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/imgproxy/imgproxy/pull/1726"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/imgproxy/imgproxy/releases/tag/v4.0.17"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6895",
+    "review_status": "UNREVIEWED"
+  }
+}

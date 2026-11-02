@@ -1,0 +1,26 @@
+id: GO-2026-6897
+modules:
+    - module: github.com/imgproxy/imgproxy
+      vulnerable_at: 1.1.8
+    - module: github.com/imgproxy/imgproxy/v2
+      vulnerable_at: 2.17.0
+    - module: github.com/imgproxy/imgproxy/v3
+      vulnerable_at: 3.31.4
+    - module: github.com/imgproxy/imgproxy/v4
+      versions:
+        - introduced: 4.0.0
+        - fixed: 4.0.16
+      vulnerable_at: 4.0.15
+summary: |-
+    imgproxy has integer overflow in imgproxy ICO loader that causes denial of
+    service and may permit remote code execution in github.com/imgproxy/imgproxy
+ghsas:
+    - GHSA-hff9-5pqw-6w9f
+references:
+    - advisory: https://github.com/imgproxy/imgproxy/security/advisories/GHSA-hff9-5pqw-6w9f
+    - fix: https://github.com/imgproxy/imgproxy/commit/a821b6a4cb07a1bf2bb9077431d1c1e734d79917
+    - web: https://github.com/imgproxy/imgproxy/releases/tag/v4.0.16
+source:
+    id: GHSA-hff9-5pqw-6w9f
+    created: 2026-11-02T09:15:51.731635-05:00
+review_status: UNREVIEWED

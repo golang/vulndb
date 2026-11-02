@@ -1,0 +1,28 @@
+id: GO-2026-6895
+modules:
+    - module: github.com/imgproxy/imgproxy
+      vulnerable_at: 1.1.8
+    - module: github.com/imgproxy/imgproxy/v2
+      vulnerable_at: 2.17.0
+    - module: github.com/imgproxy/imgproxy/v3
+      versions:
+        - introduced: 3.3.0
+      vulnerable_at: 3.31.4
+    - module: github.com/imgproxy/imgproxy/v4
+      versions:
+        - fixed: 4.0.17
+      vulnerable_at: 4.0.16
+summary: |-
+    imgproxy has out-of-bounds heap read/write in ICO loader BMP header
+    reconstruction that allows unauthenticated remote worker crash in github.com/imgproxy/imgproxy
+ghsas:
+    - GHSA-494m-4556-wf5p
+references:
+    - advisory: https://github.com/imgproxy/imgproxy/security/advisories/GHSA-494m-4556-wf5p
+    - fix: https://github.com/imgproxy/imgproxy/commit/39fd9e844a8a46084161502e993d5a3c16ccf28d
+    - fix: https://github.com/imgproxy/imgproxy/pull/1726
+    - web: https://github.com/imgproxy/imgproxy/releases/tag/v4.0.17
+source:
+    id: GHSA-494m-4556-wf5p
+    created: 2026-11-02T09:17:00.441323-05:00
+review_status: UNREVIEWED

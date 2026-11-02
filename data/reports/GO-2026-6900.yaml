@@ -1,0 +1,22 @@
+id: GO-2026-6900
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260904182349-be4723e33727
+summary: 'Kubeflow Pipelines: Run-log endpoint permits unauthorized access to pod logs in github.com/kubeflow/pipelines'
+cves:
+    - CVE-2026-118759
+ghsas:
+    - GHSA-wg5q-x4j9-qm54
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-wg5q-x4j9-qm54
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-118759
+    - fix: https://github.com/kubeflow/pipelines/commit/be4723e33727c6dad71a95cba61e8f61562ab20f
+    - fix: https://github.com/kubeflow/pipelines/pull/13684
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.18.0
+notes:
+    - fix: 'github.com/kubeflow/pipelines: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-wg5q-x4j9-qm54
+    created: 2026-11-02T09:15:02.551317-05:00
+review_status: UNREVIEWED

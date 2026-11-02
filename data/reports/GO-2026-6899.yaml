@@ -1,0 +1,26 @@
+id: GO-2026-6899
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260831164314-ba9ae72cc860
+summary: |-
+    Kubeflow Pipelines: Pipeline archive upload allows decompression bomb to exhaust
+    server memory in github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-118761
+ghsas:
+    - GHSA-8fmv-6rg5-5924
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-8fmv-6rg5-5924
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-118761
+    - fix: https://github.com/kubeflow/pipelines/commit/1121d9a081fdf9e2107c39abb2cd8947727c6953
+    - fix: https://github.com/kubeflow/pipelines/commit/ba9ae72cc860e3afbea232185e4132fc2896cac5
+    - fix: https://github.com/kubeflow/pipelines/pull/14171
+    - fix: https://github.com/kubeflow/pipelines/pull/14186
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.18.0
+notes:
+    - fix: 'github.com/kubeflow/pipelines: could not add vulnerable_at: cannot auto-guess when fixed version is 0.0.0 pseudo-version'
+source:
+    id: GHSA-8fmv-6rg5-5924
+    created: 2026-11-02T09:15:23.771812-05:00
+review_status: UNREVIEWED
