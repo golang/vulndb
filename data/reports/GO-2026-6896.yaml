@@ -1,0 +1,30 @@
+id: GO-2026-6896
+modules:
+    - module: github.com/gofiber/fiber/v2
+      versions:
+        - introduced: 2.52.1
+        - fixed: 2.52.3
+      vulnerable_at: 2.52.2
+      packages:
+        - package: github.com/gofiber/fiber/v2/middleware/cors
+          symbols:
+            - normalizeOrigin
+            - validateDomain
+            - New
+summary: |-
+    Fiber: CORS wildcard origins matched without a dot boundary, allowing
+    credentialed cross-origin reads in github.com/gofiber/fiber
+cves:
+    - CVE-2026-119285
+ghsas:
+    - GHSA-g5jq-qmqr-qrwf
+references:
+    - advisory: https://github.com/gofiber/fiber/security/advisories/GHSA-g5jq-qmqr-qrwf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-119285
+    - fix: https://github.com/gofiber/fiber/commit/1aac6f618b6bd3e159d2449acb4232a2170b976b
+    - fix: https://github.com/gofiber/fiber/pull/2915
+    - web: https://github.com/gofiber/fiber/releases/tag/v2.52.3
+source:
+    id: GHSA-g5jq-qmqr-qrwf
+    created: 2026-11-02T09:16:01.239038-05:00
+review_status: NEEDS_REVIEW

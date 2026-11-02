@@ -1,0 +1,31 @@
+id: GO-2026-6889
+modules:
+    - module: github.com/cert-manager/cert-manager
+      versions:
+        - introduced: 1.18.0
+        - fixed: 1.19.6
+        - introduced: 1.20.0-alpha.0
+        - fixed: 1.20.3
+      vulnerable_at: 1.20.2
+summary: |-
+    cert-manager: Direct ACME Challenge resources can bypass Issuer DNS01 solver
+    policy and use ClusterIssuer DNS credentials in github.com/cert-manager/cert-manager
+cves:
+    - CVE-2026-62290
+ghsas:
+    - GHSA-8rvj-mm4h-c258
+references:
+    - advisory: https://github.com/cert-manager/cert-manager/security/advisories/GHSA-8rvj-mm4h-c258
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62290
+    - fix: https://github.com/cert-manager/cert-manager/commit/6bda47297c8fbc6b121b8b76624b668d26f1a155
+    - fix: https://github.com/cert-manager/cert-manager/commit/b37dbf01ecea50a0b3a19df0a7fe4c5ad6803f16
+    - fix: https://github.com/cert-manager/cert-manager/pull/8940
+    - fix: https://github.com/cert-manager/cert-manager/pull/8941
+    - web: https://github.com/cert-manager/cert-manager/releases/tag/v1.19.6
+    - web: https://github.com/cert-manager/cert-manager/releases/tag/v1.20.3
+notes:
+    - create: failed to auto-populate symbols
+source:
+    id: GHSA-8rvj-mm4h-c258
+    created: 2026-11-02T09:17:56.065394-05:00
+review_status: NEEDS_REVIEW

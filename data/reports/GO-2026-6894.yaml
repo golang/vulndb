@@ -1,0 +1,28 @@
+id: GO-2026-6894
+modules:
+    - module: github.com/anacrolix/torrent
+      versions:
+        - fixed: 1.61.1-0.20260911233437-76452a2c8a2f
+      vulnerable_at: 1.61.0
+      packages:
+        - package: github.com/anacrolix/torrent/bencode
+          symbols:
+            - Decoder.parseValueInterface
+            - Decoder.parseValue
+            - Decoder.parseStringLength
+            - Decoder.readOneValue
+          derived_symbols:
+            - Decoder.Decode
+            - Unmarshal
+summary: |-
+    anacrolix torrent has unbounded recursion in the bencode decoder that causes
+    stack-overflow crash and CPU-exhaustion DoS in github.com/anacrolix/torrent
+ghsas:
+    - GHSA-2wrx-84qj-4pcg
+references:
+    - advisory: https://github.com/anacrolix/torrent/security/advisories/GHSA-2wrx-84qj-4pcg
+    - fix: https://github.com/anacrolix/torrent/commit/76452a2c8a2fd9c59d4d4f10fc3495723d538c7b
+source:
+    id: GHSA-2wrx-84qj-4pcg
+    created: 2026-11-02T09:17:10.417336-05:00
+review_status: NEEDS_REVIEW

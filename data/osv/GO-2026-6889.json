@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6889",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62290",
+    "GHSA-8rvj-mm4h-c258"
+  ],
+  "summary": "cert-manager: Direct ACME Challenge resources can bypass Issuer DNS01 solver policy and use ClusterIssuer DNS credentials in github.com/cert-manager/cert-manager",
+  "details": "cert-manager: Direct ACME Challenge resources can bypass Issuer DNS01 solver policy and use ClusterIssuer DNS credentials in github.com/cert-manager/cert-manager",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/cert-manager/cert-manager",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.18.0"
+            },
+            {
+              "fixed": "1.19.6"
+            },
+            {
+              "introduced": "1.20.0-alpha.0"
+            },
+            {
+              "fixed": "1.20.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/cert-manager/cert-manager/security/advisories/GHSA-8rvj-mm4h-c258"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62290"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/6bda47297c8fbc6b121b8b76624b668d26f1a155"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/commit/b37dbf01ecea50a0b3a19df0a7fe4c5ad6803f16"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/pull/8940"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/cert-manager/cert-manager/pull/8941"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cert-manager/cert-manager/releases/tag/v1.19.6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/cert-manager/cert-manager/releases/tag/v1.20.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6889",
+    "review_status": "UNREVIEWED"
+  }
+}
