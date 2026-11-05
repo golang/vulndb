@@ -1,0 +1,27 @@
+id: GO-2026-6907
+modules:
+    - module: github.com/basekick-labs/arc
+      versions:
+        - fixed: 0.0.0-20260615165136-bb7d9761ad98
+      vulnerable_at: 0.0.0-20260615160325-38402ad2ebdd
+      packages:
+        - package: github.com/basekick-labs/arc/internal/api
+          symbols:
+            - Server.RegisterRoutes
+        - package: github.com/basekick-labs/arc/cmd/arc
+          symbols:
+            - main
+summary: |-
+    Arc has unauthenticated application log disclosure via `/api/v1/logs` in
+    github.com/basekick-labs/arc
+ghsas:
+    - GHSA-m3qr-fvp4-78xj
+references:
+    - advisory: https://github.com/Basekick-Labs/arc/security/advisories/GHSA-m3qr-fvp4-78xj
+    - fix: https://github.com/Basekick-Labs/arc/commit/bb7d9761ad9801e93837762ff7d37460f1df19dd
+    - web: https://github.com/Basekick-Labs/arc/pull/506
+    - web: https://github.com/Basekick-Labs/arc/releases/tag/v26.06.2
+source:
+    id: GHSA-m3qr-fvp4-78xj
+    created: 2026-11-05T15:53:51.200412-05:00
+review_status: UNREVIEWED

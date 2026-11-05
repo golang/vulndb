@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6902",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-105769",
+    "GHSA-5q7h-w9jf-cx97"
+  ],
+  "summary": "kaniko can send the build's Azure (Entra ID) access token to lookalike ACR registry hosts in github.com/chainguard-dev/kaniko",
+  "details": "kaniko can send the build's Azure (Entra ID) access token to lookalike ACR registry hosts in github.com/chainguard-dev/kaniko",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/chainguard-dev/kaniko",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.20"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/chainguard-forks/kaniko/security/advisories/GHSA-5q7h-w9jf-cx97"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105769"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-forks/kaniko/commit/08de01fe7fffaeb6bc030efa9eae723ea2dd4405"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/chainguard-forks/kaniko/commit/58915b22dbeca4d936d6bb51c0c889baf6ebbc48"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-forks/kaniko/pull/495"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chainguard-forks/kaniko/releases/tag/v1.25.20"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/chrismellard/docker-credential-acr-env/issues/21"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6902",
+    "review_status": "UNREVIEWED"
+  }
+}

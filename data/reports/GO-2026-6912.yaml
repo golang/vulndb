@@ -1,0 +1,27 @@
+id: GO-2026-6912
+modules:
+    - module: kubevirt.io/kubevirt
+      versions:
+        - introduced: 1.1.0-alpha.0
+      unsupported_versions:
+        - last_affected: 1.10.0-rc.0
+      vulnerable_at: 1.9.1
+summary: |-
+    KubeVirt downward metrics virtio-serial server vulnerable to unbounded memory
+    consumption in kubevirt.io/kubevirt
+cves:
+    - CVE-2026-13322
+ghsas:
+    - GHSA-6f2p-2qg2-qqch
+references:
+    - advisory: https://github.com/advisories/GHSA-6f2p-2qg2-qqch
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-13322
+    - web: https://access.redhat.com/security/cve/CVE-2026-13322
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2492681
+    - web: https://github.com/kubevirt/kubevirt/blob/e63503d2f3a166f79f0891f8e1c3450eb39f88ac/pkg/downwardmetrics/virtio-serial/server.go#L240-L251
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-6f2p-2qg2-qqch
+    created: 2026-11-05T15:53:21.833624-05:00
+review_status: UNREVIEWED

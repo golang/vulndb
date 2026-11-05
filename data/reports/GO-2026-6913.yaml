@@ -1,0 +1,37 @@
+id: GO-2026-6913
+modules:
+    - module: github.com/basekick-labs/arc
+      versions:
+        - fixed: 0.0.0-20260610131716-5dc8f53b70a3
+      vulnerable_at: 0.0.0-20260610033646-c08b892b2d93
+      packages:
+        - package: github.com/basekick-labs/arc/internal/auth
+          symbols:
+            - AuthManager.insertToken
+            - AuthManager.CreateTokenWithValue
+            - AuthManager.CreateToken
+          derived_symbols:
+            - AuthManager.ForceAddRecoveryToken
+        - package: github.com/basekick-labs/arc/internal/api
+          symbols:
+            - ValidateSQLRequest
+            - AuthHandler.createToken
+          derived_symbols:
+            - Server.Start
+summary: |-
+    Arc: DuckDB I/O aliases bypass database RBAC after CVE-2026-47735 in
+    github.com/basekick-labs/arc
+cves:
+    - CVE-2026-55098
+ghsas:
+    - GHSA-93cm-2v4m-c56c
+references:
+    - advisory: https://github.com/Basekick-Labs/arc/security/advisories/GHSA-93cm-2v4m-c56c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-55098
+    - fix: https://github.com/Basekick-Labs/arc/commit/5dc8f53b70a3871b16b0cebf328f07c578af7a45
+    - web: https://github.com/Basekick-Labs/arc/pull/495
+    - web: https://github.com/Basekick-Labs/arc/tree/v26.06.2
+source:
+    id: GHSA-93cm-2v4m-c56c
+    created: 2026-11-05T15:53:12.759114-05:00
+review_status: UNREVIEWED
