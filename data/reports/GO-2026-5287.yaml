@@ -4,22 +4,22 @@ modules:
       vulnerable_at: 1.7.34
     - module: github.com/traefik/traefik/v2
       versions:
-        - fixed: 2.11.51
-      vulnerable_at: 2.11.50
+        - fixed: 2.11.48
+      vulnerable_at: 2.11.46
       packages:
         - package: github.com/traefik/traefik/v2/pkg/server/router/tcp
           symbols:
             - Router.GetTLSGetClientInfo
-            - Router.HTTP3TLSConfigMatcherFunc
     - module: github.com/traefik/traefik/v3
       versions:
-        - fixed: 3.7.3
-      vulnerable_at: 3.7.2
+        - fixed: 3.6.19
+        - introduced: 3.7.0
+          fixed: 3.7.3
+      vulnerable_at: 3.7.1
       packages:
         - package: github.com/traefik/traefik/v3/pkg/server/router/tcp
           symbols:
             - Router.GetTLSGetClientInfo
-            - Router.HTTP3TLSConfigMatcherFunc
 summary: |-
     Traefik: HTTP/3 mTLS bypass via exact SNI TLSOptions lookup for wildcard and
     mixed-case hosts in github.com/traefik/traefik
@@ -40,6 +40,8 @@ ghsas:
 references:
     - advisory: https://github.com/traefik/traefik/security/advisories/GHSA-9cr8-q42q-g8m7
     - web: https://github.com/traefik/traefik/releases/tag/v3.7.3
+    - fix: https://github.com/traefik/traefik/pull/13214
+    - web: https://github.com/traefik/traefik/releases/tag/v3.6.19
 source:
     id: GHSA-9cr8-q42q-g8m7
     created: 2026-07-22T21:46:13.165616-04:00
