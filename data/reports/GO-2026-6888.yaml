@@ -1,0 +1,47 @@
+id: GO-2026-6888
+modules:
+    - module: github.com/andybalholm/brotli
+      versions:
+        - fixed: 1.2.7
+      vulnerable_at: 1.2.6
+      packages:
+        - package: github.com/andybalholm/brotli
+          symbols:
+            - safeDecodeLiteralBlockSwitch
+            - decodeLiteralBlockSwitch
+            - safeDecodeCommandBlockSwitch
+            - processCommandsInternal
+            - decodeBlockTypeAndLength
+            - decodeLiteralBlockSwitchInternal
+            - decodeCommandBlockSwitchInternal
+            - safeDecodeDistanceBlockSwitch
+            - decodeDistanceBlockSwitchInternal
+            - decoderErrorString
+            - decodeDistanceBlockSwitch
+            - decodeCommandBlockSwitch
+          derived_symbols:
+            - Reader.Read
+            - decodeError.Error
+summary: Excessive memory allocation when decompressing crafted streams in github.com/andybalholm/brotli
+description: |-
+    In github.com/andybalholm/brotli before v1.2.7, the decompressor allocates
+    memory for Huffman tables and block-type trees on every meta-block header
+    without bounding the cumulative allocations relative to the input size. A small
+    crafted brotli stream containing many empty meta-blocks with new Huffman trees
+    can trigger hundreds of megabytes of allocations per kilobyte of input, leading
+    to denial of service.
+cves:
+    - CVE-2026-111497
+ghsas:
+    - GHSA-c9gr-gmg4-2vqv
+credits:
+    - Philippe Antoine (Catena cyber)
+references:
+    - advisory: https://github.com/andybalholm/brotli/security/advisories/GHSA-c9gr-gmg4-2vqv
+    - fix: https://github.com/andybalholm/brotli/commit/33c2a9884269798192b5ecf171288f98939dbe42
+    - web: https://github.com/andybalholm/brotli/releases/tag/v1.2.7
+    - web: https://github.com/google/brotli/commit/0ed4268a4401abcb4472096340477cf4af7d1a2b
+source:
+    id: go-security-team
+    created: 2026-11-05T15:55:22.532323-05:00
+review_status: REVIEWED

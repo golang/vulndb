@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6909",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Nil-pointer panic in validateAssertion and namespace-blind Subject.NameID in github.com/crewjam/saml",
+  "details": "github.com/crewjam/saml through v0.5.1 contains two vulnerabilities in SAML assertion processing:\n\n1. ServiceProvider.validateAssertion dereferences assertion.Issuer without a nil check when ExpectedIDPEntityID is non-empty. A signed SAML assertion that omits the optional \u003csaml:Issuer\u003e element causes a nil-pointer dereference panic after signature verification.\n\n2. Subject uses the bare XML struct tag xml:\"NameID\", which matches \u003cNameID\u003e elements in any XML namespace. When a signed assertion omits \u003csaml:NameID\u003e and includes a \u003cNameID\u003e element in a foreign namespace inside \u003csaml:Subject\u003e, encoding/xml populates Subject.NameID from the foreign element, allowing an authenticated principal to spoof Subject.NameID.Value.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/crewjam/saml",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/crewjam/saml",
+            "symbols": [
+              "ServiceProvider.ParseResponse",
+              "ServiceProvider.ParseXMLArtifactResponse",
+              "ServiceProvider.ParseXMLResponse",
+              "ServiceProvider.validateAssertion"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6909"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Artur Beshkov (aibeshkov)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6909",
+    "review_status": "REVIEWED"
+  }
+}

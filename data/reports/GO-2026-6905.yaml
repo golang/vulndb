@@ -1,0 +1,24 @@
+id: GO-2026-6905
+modules:
+    - module: github.com/blakesmith/ar
+      vulnerable_at: 0.0.0-20190502131153-809d4375e1fb
+      packages:
+        - package: github.com/blakesmith/ar
+          symbols:
+            - Reader.Read
+summary: Panic on negative member size in Reader.Read in github.com/blakesmith/ar
+description: |-
+    Reader.Next parses the 10-byte decimal size field of an archive member header
+    with strconv.ParseInt without rejecting negative values. A header with a
+    negative size leaves the reader with a negative remaining byte count, causing
+    the subsequent call to Reader.Read to panic with a slice bounds out of range
+    error when slicing the caller's buffer.
+credits:
+    - JayOfTheKeyboard
+references:
+    - report: https://github.com/golang/vulndb/issues/6905
+    - web: https://github.com/blakesmith/ar/pull/10
+source:
+    id: go-security-team
+    created: 2026-11-05T15:53:56.824644-05:00
+review_status: REVIEWED

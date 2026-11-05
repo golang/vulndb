@@ -1,0 +1,30 @@
+id: GO-2026-6893
+modules:
+    - module: github.com/google/go-eventlog
+      versions:
+        - fixed: 0.0.3-0.20261001001437-1991f15bc4b0
+      vulnerable_at: 0.0.2
+      packages:
+        - package: github.com/google/go-eventlog/tcg
+          symbols:
+            - Event.UntrustedType
+          derived_symbols:
+            - ConvertToPbEvents
+summary: Event type spoofing via UntrustedType in github.com/google/go-eventlog
+description: |-
+    In github.com/google/go-eventlog/tcg, Event exposes UntrustedType, which returns
+    the raw event type header from the TCG event log without verifying that the
+    event data matches its digest. Callers that dispatch on Event.UntrustedType
+    after ParseAndReplay can be tricked by a modified event type field for events
+    whose digests are not verified against EventData.
+credits:
+    - Brian Schaatsbergen (bschaatsbergen)
+references:
+    - fix: https://github.com/google/go-eventlog/commit/1991f15bc4b01cffc4e329e9e532c1ae930ae5aa
+    - fix: https://github.com/google/go-eventlog/pull/39
+    - report: https://github.com/golang/vulndb/issues/6893
+    - web: https://bschaatsbergen.com/posts/attacking-rats-verifiers-through-the-tcg-event-log/
+source:
+    id: go-security-team
+    created: 2026-11-05T15:54:40.494833-05:00
+review_status: REVIEWED

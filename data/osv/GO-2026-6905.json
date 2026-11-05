@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6905",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Panic on negative member size in Reader.Read in github.com/blakesmith/ar",
+  "details": "Reader.Next parses the 10-byte decimal size field of an archive member header with strconv.ParseInt without rejecting negative values. A header with a negative size leaves the reader with a negative remaining byte count, causing the subsequent call to Reader.Read to panic with a slice bounds out of range error when slicing the caller's buffer.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/blakesmith/ar",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/blakesmith/ar",
+            "symbols": [
+              "Reader.Read"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6905"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/blakesmith/ar/pull/10"
+    }
+  ],
+  "credits": [
+    {
+      "name": "JayOfTheKeyboard"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6905",
+    "review_status": "REVIEWED"
+  }
+}

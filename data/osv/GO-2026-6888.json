@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6888",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-111497",
+    "GHSA-c9gr-gmg4-2vqv"
+  ],
+  "summary": "Excessive memory allocation when decompressing crafted streams in github.com/andybalholm/brotli",
+  "details": "In github.com/andybalholm/brotli before v1.2.7, the decompressor allocates memory for Huffman tables and block-type trees on every meta-block header without bounding the cumulative allocations relative to the input size. A small crafted brotli stream containing many empty meta-blocks with new Huffman trees can trigger hundreds of megabytes of allocations per kilobyte of input, leading to denial of service.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/andybalholm/brotli",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.7"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/andybalholm/brotli",
+            "symbols": [
+              "Reader.Read",
+              "decodeBlockTypeAndLength",
+              "decodeCommandBlockSwitch",
+              "decodeCommandBlockSwitchInternal",
+              "decodeDistanceBlockSwitch",
+              "decodeDistanceBlockSwitchInternal",
+              "decodeError.Error",
+              "decodeLiteralBlockSwitch",
+              "decodeLiteralBlockSwitchInternal",
+              "decoderErrorString",
+              "processCommandsInternal",
+              "safeDecodeCommandBlockSwitch",
+              "safeDecodeDistanceBlockSwitch",
+              "safeDecodeLiteralBlockSwitch"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/andybalholm/brotli/security/advisories/GHSA-c9gr-gmg4-2vqv"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/andybalholm/brotli/commit/33c2a9884269798192b5ecf171288f98939dbe42"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/andybalholm/brotli/releases/tag/v1.2.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/google/brotli/commit/0ed4268a4401abcb4472096340477cf4af7d1a2b"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Philippe Antoine (Catena cyber)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6888",
+    "review_status": "REVIEWED"
+  }
+}

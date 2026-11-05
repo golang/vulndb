@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6911",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "SSRF and credential leak via unvalidated Location header in github.com/mark3labs/mcp-go",
+  "details": "In github.com/mark3labs/mcp-go/client/transport, NewStreamableHTTP constructs an http.Client with a nil CheckRedirect policy when no custom WithHTTPBasicClient is supplied, and attaches static custom headers and OAuth bearer tokens inside a RoundTripper layer. If an MCP server responds with a 3xx redirect, the client follows the Location header to arbitrary hosts and schemes and attaches configured WithHeaders and OAuth Authorization headers to the redirected request, enabling server-side request forgery (SSRF) and credential disclosure.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mark3labs/mcp-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mark3labs/mcp-go/client/transport",
+            "symbols": [
+              "NewStreamableHTTP",
+              "StreamableHTTP.Close",
+              "StreamableHTTP.SendNotification",
+              "StreamableHTTP.SendRequest",
+              "StreamableHTTP.SetRequestHandler"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6911"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/mark3labs/mcp-go/issues/1164"
+    }
+  ],
+  "credits": [
+    {
+      "name": "kanywst"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6911",
+    "review_status": "REVIEWED"
+  }
+}
