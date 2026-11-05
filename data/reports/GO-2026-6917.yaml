@@ -1,0 +1,25 @@
+id: GO-2026-6917
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - introduced: 0.0.0-20250721152936-fe86ceb2c3fa
+        - fixed: 0.0.0-20260626085133-7cb96ac80a6d
+      vulnerable_at: 0.0.0-20250721152936-fe86ceb2c3fa
+summary: |-
+    LXD allows cross-guest volume hijack via DevLXD device patch in
+    github.com/canonical/lxd
+cves:
+    - CVE-2026-12411
+ghsas:
+    - GHSA-hhf9-qw4v-72xp
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-hhf9-qw4v-72xp
+    - fix: https://github.com/canonical/lxd/commit/752e25cfb849a349ff08939ce02747ef4d4e69cc
+    - fix: https://github.com/canonical/lxd/commit/7cb96ac80a6d52a96b53b0ae06a8659606fa8dd8
+    - fix: https://github.com/canonical/lxd/pull/18585
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-hhf9-qw4v-72xp
+    created: 2026-11-05T15:51:29.485998-05:00
+review_status: REVIEWED
