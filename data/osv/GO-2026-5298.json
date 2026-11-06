@@ -4,10 +4,11 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "aliases": [
+    "CVE-2026-12681",
     "GHSA-9r4w-jg96-92mv"
   ],
-  "summary": "Go-Attestation: Hash injection into trusted measurement list via unskipped SignatureHeaderSize vendor bytes in parseEfiSignatureList() in github.com/google/go-attestation",
-  "details": "Go-Attestation: Hash injection into trusted measurement list via unskipped SignatureHeaderSize vendor bytes in parseEfiSignatureList() in github.com/google/go-attestation",
+  "summary": "Hash injection into trusted measurement list in parseEfiSignatureList in github.com/google/go-attestation",
+  "details": "Hash injection into trusted measurement list in parseEfiSignatureList in github.com/google/go-attestation",
   "affected": [
     {
       "package": {
@@ -20,11 +21,24 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.6.1"
             }
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/google/go-attestation/attest/internal",
+            "symbols": [
+              "UEFIVariableData.SignatureData",
+              "parseEfiSignatureList"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -47,6 +61,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5298",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
