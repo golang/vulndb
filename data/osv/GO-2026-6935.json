@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6935",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-9639",
+    "GHSA-j93m-3j9p-m5m8"
+  ],
+  "summary": "LXD has CreateCustomVolumeFromBackup nil-pointer dereference in github.com/canonical/lxd",
+  "details": "LXD has CreateCustomVolumeFromBackup nil-pointer dereference in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260622081844-85f897013ccd"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd/storage",
+            "symbols": [
+              "lxdBackend.CheckInstanceBackupFileSnapshots",
+              "lxdBackend.CreateCustomVolumeFromBackup",
+              "lxdBackend.CreateCustomVolumeFromCopy",
+              "lxdBackend.CreateCustomVolumeFromMigration",
+              "lxdBackend.CreateInstanceFromBackup",
+              "lxdBackend.CreateInstanceFromCopy",
+              "lxdBackend.ImportCustomVolume",
+              "lxdBackend.ImportInstance",
+              "lxdBackend.RefreshCustomVolume",
+              "lxdBackend.RefreshInstance",
+              "lxdBackend.detectUnknownInstanceAndCustomVolumes"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "backupWriteIndex",
+              "createFromBackup",
+              "internalRecoverScan",
+              "volumeBackupWriteIndex"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd/instance/drivers",
+            "symbols": [
+              "lxc.MigrateSend",
+              "qemu.MigrateSend"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd/backup",
+            "symbols": [
+              "UpdateInstanceConfigInPlace"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-j93m-3j9p-m5m8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/05bc2729e99707a766d5c4705167a3322c9ef424"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/c7cdfadb6044dfeaac592dc225978b4125ee23fe"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/d15520809e6e2ac2af0c6354dfb7be5854b0e859"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/18320"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/18390"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/9xxx/CVE-2026-9639.json"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/blob/lxd-5.0.7/lxd/storage/backend_lxd.go"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-5.21.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-6.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6935",
+    "review_status": "REVIEWED"
+  }
+}

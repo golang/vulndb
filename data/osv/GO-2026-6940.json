@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6940",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-4xr6-hc3h-f6jq"
+  ],
+  "summary": "Unbounded allocation from peer-declared frame length in github.com/gobwas/ws",
+  "details": "ws.ReadFrame, ws.MustReadFrame, and the wsutil message readers allocate a buffer of the payload length declared in the frame header before reading any payload bytes. A remote unauthenticated peer can send a frame header declaring a large payload length and cause an out-of-memory crash.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gobwas/ws",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gobwas/ws/wsutil",
+            "symbols": [
+              "CipherReader.Read",
+              "ControlHandler.Handle",
+              "ControlHandler.HandleClose",
+              "ControlHandler.HandlePing",
+              "ControlHandler.HandlePong",
+              "ControlWriter.Flush",
+              "ControlWriter.Write",
+              "DebugDialer.Dial",
+              "DebugUpgrader.Upgrade",
+              "HandleClientControlMessage",
+              "HandleControlMessage",
+              "HandleServerControlMessage",
+              "NextReader",
+              "ReadClientBinary",
+              "ReadClientData",
+              "ReadClientMessage",
+              "ReadClientText",
+              "ReadData",
+              "ReadMessage",
+              "ReadServerBinary",
+              "ReadServerData",
+              "ReadServerMessage",
+              "ReadServerText",
+              "Reader.Discard",
+              "Reader.NextFrame",
+              "Reader.Read",
+              "Reader.reset",
+              "UTF8Reader.Read",
+              "WriteClientBinary",
+              "WriteClientMessage",
+              "WriteClientText",
+              "WriteMessage",
+              "WriteServerBinary",
+              "WriteServerMessage",
+              "WriteServerText",
+              "Writer.Flush",
+              "Writer.FlushFragment",
+              "Writer.ReadFrom",
+              "Writer.Write",
+              "Writer.WriteThrough",
+              "prefetchResponseReader.Read",
+              "readData",
+              "rwConn.Read",
+              "rwConn.Write"
+            ]
+          },
+          {
+            "path": "github.com/gobwas/ws",
+            "symbols": [
+              "MustReadFrame",
+              "ReadFrame"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gobwas/ws/security/advisories/GHSA-4xr6-hc3h-f6jq"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gobwas/ws/commit/6b485812604c20a7174f3d68a64379121bcddfe2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gobwas/ws/pull/229"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/gobwas/ws/issues/223"
+    }
+  ],
+  "credits": [
+    {
+      "name": "AdamMagued"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6940",
+    "review_status": "REVIEWED"
+  }
+}

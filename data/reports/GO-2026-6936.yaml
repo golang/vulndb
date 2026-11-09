@@ -1,0 +1,24 @@
+id: GO-2026-6936
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260630083100-c5184be310b1
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - ImageDownload
+          skip_fix: build errors during static analysis
+summary: LXD has arbitrary file write on client due to trusted image hash in github.com/canonical/lxd
+ghsas:
+    - GHSA-pjff-c2wc-f6jm
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-pjff-c2wc-f6jm
+    - fix: https://github.com/canonical/lxd/commit/6df83447427665dcb67811e1d1f2983892090e24
+    - fix: https://github.com/canonical/lxd/commit/d63007252d90b5b9efe969ee3be9dce677ff1ee6
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-f6m5-xw2g-xc4x
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-48769
+source:
+    id: GHSA-pjff-c2wc-f6jm
+    created: 2026-11-09T08:37:22.703191-05:00
+review_status: REVIEWED

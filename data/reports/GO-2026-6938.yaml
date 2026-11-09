@@ -1,0 +1,59 @@
+id: GO-2026-6938
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260630083100-c5184be310b1
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd/instance/drivers
+          symbols:
+            - common.RootfsPath
+            - common.TemplatesPath
+            - lxc.unmount
+            - lxc.Export
+            - lxc.FileSFTPConn
+            - lxc.handleIdmappedStorage
+            - lxc.startCommon
+            - lxc.templateApplyNow
+            - lxc.fileSFTPConnNoLock
+            - lxc.FilePull
+            - lxc.FileRemove
+            - lxc.FileExists
+            - lxc.FilePush
+            - qemu.Export
+            - qemu.templateApplyNow
+          skip_fix: build errors during static analysis
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - imgPostInstanceInfo
+          skip_fix: build errors during static analysis
+        - package: github.com/canonical/lxd/lxd/storage
+          symbols:
+            - lxdBackend.CreateInstanceFromCopy
+            - lxdBackend.CreateInstanceSnapshot
+            - lxdBackend.RefreshInstance
+            - lxdBackend.MigrateInstance
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has arbitrary file read+write on host via rootfs/ symlink in malicious image
+    in github.com/canonical/lxd
+ghsas:
+    - GHSA-vghh-5rfx-xhq8
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-vghh-5rfx-xhq8
+    - fix: https://github.com/canonical/lxd/commit/190e2451544a60f6f924ef50a2112fb65d1923cd
+    - fix: https://github.com/canonical/lxd/commit/254b85c9301397e25304116b63da9154093199da
+    - fix: https://github.com/canonical/lxd/commit/3dbf4cea14124abda420dd5048d7e657cd30c1b7
+    - fix: https://github.com/canonical/lxd/commit/4cd63344f8a523acf39fdc02a80fd64b2e3b584f
+    - fix: https://github.com/canonical/lxd/commit/51dc11ed5258fbb54dd8993b802af02d6d7b0235
+    - fix: https://github.com/canonical/lxd/commit/62bcee5471c2581fce10a648f6b27410ce081b87
+    - fix: https://github.com/canonical/lxd/commit/8751ea69e24583996a20fb5519dcf2d89470d8e9
+    - fix: https://github.com/canonical/lxd/commit/b499ec4b91dcc90f43aea444b1e19a58109772c2
+    - fix: https://github.com/canonical/lxd/commit/e2aeca6b78677751bab36a7e4efaad0c840ed9fd
+    - fix: https://github.com/canonical/lxd/commit/edb6d994f77333c9c33f4d9a137c754d142f3818
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-2q3f-q5pq-g8wv
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-48749
+source:
+    id: GHSA-vghh-5rfx-xhq8
+    created: 2026-11-09T08:29:08.917438-05:00
+review_status: REVIEWED

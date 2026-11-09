@@ -1,0 +1,39 @@
+id: GO-2026-6934
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260630083100-c5184be310b1
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - compressFile
+            - backupCreate
+            - volumeBackupCreate
+            - imgPostInstanceInfo
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has argument injection in backup compression algorithm leading to AFW and
+    ACE in github.com/canonical/lxd
+ghsas:
+    - GHSA-fmc8-p6q7-75cc
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-fmc8-p6q7-75cc
+    - fix: https://github.com/canonical/lxd/commit/0915bb88cbb0baed5ac1aef8e62079c57ac877da
+    - fix: https://github.com/canonical/lxd/commit/0ab30d1bbe398ef6359fb8116d6852790a1f151d
+    - fix: https://github.com/canonical/lxd/commit/1887e3da0f33af250d941e4e9ffafc8fd0911a89
+    - fix: https://github.com/canonical/lxd/commit/32fd88560ddfc10b0a808c9f176d93faf0e0069a
+    - fix: https://github.com/canonical/lxd/commit/932592daa790ddd1c0d074daee9c0522d8e268fe
+    - fix: https://github.com/canonical/lxd/commit/9b09906b3b4c27ba4416e522644bd1d5191cdf5f
+    - fix: https://github.com/canonical/lxd/commit/a2808429c2506d6fa5bf506e4790909c5bd3aac9
+    - fix: https://github.com/canonical/lxd/commit/afc0e7ff003b81fa00f3aff147b99838a610f796
+    - fix: https://github.com/canonical/lxd/commit/b3e8cedb39838e5effe7b9d0ae3a3ad3ce85f9ec
+    - fix: https://github.com/canonical/lxd/commit/c6c999561ccf0024337e9f3746087c7f9c5f096f
+    - fix: https://github.com/canonical/lxd/commit/e1e6018c509f52db0fb531c7c20fa7aac59858de
+    - fix: https://github.com/canonical/lxd/commit/e224d6f8230a2da7ed7e60ab2aee44c788f9dba8
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-v6mj-8pf4-hhw4
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-48755
+source:
+    id: GHSA-fmc8-p6q7-75cc
+    created: 2026-11-09T08:40:02.971567-05:00
+review_status: REVIEWED

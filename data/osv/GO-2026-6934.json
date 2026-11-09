@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6934",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-fmc8-p6q7-75cc"
+  ],
+  "summary": "LXD has argument injection in backup compression algorithm leading to AFW and ACE in github.com/canonical/lxd",
+  "details": "LXD has argument injection in backup compression algorithm leading to AFW and ACE in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260630083100-c5184be310b1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "backupCreate",
+              "compressFile",
+              "imgPostInstanceInfo",
+              "volumeBackupCreate"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-fmc8-p6q7-75cc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/0915bb88cbb0baed5ac1aef8e62079c57ac877da"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/0ab30d1bbe398ef6359fb8116d6852790a1f151d"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/1887e3da0f33af250d941e4e9ffafc8fd0911a89"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/32fd88560ddfc10b0a808c9f176d93faf0e0069a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/932592daa790ddd1c0d074daee9c0522d8e268fe"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/9b09906b3b4c27ba4416e522644bd1d5191cdf5f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/a2808429c2506d6fa5bf506e4790909c5bd3aac9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/afc0e7ff003b81fa00f3aff147b99838a610f796"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/b3e8cedb39838e5effe7b9d0ae3a3ad3ce85f9ec"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/c6c999561ccf0024337e9f3746087c7f9c5f096f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/e1e6018c509f52db0fb531c7c20fa7aac59858de"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/e224d6f8230a2da7ed7e60ab2aee44c788f9dba8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-v6mj-8pf4-hhw4"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48755"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6934",
+    "review_status": "REVIEWED"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6933",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-7mr3-28h5-m5vx"
+  ],
+  "summary": "LXD has project restriction bypass for custom volume copy across projects in github.com/canonical/lxd",
+  "details": "LXD has project restriction bypass for custom volume copy across projects in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260630083100-c5184be310b1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "storagePoolVolumesPost"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-7mr3-28h5-m5vx"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/8a4ed50ae855639d76021ba4bf26a50d7f2288fd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/e2635a26957737ec4a77dc28dd7b84bd380881d6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/eec1cf9504c18ad7c3c36ae0b62d21c05c25702c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-5.0.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-5.21.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-6.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-64f3-v33m-w89f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55621"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6933",
+    "review_status": "REVIEWED"
+  }
+}

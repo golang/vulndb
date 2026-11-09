@@ -1,0 +1,36 @@
+id: GO-2026-6927
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20261005133302-c4a919f3f4e2
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - ImageDownload
+            - imagesPost
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD: SSRF via image import from URL allows internal network probing by
+    authenticated users in github.com/canonical/lxd
+cves:
+    - CVE-2026-28385
+ghsas:
+    - GHSA-3gq2-x4qg-p4g6
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-3gq2-x4qg-p4g6
+    - fix: https://github.com/canonical/lxd/commit/08996fa031eebc2bc2f8e27148c2ba24386c01d0
+    - fix: https://github.com/canonical/lxd/commit/4bbdb17ab67010446668e4b00a5175df5b6d55b4
+    - fix: https://github.com/canonical/lxd/commit/5976c92117b79d73437d7fab55e34cb80083edff
+    - fix: https://github.com/canonical/lxd/commit/886fcf5b7686bf59de78e239cec90a69e8fb9c65
+    - fix: https://github.com/canonical/lxd/commit/c4a919f3f4e21249d535d4030a33484313026111
+    - fix: https://github.com/canonical/lxd/pull/18210
+    - fix: https://github.com/canonical/lxd/pull/18462
+    - web: https://github.com/canonical/lxd/blob/lxd-6.10.0/lxd/image_source_transitional.go
+    - web: https://github.com/canonical/lxd/blob/lxd-6.9/lxd/daemon_images.go
+    - web: https://github.com/canonical/lxd/blob/lxd-6.9/lxd/images.go
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-6.9
+source:
+    id: GHSA-3gq2-x4qg-p4g6
+    created: 2026-11-09T08:58:19.926723-05:00
+review_status: REVIEWED

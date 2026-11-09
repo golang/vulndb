@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6927",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-28385",
+    "GHSA-3gq2-x4qg-p4g6"
+  ],
+  "summary": "LXD: SSRF via image import from URL allows internal network probing by authenticated users in github.com/canonical/lxd",
+  "details": "LXD: SSRF via image import from URL allows internal network probing by authenticated users in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20261005133302-c4a919f3f4e2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "ImageDownload",
+              "imagesPost"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-3gq2-x4qg-p4g6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/08996fa031eebc2bc2f8e27148c2ba24386c01d0"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/4bbdb17ab67010446668e4b00a5175df5b6d55b4"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/5976c92117b79d73437d7fab55e34cb80083edff"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/886fcf5b7686bf59de78e239cec90a69e8fb9c65"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/c4a919f3f4e21249d535d4030a33484313026111"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/18210"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/pull/18462"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/blob/lxd-6.10.0/lxd/image_source_transitional.go"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/blob/lxd-6.9/lxd/daemon_images.go"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/blob/lxd-6.9/lxd/images.go"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/canonical/lxd/releases/tag/lxd-6.9"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6927",
+    "review_status": "REVIEWED"
+  }
+}

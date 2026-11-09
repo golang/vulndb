@@ -1,0 +1,59 @@
+id: GO-2026-6935
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260622081844-85f897013ccd
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd/storage
+          symbols:
+            - lxdBackend.ImportInstance
+            - lxdBackend.detectUnknownInstanceAndCustomVolumes
+            - lxdBackend.CreateInstanceFromBackup
+            - lxdBackend.CreateCustomVolumeFromMigration
+            - lxdBackend.CreateCustomVolumeFromBackup
+            - lxdBackend.RefreshInstance
+            - lxdBackend.CheckInstanceBackupFileSnapshots
+            - lxdBackend.ImportCustomVolume
+            - lxdBackend.RefreshCustomVolume
+            - lxdBackend.CreateInstanceFromCopy
+            - lxdBackend.CreateCustomVolumeFromCopy
+          skip_fix: build errors during static analysis
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - createFromBackup
+            - volumeBackupWriteIndex
+            - internalRecoverScan
+            - backupWriteIndex
+          skip_fix: build errors during static analysis
+        - package: github.com/canonical/lxd/lxd/instance/drivers
+          symbols:
+            - lxc.MigrateSend
+            - qemu.MigrateSend
+          skip_fix: build errors during static analysis
+        - package: github.com/canonical/lxd/lxd/backup
+          symbols:
+            - UpdateInstanceConfigInPlace
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has CreateCustomVolumeFromBackup nil-pointer dereference in
+    github.com/canonical/lxd
+cves:
+    - CVE-2026-9639
+ghsas:
+    - GHSA-j93m-3j9p-m5m8
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-j93m-3j9p-m5m8
+    - fix: https://github.com/canonical/lxd/commit/05bc2729e99707a766d5c4705167a3322c9ef424
+    - fix: https://github.com/canonical/lxd/commit/c7cdfadb6044dfeaac592dc225978b4125ee23fe
+    - fix: https://github.com/canonical/lxd/commit/d15520809e6e2ac2af0c6354dfb7be5854b0e859
+    - fix: https://github.com/canonical/lxd/pull/18320
+    - fix: https://github.com/canonical/lxd/pull/18390
+    - web: https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/9xxx/CVE-2026-9639.json
+    - web: https://github.com/canonical/lxd/blob/lxd-5.0.7/lxd/storage/backend_lxd.go
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.21.5
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-6.9
+source:
+    id: GHSA-j93m-3j9p-m5m8
+    created: 2026-11-09T08:37:26.890021-05:00
+review_status: REVIEWED

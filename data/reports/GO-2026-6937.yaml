@@ -1,0 +1,30 @@
+id: GO-2026-6937
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260630083100-c5184be310b1
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - instancesPost
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has project restriction bypass in instance copy across projects in
+    github.com/canonical/lxd
+ghsas:
+    - GHSA-qx75-2p3r-pwm5
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-qx75-2p3r-pwm5
+    - fix: https://github.com/canonical/lxd/commit/97cb037794cb6b21c5a184eb5f3292207adbf6b2
+    - fix: https://github.com/canonical/lxd/commit/bc1e20ea32dff6ae2df08803eee82832959ec80e
+    - fix: https://github.com/canonical/lxd/commit/f7849615eb89e71a12ea76daaab6110bdf0fdf7f
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.0.7
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.21.5
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-6.8
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-c9f5-j9c3-mhrg
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-55622
+source:
+    id: GHSA-qx75-2p3r-pwm5
+    created: 2026-11-09T08:35:46.366525-05:00
+review_status: REVIEWED

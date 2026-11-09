@@ -1,0 +1,31 @@
+id: GO-2026-6929
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260626085134-124f90100640
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - instanceExecPost
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has arbitrary file write on host via exec-output symlink in crafted image
+    in github.com/canonical/lxd
+ghsas:
+    - GHSA-9j25-mm2h-2f76
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-9j25-mm2h-2f76
+    - fix: https://github.com/canonical/lxd/commit/124f901006400f634d54d908911c9ea93bae9a70
+    - fix: https://github.com/canonical/lxd/commit/254b85c9301397e25304116b63da9154093199da
+    - fix: https://github.com/canonical/lxd/commit/4cd63344f8a523acf39fdc02a80fd64b2e3b584f
+    - fix: https://github.com/canonical/lxd/commit/937b761393af48fe4f5ff7e610ebfc1c9144e953
+    - fix: https://github.com/canonical/lxd/commit/bb0f2521a59edacff2a0cb2e9532fdfbe68cf764
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.21.5
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-73hr-m85f-64v9
+    - web: https://manpages.debian.org/bookworm/cron/cron.8.en.html
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-48750
+source:
+    id: GHSA-9j25-mm2h-2f76
+    created: 2026-11-09T08:54:34.995928-05:00
+review_status: REVIEWED

@@ -1,0 +1,30 @@
+id: GO-2026-6933
+modules:
+    - module: github.com/canonical/lxd
+      versions:
+        - fixed: 0.0.0-20260630083100-c5184be310b1
+      vulnerable_at: 0.0.0-20260309115956-f5719b1b0576
+      packages:
+        - package: github.com/canonical/lxd/lxd
+          symbols:
+            - storagePoolVolumesPost
+          skip_fix: build errors during static analysis
+summary: |-
+    LXD has project restriction bypass for custom volume copy across projects in
+    github.com/canonical/lxd
+ghsas:
+    - GHSA-7mr3-28h5-m5vx
+references:
+    - advisory: https://github.com/canonical/lxd/security/advisories/GHSA-7mr3-28h5-m5vx
+    - fix: https://github.com/canonical/lxd/commit/8a4ed50ae855639d76021ba4bf26a50d7f2288fd
+    - fix: https://github.com/canonical/lxd/commit/e2635a26957737ec4a77dc28dd7b84bd380881d6
+    - fix: https://github.com/canonical/lxd/commit/eec1cf9504c18ad7c3c36ae0b62d21c05c25702c
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.0.7
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-5.21.5
+    - web: https://github.com/canonical/lxd/releases/tag/lxd-6.8
+    - web: https://github.com/lxc/incus/security/advisories/GHSA-64f3-v33m-w89f
+    - web: https://nvd.nist.gov/vuln/detail/CVE-2026-55621
+source:
+    id: GHSA-7mr3-28h5-m5vx
+    created: 2026-11-09T08:43:57.647117-05:00
+review_status: REVIEWED

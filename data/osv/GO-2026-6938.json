@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6938",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-vghh-5rfx-xhq8"
+  ],
+  "summary": "LXD has arbitrary file read+write on host via rootfs/ symlink in malicious image in github.com/canonical/lxd",
+  "details": "LXD has arbitrary file read+write on host via rootfs/ symlink in malicious image in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260630083100-c5184be310b1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd/instance/drivers",
+            "symbols": [
+              "common.RootfsPath",
+              "common.TemplatesPath",
+              "lxc.Export",
+              "lxc.FileExists",
+              "lxc.FilePull",
+              "lxc.FilePush",
+              "lxc.FileRemove",
+              "lxc.FileSFTPConn",
+              "lxc.fileSFTPConnNoLock",
+              "lxc.handleIdmappedStorage",
+              "lxc.startCommon",
+              "lxc.templateApplyNow",
+              "lxc.unmount",
+              "qemu.Export",
+              "qemu.templateApplyNow"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "imgPostInstanceInfo"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd/storage",
+            "symbols": [
+              "lxdBackend.CreateInstanceFromCopy",
+              "lxdBackend.CreateInstanceSnapshot",
+              "lxdBackend.MigrateInstance",
+              "lxdBackend.RefreshInstance"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-vghh-5rfx-xhq8"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/190e2451544a60f6f924ef50a2112fb65d1923cd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/254b85c9301397e25304116b63da9154093199da"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/3dbf4cea14124abda420dd5048d7e657cd30c1b7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/4cd63344f8a523acf39fdc02a80fd64b2e3b584f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/51dc11ed5258fbb54dd8993b802af02d6d7b0235"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/62bcee5471c2581fce10a648f6b27410ce081b87"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/8751ea69e24583996a20fb5519dcf2d89470d8e9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/b499ec4b91dcc90f43aea444b1e19a58109772c2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/e2aeca6b78677751bab36a7e4efaad0c840ed9fd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/edb6d994f77333c9c33f4d9a137c754d142f3818"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-2q3f-q5pq-g8wv"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48749"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6938",
+    "review_status": "REVIEWED"
+  }
+}

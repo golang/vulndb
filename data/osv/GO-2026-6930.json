@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6930",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-jpf8-86f3-wp38"
+  ],
+  "summary": "LXD has arbitrary file read+write on host via templates/ symlink in malicious image in github.com/canonical/lxd",
+  "details": "LXD has arbitrary file read+write on host via templates/ symlink in malicious image in github.com/canonical/lxd",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/canonical/lxd",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260203144152-d1c8ba15d160"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/canonical/lxd/lxd/instance/drivers",
+            "symbols": [
+              "common.RootfsPath",
+              "common.TemplatesPath"
+            ]
+          },
+          {
+            "path": "github.com/canonical/lxd/lxd",
+            "symbols": [
+              "getContainerTemplatePath",
+              "instanceMetadataTemplatesDelete",
+              "instanceMetadataTemplatesGet",
+              "instanceMetadataTemplatesPost"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/canonical/lxd/security/advisories/GHSA-jpf8-86f3-wp38"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/190e2451544a60f6f924ef50a2112fb65d1923cd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/254b85c9301397e25304116b63da9154093199da"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/4cd63344f8a523acf39fdc02a80fd64b2e3b584f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/734fcc4d2c8fd0332d42010e34fe856077c2f7f3"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/79f3879047b94344e17750551fddc74ed7f14ff7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/8751ea69e24583996a20fb5519dcf2d89470d8e9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/8a3b8d77a0279c3a9da15f4c4aa639ef0631d805"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/canonical/lxd/commit/be6df3b49e79344ec461daadd82d80139697dc1a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/lxc/incus/commit/cbefa31ae0da8fd96361178aed3a3c631e098fef"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/lxc/incus/security/advisories/GHSA-vxp5-584q-c479"
+    },
+    {
+      "type": "WEB",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48752"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6930",
+    "review_status": "REVIEWED"
+  }
+}
