@@ -1,29 +1,57 @@
 id: GO-2026-6911
 modules:
     - module: github.com/mark3labs/mcp-go
+      versions:
+        - fixed: 1.5.1-0.20261109144041-2f5b9637ea84
       vulnerable_at: 1.5.0
       packages:
         - package: github.com/mark3labs/mcp-go/client/transport
           symbols:
+            - NewOAuthHandler
+            - NewSSE
             - NewStreamableHTTP
-            - StreamableHTTP.SendRequest
+            - OAuthHandler.ProcessAuthorizationResponse
+            - OAuthHandler.RefreshToken
+            - OAuthHandler.RegisterClient
+            - SSE.SendNotification
+            - SSE.SendRequest
+            - SSE.handleSSEEvent
             - StreamableHTTP.SendNotification
-            - StreamableHTTP.SetRequestHandler
-            - StreamableHTTP.Close
-summary: SSRF and credential leak via unvalidated Location header in github.com/mark3labs/mcp-go
+            - StreamableHTTP.SendRequest
+          derived_symbols:
+            - SSE.Start
+summary: |-
+    SSRF and credential leak via unvalidated redirects and SSE endpoint origin in
+    github.com/mark3labs/mcp-go
 description: |-
-    In github.com/mark3labs/mcp-go/client/transport, NewStreamableHTTP constructs an
-    http.Client with a nil CheckRedirect policy when no custom WithHTTPBasicClient
-    is supplied, and attaches static custom headers and OAuth bearer tokens inside a
-    RoundTripper layer. If an MCP server responds with a 3xx redirect, the client
-    follows the Location header to arbitrary hosts and schemes and attaches
-    configured WithHeaders and OAuth Authorization headers to the redirected
-    request, enabling server-side request forgery (SSRF) and credential disclosure.
+    In github.com/mark3labs/mcp-go/client/transport, NewStreamableHTTP, NewSSE, and
+    NewOAuthHandler construct default http.Client instances with a nil CheckRedirect
+    policy when no custom HTTP client (WithHTTPBasicClient, WithHTTPClient, or
+    OAuthConfig.HTTPClient) is supplied. Additionally, SSE.handleSSEEvent validates
+    the server-supplied endpoint event URL only against the connection's host,
+    without verifying the scheme or port.
+
+    When an MCP or OAuth server responds with a 3xx redirect, net/http follows up to
+    10 http or https redirects to arbitrary origins:
+    - Custom headers configured via WithHTTPHeaders, WithHTTPHeaderFunc,
+    WithHeaders, or WithHeaderFunc are copied onto requests to any redirect host.
+    - The Authorization header (including OAuth bearer tokens) is preserved when
+    redirecting to the same host or a subdomain, including across port changes or
+    https-to-http scheme downgrades.
+    - On 307 and 308 redirects, the request body is resent to the redirect target,
+    exposing JSON-RPC payloads on transport requests and form bodies containing
+    client_secret, authorization codes, or refresh tokens on OAuth token, refresh,
+    and client registration requests.
+
+    This enables server-side request forgery (SSRF) and credential or payload
+    disclosure.
 credits:
-    - kanywst
+    - Dennis (denniszag)
+    - Muhammad Hamizi Jaminan (hymns)
 references:
-    - report: https://github.com/golang/vulndb/issues/6911
-    - report: https://github.com/mark3labs/mcp-go/issues/1164
+    - fix: https://github.com/mark3labs/mcp-go/commit/2f5b9637ea843f918889293b8d08d600e13b18e2
+    - fix: https://github.com/mark3labs/mcp-go/pull/1192
+    - report: https://github.com/mark3labs/mcp-go/issues/1188
 source:
     id: go-security-team
     created: 2026-11-05T15:53:31.322771-05:00
