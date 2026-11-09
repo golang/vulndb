@@ -2,8 +2,10 @@ id: GO-2026-6278
 modules:
     - module: github.com/gorilla/websocket
       versions:
-        - fixed: 1.5.3
-      vulnerable_at: 1.5.2
+        - fixed: 1.5.1
+        - introduced: 1.5.3
+        - fixed: 1.5.4-0.20240701034025-d67f41855da4
+      vulnerable_at: 1.5.3
       packages:
         - package: github.com/gorilla/websocket
           symbols:
@@ -52,4 +54,4 @@ references:
 source:
     id: GHSA-w67g-5rqw-f597
     created: 2026-08-24T21:14:16.616193-04:00
-review_status: NEEDS_REVIEW
+review_status: REVIEWED

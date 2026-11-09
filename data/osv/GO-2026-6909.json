@@ -4,7 +4,7 @@
   "modified": "0001-01-01T00:00:00Z",
   "published": "0001-01-01T00:00:00Z",
   "summary": "Nil-pointer panic in validateAssertion and namespace-blind Subject.NameID in github.com/crewjam/saml",
-  "details": "github.com/crewjam/saml through v0.5.1 contains two vulnerabilities in SAML assertion processing:\n\n1. ServiceProvider.validateAssertion dereferences assertion.Issuer without a nil check when ExpectedIDPEntityID is non-empty. A signed SAML assertion that omits the optional \u003csaml:Issuer\u003e element causes a nil-pointer dereference panic after signature verification.\n\n2. Subject uses the bare XML struct tag xml:\"NameID\", which matches \u003cNameID\u003e elements in any XML namespace. When a signed assertion omits \u003csaml:NameID\u003e and includes a \u003cNameID\u003e element in a foreign namespace inside \u003csaml:Subject\u003e, encoding/xml populates Subject.NameID from the foreign element, allowing an authenticated principal to spoof Subject.NameID.Value.",
+  "details": "github.com/crewjam/saml before v0.5.2 contains two vulnerabilities in SAML assertion processing:\n\n1. ServiceProvider.validateAssertion dereferences assertion.Subject, assertion.Conditions, and SubjectConfirmationData without nil checks. A signed SAML assertion that omits any of these optional elements causes a nil-pointer dereference panic after signature verification.\n\n2. Subject uses the bare XML struct tag xml:\"NameID\", which matches \u003cNameID\u003e elements in any XML namespace. When a signed assertion omits \u003csaml:NameID\u003e and includes a \u003cNameID\u003e element in a foreign namespace inside \u003csaml:Subject\u003e, encoding/xml populates Subject.NameID from the foreign element, allowing an authenticated principal to spoof Subject.NameID.Value.",
   "affected": [
     {
       "package": {
@@ -17,6 +17,9 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.5.2"
             }
           ]
         }
@@ -38,13 +41,21 @@
   ],
   "references": [
     {
+      "type": "FIX",
+      "url": "https://github.com/crewjam/saml/commit/2a4c1a630a7d53ff99a1fa2216308d6cef61ad78"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/crewjam/saml/commit/e05a6f148c4eda7b5f6b3b2737085cf72b680456"
+    },
+    {
       "type": "REPORT",
       "url": "https://github.com/golang/vulndb/issues/6909"
     }
   ],
   "credits": [
     {
-      "name": "Artur Beshkov (aibeshkov)"
+      "name": "Andrei Beshkov (aibeshkov)"
     }
   ],
   "database_specific": {

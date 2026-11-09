@@ -1,6 +1,8 @@
 id: GO-2026-6909
 modules:
     - module: github.com/crewjam/saml
+      versions:
+        - fixed: 0.5.2
       vulnerable_at: 0.5.1
       packages:
         - package: github.com/crewjam/saml
@@ -14,13 +16,13 @@ summary: |-
     Nil-pointer panic in validateAssertion and namespace-blind Subject.NameID in
     github.com/crewjam/saml
 description: |-
-    github.com/crewjam/saml through v0.5.1 contains two vulnerabilities in SAML
+    github.com/crewjam/saml before v0.5.2 contains two vulnerabilities in SAML
     assertion processing:
 
-    1. ServiceProvider.validateAssertion dereferences assertion.Issuer without a nil
-    check when ExpectedIDPEntityID is non-empty. A signed SAML assertion that omits
-    the optional <saml:Issuer> element causes a nil-pointer dereference panic after
-    signature verification.
+    1. ServiceProvider.validateAssertion dereferences assertion.Subject,
+    assertion.Conditions, and SubjectConfirmationData without nil checks. A signed
+    SAML assertion that omits any of these optional elements causes a nil-pointer
+    dereference panic after signature verification.
 
     2. Subject uses the bare XML struct tag xml:"NameID", which matches <NameID>
     elements in any XML namespace. When a signed assertion omits <saml:NameID> and
@@ -28,8 +30,10 @@ description: |-
     encoding/xml populates Subject.NameID from the foreign element, allowing an
     authenticated principal to spoof Subject.NameID.Value.
 credits:
-    - Artur Beshkov (aibeshkov)
+    - Andrei Beshkov (aibeshkov)
 references:
+    - fix: https://github.com/crewjam/saml/commit/2a4c1a630a7d53ff99a1fa2216308d6cef61ad78
+    - fix: https://github.com/crewjam/saml/commit/e05a6f148c4eda7b5f6b3b2737085cf72b680456
     - report: https://github.com/golang/vulndb/issues/6909
 source:
     id: go-security-team

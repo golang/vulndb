@@ -6,8 +6,8 @@
   "aliases": [
     "GHSA-5pf6-cq2v-23ww"
   ],
-  "summary": "WhoDB Allows Unbounded Memory Consumption in Authentication Middleware Can Lead to Denial of Service in github.com/clidey/whodb/core",
-  "details": "WhoDB Allows Unbounded Memory Consumption in Authentication Middleware Can Lead to Denial of Service in github.com/clidey/whodb/core",
+  "summary": "WhoDB allows unbounded memory consumption in authentication middleware in github.com/clidey/whodb/core",
+  "details": "WhoDB allows unbounded memory consumption in authentication middleware in github.com/clidey/whodb/core",
   "affected": [
     {
       "package": {
@@ -20,11 +20,23 @@
           "events": [
             {
               "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20241219102844-e8b608d35422"
             }
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/clidey/whodb/core/src/auth",
+            "symbols": [
+              "AuthMiddleware"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -33,12 +45,12 @@
       "url": "https://github.com/clidey/whodb/security/advisories/GHSA-5pf6-cq2v-23ww"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/clidey/whodb/commit/e8b608d35422e1a2bfffe8ed26f0211ea80cb439"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2024-3350",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
