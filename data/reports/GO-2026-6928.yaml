@@ -1,0 +1,23 @@
+id: GO-2026-6928
+modules:
+    - module: github.com/osac-project/osac-operator
+      versions:
+        - fixed: 0.0.4
+      vulnerable_at: 0.0.2
+summary: 'OSAC operator: Kubeconfig credential-plugin execution and SSRF in console proxy in github.com/osac-project/osac-operator'
+cves:
+    - CVE-2026-62284
+ghsas:
+    - GHSA-5w5g-j6hw-6p8f
+references:
+    - advisory: https://github.com/osac-project/osac-operator/security/advisories/GHSA-5w5g-j6hw-6p8f
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62284
+    - fix: https://github.com/osac-project/osac-operator/commit/7e4222b6ab465fc00606c8cfed980b226820cb1b
+    - fix: https://github.com/osac-project/osac-operator/commit/86466378aa3603253dca7fa2f59a2733af0dc092
+    - fix: https://github.com/osac-project/osac-operator/pull/321
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-5w5g-j6hw-6p8f
+    created: 2026-11-09T08:57:48.209069-05:00
+review_status: UNREVIEWED
