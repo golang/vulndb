@@ -1,0 +1,43 @@
+id: GO-2026-6850
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/compile
+        - package: cmd/link
+summary: Host linker flag injection via //go:cgo_* directives in cmd/compile and cmd/link
+description: |-
+    Building a malicious package containing "//go:cgo_*" compiler directives could
+    inject arbitrary flags into the external linker invocation on ELF platforms.
+
+    The compiler and linker did not reject commas in "//go:cgo_import_dynamic",
+    "//go:cgo_export_dynamic", "//go:cgo_export_static", "//go:cgo_import_static",
+    and "//go:cgo_dynamic_linker" directives, and the linker passed the dynamic
+    linker path using "-Wl,--dynamic-linker,<path>". Furthermore, the two-argument
+    form of "//go:cgo_import_dynamic" (which is permitted in non-cgo Go source
+    files) could overwrite the external symbol name of a symbol already marked for
+    cgo export. A symbol name or dynamic linker path containing a comma or leading
+    "@" could split "-Wl,--export-dynamic-symbol=" or "-Wl,--dynamic-linker," into
+    arbitrary host linker flags or response file arguments.
+
+    The compiler and linker now reject commas in "//go:cgo_*" symbol and dynamic
+    linker directives, the linker passes "-Wl,--dynamic-linker=<path>", and
+    "cgo_import_dynamic" no longer overwrites symbols exported via
+    "cgo_export_dynamic" or "cgo_export_static".
+credits:
+    - RyotaK (https://ryotak.net) of GMO Flatt Security Inc.
+references:
+    - fix: https://go.dev/cl/862154
+    - report: https://go.dev/issue/82569
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97041
+    cwe: 'CWE-88: Improper Neutralization of Argument Delimiters in a Command (''Argument Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

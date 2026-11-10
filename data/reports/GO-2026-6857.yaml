@@ -1,0 +1,37 @@
+id: GO-2026-6857
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+summary: Arbitrary command execution via GCC spec files in cgo linker search directories in cmd/go
+description: |-
+    When using GCC, building a malicious package that uses cgo could cause arbitrary
+    command execution at link time via untrusted GCC spec files ("specs" or
+    "*.spec").
+
+    When linking with "-fopenmp", "-fopenacc", or "-fsanitize=" in "#cgo LDFLAGS",
+    GCC's built-in link spec evaluates "%:include(libgomp.spec)" or
+    "%:include(libsanitizer.spec)" and searches for spec files in "-L" and sysroot
+    directories (including subdirectories and multilib sibling directories such as
+    "../lib64"), as well as the working directory when "-fopenmp" or "-fopenacc" is
+    used or when "-fsanitize=" is combined with "-static" or "-static-lib*".
+
+    The go command now rejects "-L", "-isysroot", and "-Wl,-syslibroot" directories
+    (and the working and package directories when applicable) that contain GCC spec
+    files, and disallows "@" and "-" prefixes in "-fsanitize=" compiler flag values.
+references:
+    - fix: https://go.dev/cl/862147
+    - report: https://go.dev/issue/82576
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97034
+    cwe: 'CWE-77: Improper Neutralization of Special Elements used in a Command (''Command Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

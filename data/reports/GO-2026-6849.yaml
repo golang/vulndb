@@ -1,0 +1,41 @@
+id: GO-2026-6849
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/cgo
+        - package: cmd/compile
+        - package: cmd/link
+summary: Linker flag injection via cgo_import_dynamic and PE DLL names in cmd/cgo, cmd/compile, and cmd/link
+description: |-
+    Building a malicious package that uses "//go:cgo_import_dynamic" or links
+    against a crafted PE object on Windows could pass unsafe library arguments to
+    the external linker.
+
+    The compiler only checked the first character of the library name in
+    "//go:cgo_import_dynamic" directives and skipped validation in cgo-generated
+    files. In addition, on Windows, "cmd/cgo" and "cmd/link" did not validate
+    imported DLL names extracted from PE object files before emitting "-l<name>"
+    flags for the external linker, allowing a crafted DLL name containing ".." path
+    traversal or special characters to reference arbitrary files on disk.
+
+    The compiler now validates every character of the library name in
+    "//go:cgo_import_dynamic" directives (including in cgo-generated files on
+    Windows) and rejects ".." path traversal, and "cmd/cgo" and "cmd/link" reject
+    PE imported DLL names containing path separators, "..", ":", or leading "-" or
+    "@".
+references:
+    - fix: https://go.dev/cl/862155
+    - report: https://go.dev/issue/82568
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97042
+    cwe: 'CWE-88: Improper Neutralization of Argument Delimiters in a Command (''Argument Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

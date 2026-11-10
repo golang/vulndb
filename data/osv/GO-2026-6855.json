@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6855",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-97036"
+  ],
+  "summary": "Arbitrary code execution during build on darwin via \"-l to_library\" in cgo in cmd/go",
+  "details": "On Darwin, building a malicious package that uses cgo could cause arbitrary code execution when using the Apple linker due to passing \"-l to_library \u003cpath\u003e\" in a \"#cgo LDFLAGS\" directive.\n\nThe Apple linker recombines the separated arguments \"-l\" and \"to_library\" into \"-lto_library\", which loads an arbitrary LTO plugin dynamic library at link time.\n\nThe go command now disallows \"-l\" followed by \"to_library\" in \"#cgo LDFLAGS\", rejects \"-lazy_library\", \"-lazy_framework\", \"-load_hidden\", \"-library\", and \"-library-path\", and checks recombined \"-l\" arguments against disallowed linker flags and patterns.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.11"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go",
+            "goos": [
+              "darwin"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/862149"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82574"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Ali Sherif (https://www.linkedin.com/in/ali-sherif-13812b276/)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6855",
+    "review_status": "REVIEWED"
+  }
+}

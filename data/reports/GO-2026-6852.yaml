@@ -1,0 +1,40 @@
+id: GO-2026-6852
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+summary: Flag sanitization bypass via "#cgo pkg-config:" directives in cmd/go
+description: |-
+    Building a malicious package that uses "#cgo pkg-config:" directives could
+    load untrusted pkg-config ".pc" files or inject unvalidated compiler and linker
+    flags.
+
+    The pkg-config flag allowlist previously permitted "--with-path=" and
+    "--personality=", allowed "--define-variable=" values beginning with "=" or "$"
+    (which can rewrite paths in system ".pc" files into sysroot-prefixed "-L=" or
+    "-L$SYSROOT" linker search paths), and allowed package arguments ending in ".pc"
+    or containing path separators or "..", which caused pkg-config to load local
+    ".pc" files directly from the package directory. In addition, flags returned by
+    "pkg-config --cflags" in cgoCPPFLAGS were not checked when determining whether
+    internal linking is safe.
+
+    The go command now disallows "--with-path=", "--personality=", leading "=" or
+    "$" characters in "--define-variable=" values, and local ".pc" paths in
+    "#cgo pkg-config:" directives, and inspects cgoCPPFLAGS when checking internal
+    linking compatibility.
+references:
+    - fix: https://go.dev/cl/862152
+    - report: https://go.dev/issue/82571
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97039
+    cwe: 'CWE-88: Improper Neutralization of Argument Delimiters in a Command (''Argument Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

@@ -1,0 +1,39 @@
+id: GO-2026-6855
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+          goos:
+            - darwin
+summary: Arbitrary code execution during build on darwin via "-l to_library" in cgo in cmd/go
+description: |-
+    On Darwin, building a malicious package that uses cgo could cause arbitrary code
+    execution when using the Apple linker due to passing "-l to_library <path>" in a
+    "#cgo LDFLAGS" directive.
+
+    The Apple linker recombines the separated arguments "-l" and "to_library" into
+    "-lto_library", which loads an arbitrary LTO plugin dynamic library at link
+    time.
+
+    The go command now disallows "-l" followed by "to_library" in "#cgo LDFLAGS",
+    rejects "-lazy_library", "-lazy_framework", "-load_hidden", "-library", and
+    "-library-path", and checks recombined "-l" arguments against disallowed linker
+    flags and patterns.
+credits:
+    - Ali Sherif (https://www.linkedin.com/in/ali-sherif-13812b276/)
+references:
+    - fix: https://go.dev/cl/862149
+    - report: https://go.dev/issue/82574
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97036
+    cwe: 'CWE-88: Improper Neutralization of Argument Delimiters in a Command (''Argument Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

@@ -1,0 +1,41 @@
+id: GO-2026-6853
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+summary: Arbitrary code execution via crafted .syso files and cgo linker input files in cmd/go
+description: |-
+    Building a malicious package containing ".syso" files or cgo linker inputs could
+    inject arbitrary linker flags or execute arbitrary code at link time.
+
+    Linker input files—including ".syso" files, direct object or library inputs in
+    "#cgo LDFLAGS", and libraries in "-L" directories—were passed to the external
+    linker without validating their format or checking for embedded linker options.
+    Across platforms, this allowed executing GNU ld implicit linker scripts
+    disguised as libraries or ".syso" files (or loaded via "-l:<filename>" or "-l"
+    containing path separators), injecting unallowlisted linker flags via PE/COFF
+    ".drectve" sections on Windows or Mach-O "LC_LINKER_OPTION" load commands on
+    Darwin, or invoking LTO plugins via GCC or LLVM LTO intermediate representation
+    sections in ELF, PE/COFF, or Mach-O objects.
+
+    The go command now verifies that ".syso" files, direct linker inputs, and
+    libraries in "-L" directories are valid binary objects or archives that do not
+    contain unallowlisted ".drectve" directives, "LC_LINKER_OPTION" load commands,
+    or LTO IR sections, and disallows "-l:<filename>" and ":", "=", or path
+    separators in "-l" flags.
+references:
+    - fix: https://go.dev/cl/862151
+    - report: https://go.dev/issue/82572
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97038
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

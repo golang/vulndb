@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6853",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-97038"
+  ],
+  "summary": "Arbitrary code execution via crafted .syso files and cgo linker input files in cmd/go",
+  "details": "Building a malicious package containing \".syso\" files or cgo linker inputs could inject arbitrary linker flags or execute arbitrary code at link time.\n\nLinker input files—including \".syso\" files, direct object or library inputs in \"#cgo LDFLAGS\", and libraries in \"-L\" directories—were passed to the external linker without validating their format or checking for embedded linker options. Across platforms, this allowed executing GNU ld implicit linker scripts disguised as libraries or \".syso\" files (or loaded via \"-l:\u003cfilename\u003e\" or \"-l\" containing path separators), injecting unallowlisted linker flags via PE/COFF \".drectve\" sections on Windows or Mach-O \"LC_LINKER_OPTION\" load commands on Darwin, or invoking LTO plugins via GCC or LLVM LTO intermediate representation sections in ELF, PE/COFF, or Mach-O objects.\n\nThe go command now verifies that \".syso\" files, direct linker inputs, and libraries in \"-L\" directories are valid binary objects or archives that do not contain unallowlisted \".drectve\" directives, \"LC_LINKER_OPTION\" load commands, or LTO IR sections, and disallows \"-l:\u003cfilename\u003e\" and \":\", \"=\", or path separators in \"-l\" flags.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.11"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/862151"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82572"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6853",
+    "review_status": "REVIEWED"
+  }
+}

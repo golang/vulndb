@@ -1,0 +1,42 @@
+id: GO-2026-6851
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+        - package: cmd/link
+summary: Cgo directive injection via .syso files disguised as Go object files in cmd/go and cmd/link
+description: |-
+    Building a package containing a crafted ".syso" file could bypass cgo flag
+    validation and inject arbitrary linker flags when linking.
+
+    When loading ".syso" entries from a package archive, the linker only checked for
+    recognized host object headers (ELF, Mach-O, PE, and XCOFF) before falling
+    through to Go object parsing. A ".syso" file beginning with a "go object" header
+    was parsed as a Go compiler object, allowing untrusted cgo metadata directives
+    (such as "cgo_ldflag" or "cgo_dynamic_linker") embedded in the ".syso" file to
+    be passed to the external linker without validation. Additionally, ".syso"
+    filenames longer than 16 bytes lost their ".syso" extension when truncated in
+    archive headers, and unrecognized ".syso" formats forced external linking in
+    pure-Go builds.
+
+    The linker now rejects ".syso" files that are not recognized host object
+    formats, and "cmd/go" and "cmd/pack" preserve the ".syso" suffix when truncating
+    long archive member names.
+credits:
+    - RyotaK (https://ryotak.net) of GMO Flatt Security Inc.
+references:
+    - fix: https://go.dev/cl/862153
+    - report: https://go.dev/issue/82570
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97040
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

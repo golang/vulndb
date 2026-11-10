@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6849",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-97042"
+  ],
+  "summary": "Linker flag injection via cgo_import_dynamic and PE DLL names in cmd/cgo, cmd/compile, and cmd/link",
+  "details": "Building a malicious package that uses \"//go:cgo_import_dynamic\" or links against a crafted PE object on Windows could pass unsafe library arguments to the external linker.\n\nThe compiler only checked the first character of the library name in \"//go:cgo_import_dynamic\" directives and skipped validation in cgo-generated files. In addition, on Windows, \"cmd/cgo\" and \"cmd/link\" did not validate imported DLL names extracted from PE object files before emitting \"-l\u003cname\u003e\" flags for the external linker, allowing a crafted DLL name containing \"..\" path traversal or special characters to reference arbitrary files on disk.\n\nThe compiler now validates every character of the library name in \"//go:cgo_import_dynamic\" directives (including in cgo-generated files on Windows) and rejects \"..\" path traversal, and \"cmd/cgo\" and \"cmd/link\" reject PE imported DLL names containing path separators, \"..\", \":\", or leading \"-\" or \"@\".",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.11"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/cgo"
+          },
+          {
+            "path": "cmd/compile"
+          },
+          {
+            "path": "cmd/link"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/862155"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82568"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6849",
+    "review_status": "REVIEWED"
+  }
+}

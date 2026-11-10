@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6858",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-97033"
+  ],
+  "summary": "Unexpected code execution via --sysroot, -target, -isysroot, -Wl,-syslibroot, and -x cgo flags in cmd/go",
+  "details": "Building a malicious package that uses cgo could cause arbitrary code execution at build time through several compiler and linker flags permitted in \"#cgo\" directives.\n\nSpecifically, \"--sysroot\" in GCC and Clang relocates compiler subprograms, spec files, and CRT startup objects to an attacker-controlled directory; \"-target\" in Clang falls back to executing target helper tools from the current working directory when not found in PATH; \"-isysroot\" and \"-Wl,-syslibroot\" can pass a regular file on disk to GNU ld.bfd, which interprets it as a positional linker script; and \"-x\" permitted specifying arbitrary compiler input languages beyond those supported by cgo.\n\n\"--sysroot\" and \"-target\" are now disallowed in \"#cgo\" flags, \"-isysroot\" and \"-Wl,-syslibroot\" are verified not to point to regular files, and \"-x\" is restricted to the C, C++, Objective-C, and assembler languages supported by cgo.",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.11"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/862146"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82577"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6858",
+    "review_status": "REVIEWED"
+  }
+}

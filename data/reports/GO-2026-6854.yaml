@@ -1,0 +1,39 @@
+id: GO-2026-6854
+modules:
+    - module: cmd
+      versions:
+        - fixed: 1.26.11
+        - introduced: 1.27.0-0
+        - fixed: 1.27.4
+      vulnerable_at: 1.27.3
+      packages:
+        - package: cmd/go
+summary: Linker script injection via split -Wl, flags and Darwin or symbol linker flags in cgo in cmd/go
+description: |-
+    Building a malicious package that uses cgo could cause arbitrary code execution
+    at link time by passing linker script files to the host linker via
+    "#cgo LDFLAGS".
+
+    Split "-Wl," flags that consume a following argument (such as "-Wl,-rpath",
+    "-Wl,--just-symbols", and "-Wl,-undefined") previously accepted a bare second
+    argument without a "-Wl," prefix, which the compiler driver passes directly to
+    the linker as a positional input file. Additionally, when using GNU ld.bfd,
+    flags such as "-framework", "-Wl,-framework", "-Wl,-undefined",
+    "-Wl,--just-symbols", "-Wl,-R", "-Wl,-subsystem", and (on non-Darwin platforms)
+    "-Wl,-sectcreate" could cause ld.bfd to interpret their arguments as linker
+    scripts if they named a regular file on disk.
+
+    The go command now requires a "-Wl," prefix on the second token of split "-Wl,"
+    flags (except "-Wl,-R"), verifies that these flags do not reference linker
+    script files, and disallows bare "-Wl,--warn-backrefs-exclude".
+references:
+    - fix: https://go.dev/cl/862150
+    - report: https://go.dev/issue/82573
+    - web: https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM
+cve_metadata:
+    id: CVE-2026-97037
+    cwe: 'CWE-94: Improper Control of Generation of Code (''Code Injection'')'
+source:
+    id: go-security-team
+    created: 2026-11-10T00:00:00Z
+review_status: REVIEWED

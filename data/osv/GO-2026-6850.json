@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6850",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-97041"
+  ],
+  "summary": "Host linker flag injection via //go:cgo_* directives in cmd/compile and cmd/link",
+  "details": "Building a malicious package containing \"//go:cgo_*\" compiler directives could inject arbitrary flags into the external linker invocation on ELF platforms.\n\nThe compiler and linker did not reject commas in \"//go:cgo_import_dynamic\", \"//go:cgo_export_dynamic\", \"//go:cgo_export_static\", \"//go:cgo_import_static\", and \"//go:cgo_dynamic_linker\" directives, and the linker passed the dynamic linker path using \"-Wl,--dynamic-linker,\u003cpath\u003e\". Furthermore, the two-argument form of \"//go:cgo_import_dynamic\" (which is permitted in non-cgo Go source files) could overwrite the external symbol name of a symbol already marked for cgo export. A symbol name or dynamic linker path containing a comma or leading \"@\" could split \"-Wl,--export-dynamic-symbol=\" or \"-Wl,--dynamic-linker,\" into arbitrary host linker flags or response file arguments.\n\nThe compiler and linker now reject commas in \"//go:cgo_*\" symbol and dynamic linker directives, the linker passes \"-Wl,--dynamic-linker=\u003cpath\u003e\", and \"cgo_import_dynamic\" no longer overwrites symbols exported via \"cgo_export_dynamic\" or \"cgo_export_static\".",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.26.11"
+            },
+            {
+              "introduced": "1.27.0-0"
+            },
+            {
+              "fixed": "1.27.4"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/compile"
+          },
+          {
+            "path": "cmd/link"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/862154"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/82569"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM"
+    }
+  ],
+  "credits": [
+    {
+      "name": "RyotaK (https://ryotak.net) of GMO Flatt Security Inc."
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6850",
+    "review_status": "REVIEWED"
+  }
+}
