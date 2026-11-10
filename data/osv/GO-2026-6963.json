@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6963",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-119299",
+    "GHSA-358w-w75h-x6rx"
+  ],
+  "summary": "gopacket: SCTP chunk sub-decoder out-of-bounds panics on crafted segments in github.com/gopacket/gopacket",
+  "details": "gopacket: SCTP chunk sub-decoder out-of-bounds panics on crafted segments in github.com/gopacket/gopacket",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gopacket/gopacket",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/gopacket/gopacket/layers",
+            "symbols": [
+              "Dot11Type.Decode",
+              "EAPOLType.Decode",
+              "EthernetType.Decode",
+              "FDDIFrameControl.Decode",
+              "FuzzLayer",
+              "IPProtocol.Decode",
+              "LinkType.Decode",
+              "PPPType.Decode",
+              "PPPoECode.Decode",
+              "ProtocolFamily.Decode",
+              "ProtocolGuessingDecoder.Decode",
+              "SCTPChunkType.Decode",
+              "SFlowDatagram.DecodeFromBytes",
+              "USBTransportType.Decode",
+              "decodeSCTPError",
+              "decodeSCTPHeartbeat",
+              "decodeSCTPInit",
+              "decodeSCTPParameter",
+              "decodeSCTPSack",
+              "decodeSCTPShutdown"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/gopacket/gopacket/security/advisories/GHSA-358w-w75h-x6rx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119299"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/gopacket/gopacket/commit/508044327cc2c065b3db753c010a027e7d1ca621"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/gopacket/gopacket/releases/tag/v1.7.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6963",
+    "review_status": "UNREVIEWED"
+  }
+}

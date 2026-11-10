@@ -1,0 +1,25 @@
+id: GO-2026-6964
+modules:
+    - module: github.com/dagu-org/dagu/v2
+      versions:
+        - fixed: 2.11.0
+      vulnerable_at: 2.10.7
+summary: |-
+    Dagu MCP DAG specification read bypasses path containment and workspace
+    isolation in github.com/dagu-org/dagu/v2
+cves:
+    - CVE-2026-102943
+ghsas:
+    - GHSA-5m6c-38r8-5w76
+references:
+    - advisory: https://github.com/dagucloud/dagu/security/advisories/GHSA-5m6c-38r8-5w76
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-102943
+    - fix: https://github.com/dagucloud/dagu/commit/c15c5406bb7b9551f94ab276705f9fd1cebbf2d2
+    - fix: https://github.com/dagucloud/dagu/pull/2424
+    - web: https://github.com/dagucloud/dagu/releases/tag/v2.11.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-5m6c-38r8-5w76
+    created: 2026-11-10T13:07:54.61375-05:00
+review_status: UNREVIEWED

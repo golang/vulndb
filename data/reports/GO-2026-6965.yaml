@@ -1,0 +1,70 @@
+id: GO-2026-6965
+modules:
+    - module: github.com/ultravioletrs/cocos
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.2
+      packages:
+        - package: github.com/ultravioletrs/cocos/pkg/clients/http
+          symbols:
+            - createTransport
+          derived_symbols:
+            - NewClient
+        - package: github.com/ultravioletrs/cocos/pkg/clients/grpc
+          symbols:
+            - connect
+          derived_symbols:
+            - NewClient
+            - client.Close
+        - package: github.com/ultravioletrs/cocos/pkg/atls
+          symbols:
+            - platformVerifier
+            - certificateVerifier.verifyCertificateExtension
+            - NewProvider
+            - attestedCertificateProvider.GetCertificate
+            - extractNonceFromSNI
+            - attestedCertificateProvider.SetTTL
+            - platformTypeFromOID
+            - attestedCertificateProvider.generateSelfSignedCertificate
+            - NewAttestedCAProvider
+            - OID
+            - attestedCertificateProvider.generateCASignedCertificate
+            - platformAttestationProvider.OID
+            - NewAttestedProvider
+            - NewCertificateVerifier
+            - certificateVerifier.VerifyPeerCertificate
+            - platformAttestationProvider.PlatformType
+            - DefaultCertificateSubject
+            - NewAttestationProvider
+            - certificateVerifier.verifyAttestationExtension
+            - hasNonceSuffix
+            - certificateVerifier.verifyCertificateSignature
+            - platformAttestationProvider.Attest
+        - package: github.com/ultravioletrs/cocos/pkg/atls/mocks
+          symbols:
+            - CertificateProvider.EXPECT
+            - CertificateProvider_GetCertificate_Call.Run
+            - NewCertificateProvider
+            - CertificateProvider.GetCertificate
+            - CertificateProvider_Expecter.GetCertificate
+            - CertificateProvider_GetCertificate_Call.Return
+            - CertificateProvider_GetCertificate_Call.RunAndReturn
+summary: |-
+    Cocos AI Intra-handshake attested TLS implementation is vulnerable to TOCTOU
+    Attacks in github.com/ultravioletrs/cocos
+cves:
+    - CVE-2026-119345
+ghsas:
+    - GHSA-ghwv-vrp2-2975
+references:
+    - advisory: https://github.com/ultravioletrs/cocos/security/advisories/GHSA-ghwv-vrp2-2975
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-119345
+    - fix: https://github.com/ultravioletrs/cocos/commit/80bf813c48300f02259b338b91f844c71be582ea
+    - fix: https://github.com/ultravioletrs/cocos/pull/582
+    - web: https://dl.acm.org/doi/10.1145/3779208.3785387
+    - web: https://github.com/CCC-Attestation/formal-spec-id-crisis
+    - web: https://github.com/ultravioletrs/cocos/releases/tag/v0.9.0
+source:
+    id: GHSA-ghwv-vrp2-2975
+    created: 2026-11-10T13:07:45.160799-05:00
+review_status: UNREVIEWED

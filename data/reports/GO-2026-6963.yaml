@@ -1,0 +1,44 @@
+id: GO-2026-6963
+modules:
+    - module: github.com/gopacket/gopacket
+      versions:
+        - fixed: 1.7.2
+      vulnerable_at: 1.7.1
+      packages:
+        - package: github.com/gopacket/gopacket/layers
+          symbols:
+            - decodeSCTPInit
+            - decodeSCTPParameter
+            - decodeSCTPError
+            - decodeSCTPSack
+            - decodeSCTPHeartbeat
+            - decodeSCTPShutdown
+          derived_symbols:
+            - Dot11Type.Decode
+            - EAPOLType.Decode
+            - EthernetType.Decode
+            - FDDIFrameControl.Decode
+            - FuzzLayer
+            - IPProtocol.Decode
+            - LinkType.Decode
+            - PPPType.Decode
+            - PPPoECode.Decode
+            - ProtocolFamily.Decode
+            - ProtocolGuessingDecoder.Decode
+            - SCTPChunkType.Decode
+            - SFlowDatagram.DecodeFromBytes
+            - USBTransportType.Decode
+summary: 'gopacket: SCTP chunk sub-decoder out-of-bounds panics on crafted segments in github.com/gopacket/gopacket'
+cves:
+    - CVE-2026-119299
+ghsas:
+    - GHSA-358w-w75h-x6rx
+references:
+    - advisory: https://github.com/gopacket/gopacket/security/advisories/GHSA-358w-w75h-x6rx
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-119299
+    - fix: https://github.com/gopacket/gopacket/commit/508044327cc2c065b3db753c010a027e7d1ca621
+    - web: https://github.com/gopacket/gopacket/releases/tag/v1.7.2
+source:
+    id: GHSA-358w-w75h-x6rx
+    created: 2026-11-10T13:08:03.889312-05:00
+review_status: UNREVIEWED
