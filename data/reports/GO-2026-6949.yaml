@@ -1,0 +1,48 @@
+id: GO-2026-6949
+modules:
+    - module: github.com/mayswind/ezbookkeeping
+      versions:
+        - introduced: 0.10.0
+        - fixed: 1.6.0
+      vulnerable_at: 1.5.1
+      packages:
+        - package: github.com/mayswind/ezbookkeeping/pkg/core
+          symbols:
+            - WrapWebContext
+            - WebContext.ClientPort
+        - package: github.com/mayswind/ezbookkeeping/pkg/settings
+          symbols:
+            - loadSecurityConfiguration
+          derived_symbols:
+            - LoadConfiguration
+        - package: github.com/mayswind/ezbookkeeping/cmd
+          symbols:
+            - bindImage
+            - bindApiWithTokenUpdate
+            - startWebServer
+            - bindRedirect
+            - bindMiddleware
+            - bindEventStreamApi
+            - bindJSONRPCApi
+            - bindTsv
+            - bindApi
+            - bindCachedJs
+            - bindProxy
+            - bindCachedImage
+            - bindCsv
+summary: |-
+    ezBookkeeping: Source-IP allowlist (MCP & API token) is bypassable via a spoofed
+    `X-Forwarded-For` header in github.com/mayswind/ezbookkeeping
+cves:
+    - CVE-2026-86041
+ghsas:
+    - GHSA-wchh-mrv2-5h4q
+references:
+    - advisory: https://github.com/mayswind/ezbookkeeping/security/advisories/GHSA-wchh-mrv2-5h4q
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-86041
+    - fix: https://github.com/mayswind/ezbookkeeping/commit/d79a5beb8037e529dc4dc64a6d22bd2d02b2e986
+    - web: https://github.com/mayswind/ezbookkeeping/releases/tag/v1.6.0
+source:
+    id: GHSA-wchh-mrv2-5h4q
+    created: 2026-11-10T10:34:36.737738-05:00
+review_status: UNREVIEWED

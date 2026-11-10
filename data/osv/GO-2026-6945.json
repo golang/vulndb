@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6945",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-77463",
+    "GHSA-56x6-q882-mf27"
+  ],
+  "summary": "Remark42: Rate limit bypass via unconditional trust of X-Forwarded-For/X-Real-IP headers in direct-internet deployment in github.com/umputun/remark42",
+  "details": "Remark42: Rate limit bypass via unconditional trust of X-Forwarded-For/X-Real-IP headers in direct-internet deployment in github.com/umputun/remark42.\n\nNOTE: The source advisory for this report contains additional versions that could not be automatically mapped to standard Go module versions.\n\n(If this is causing false-positive reports from vulnerability scanners, please suggest an edit to the report.)\n\nThe additional affected modules and versions are: .",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/umputun/remark42",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/umputun/remark42/backend",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.16.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/umputun/remark42/backend/app/cmd",
+            "symbols": [
+              "ServerCommand.newServerApp"
+            ]
+          },
+          {
+            "path": "github.com/umputun/remark42/backend/app/rest/api",
+            "symbols": [
+              "Rest.routes"
+            ]
+          }
+        ],
+        "custom_ranges": [
+          {
+            "type": "ECOSYSTEM",
+            "events": [
+              {
+                "introduced": "1.0.0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/umputun/remark42/security/advisories/GHSA-56x6-q882-mf27"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77463"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/umputun/remark42/commit/b1502801facd7782a1c70fd51f8ad5c2eb650d39"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/umputun/remark42/commit/e62b3c830d81659cf5d2687b0c8261da7d42fdab"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/umputun/remark42/pull/2116"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/umputun/remark42/pull/2118"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/umputun/remark42/releases/tag/backend/v1.16.2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://remark42.com/docs/configuration/parameters/#trusted-proxies-and-client-ip"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6945",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6949",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-86041",
+    "GHSA-wchh-mrv2-5h4q"
+  ],
+  "summary": "ezBookkeeping: Source-IP allowlist (MCP \u0026 API token) is bypassable via a spoofed `X-Forwarded-For` header in github.com/mayswind/ezbookkeeping",
+  "details": "ezBookkeeping: Source-IP allowlist (MCP \u0026 API token) is bypassable via a spoofed `X-Forwarded-For` header in github.com/mayswind/ezbookkeeping",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mayswind/ezbookkeeping",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.10.0"
+            },
+            {
+              "fixed": "1.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mayswind/ezbookkeeping/pkg/core",
+            "symbols": [
+              "WebContext.ClientPort",
+              "WrapWebContext"
+            ]
+          },
+          {
+            "path": "github.com/mayswind/ezbookkeeping/pkg/settings",
+            "symbols": [
+              "LoadConfiguration",
+              "loadSecurityConfiguration"
+            ]
+          },
+          {
+            "path": "github.com/mayswind/ezbookkeeping/cmd",
+            "symbols": [
+              "bindApi",
+              "bindApiWithTokenUpdate",
+              "bindCachedImage",
+              "bindCachedJs",
+              "bindCsv",
+              "bindEventStreamApi",
+              "bindImage",
+              "bindJSONRPCApi",
+              "bindMiddleware",
+              "bindProxy",
+              "bindRedirect",
+              "bindTsv",
+              "startWebServer"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/mayswind/ezbookkeeping/security/advisories/GHSA-wchh-mrv2-5h4q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86041"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mayswind/ezbookkeeping/commit/d79a5beb8037e529dc4dc64a6d22bd2d02b2e986"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mayswind/ezbookkeeping/releases/tag/v1.6.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6949",
+    "review_status": "UNREVIEWED"
+  }
+}

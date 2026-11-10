@@ -1,0 +1,29 @@
+id: GO-2026-6954
+modules:
+    - module: github.com/esm-dev/esm.sh
+      versions:
+        - fixed: 0.2.0
+      vulnerable_at: 0.1.1
+      packages:
+        - package: github.com/esm-dev/esm.sh/web
+          symbols:
+            - Handler.ServeHTTP
+summary: |-
+    esm.sh: web.NewHandler allows arbitrary file read via encoded dot-segment path
+    traversal in github.com/esm-dev/esm.sh
+cves:
+    - CVE-2026-102657
+ghsas:
+    - GHSA-g3c2-rjq2-c763
+references:
+    - advisory: https://github.com/esm-dev/esm.sh/security/advisories/GHSA-g3c2-rjq2-c763
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-102657
+    - fix: https://github.com/esm-dev/esm.sh/commit/468b6b2a4b4dfec334cf6b33b01fcd4e5cd93bed
+    - fix: https://github.com/esm-dev/esm.sh/commit/fc3b345e73aeaa0b7a05b6f27d91c05fdf5f9b53
+    - fix: https://github.com/esm-dev/esm.sh/pull/1376
+    - web: https://github.com/esm-dev/esm.sh/releases/tag/v0.2.0
+    - web: https://github.com/esm-dev/esm.sh/releases/tag/v137_7
+source:
+    id: GHSA-g3c2-rjq2-c763
+    created: 2026-11-10T10:33:43.759946-05:00
+review_status: UNREVIEWED

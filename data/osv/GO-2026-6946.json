@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6946",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-102339",
+    "GHSA-6j3h-rp73-6rvf"
+  ],
+  "summary": "Telepresence: Tunnel endpoint accepts caller-supplied session ID with no ownership proof — active client sessions hijackable in github.com/telepresenceio/telepresence",
+  "details": "Telepresence: Tunnel endpoint accepts caller-supplied session ID with no ownership proof — active client sessions hijackable in github.com/telepresenceio/telepresence",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/telepresenceio/telepresence/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.31.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager",
+            "symbols": [
+              "Main",
+              "MainWithEnv",
+              "NewService",
+              "service.ArriveAsAgent",
+              "service.ArriveAsClient",
+              "service.CreateIntercept",
+              "service.Depart",
+              "service.EnsureAgent",
+              "service.GetAgentConfig",
+              "service.GetIntercept",
+              "service.Lookup",
+              "service.LookupDNS",
+              "service.MakeInterceptID",
+              "service.PrepareIntercept",
+              "service.ReconnectAgent",
+              "service.ReconnectClient",
+              "service.ReleaseAgent",
+              "service.Remain",
+              "service.RemoveIntercept",
+              "service.Tunnel",
+              "service.WatchAgentPods",
+              "service.WatchAgentPodsDelta",
+              "service.WatchAgentPodsInNamespacesDelta",
+              "service.WatchAgents",
+              "service.WatchAgentsDelta",
+              "service.WatchIntercepts",
+              "service.WatchInterceptsDelta",
+              "service.WatchWorkloads",
+              "service.ensureClientSession",
+              "service.serveHTTP",
+              "service.watchIntercepts"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/pkg/client/k8s",
+            "symbols": [
+              "Cluster.ConnectToAgent",
+              "Cluster.ConnectToManager",
+              "Cluster.dialGRPC"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager/state",
+            "symbols": [
+              "State.AddClient",
+              "State.RestoreClient",
+              "State.Tunnel",
+              "State.addClient"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/telepresenceio/telepresence/security/advisories/GHSA-6j3h-rp73-6rvf"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102339"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/commit/1312482488b771742dbedd3015f9a81a27532de6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/commit/36458b65a010d2b316af48cd90e193ba190785d9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/pull/4217"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/telepresenceio/telepresence/releases/tag/v2.31.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6946",
+    "review_status": "UNREVIEWED"
+  }
+}

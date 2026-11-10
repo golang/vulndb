@@ -1,0 +1,24 @@
+id: GO-2026-6944
+modules:
+    - module: github.com/traPtitech/traQ
+      versions:
+        - fixed: 1.0.0-rc.2.0.20260627142846-3db29e777166
+      vulnerable_at: 1.0.0-rc.2.0.20260626213217-b0d8aab2f652
+      packages:
+        - package: github.com/traPtitech/traQ/router/utils
+          symbols:
+            - ServeFile
+summary: 'traQ: XSS in the User Uploaded File Retrieval API in github.com/traPtitech/traQ'
+cves:
+    - CVE-2026-63197
+ghsas:
+    - GHSA-p74g-f95m-7fx7
+references:
+    - advisory: https://github.com/traPtitech/traQ/security/advisories/GHSA-p74g-f95m-7fx7
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-63197
+    - fix: https://github.com/traPtitech/traQ/commit/3db29e7771661f6418d88d186d8ff7817f5d6b6e
+    - web: https://github.com/traPtitech/traQ/releases/tag/v3.28.3
+source:
+    id: GHSA-p74g-f95m-7fx7
+    created: 2026-11-10T10:35:29.929336-05:00
+review_status: UNREVIEWED

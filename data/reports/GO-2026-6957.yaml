@@ -1,0 +1,25 @@
+id: GO-2026-6957
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260727180059-43aaccd5bfac
+      vulnerable_at: 0.0.0-20260726213036-6bd4679bab03
+summary: |-
+    Pocket ID: Email verification token remains valid after address change, enabling
+    arbitrary verified-email spoofing in github.com/pocket-id/pocket-id/backend
+cves:
+    - CVE-2026-115770
+ghsas:
+    - GHSA-rm8c-2cv8-jwf6
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-rm8c-2cv8-jwf6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-115770
+    - fix: https://github.com/pocket-id/pocket-id/commit/43aaccd5bfacb76283b11ce039fb3f0716196fcb
+    - web: https://github.com/pocket-id/pocket-id/pull/1625
+    - web: https://github.com/pocket-id/pocket-id/releases/tag/v2.12.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-rm8c-2cv8-jwf6
+    created: 2026-11-10T10:33:08.741716-05:00
+review_status: UNREVIEWED

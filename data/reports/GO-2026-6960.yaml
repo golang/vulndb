@@ -1,0 +1,25 @@
+id: GO-2026-6960
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260403210607-ac3a4c65677a
+      vulnerable_at: 0.0.0-20260403182618-f8ee99ce89fc
+summary: |-
+    Kubeflow Pipelines: SQL injection through unvalidated pagination tokens in
+    Kubeflow Pipelines API server in github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-88985
+ghsas:
+    - GHSA-r4mx-2gr2-8277
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-r4mx-2gr2-8277
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88985
+    - fix: https://github.com/kubeflow/pipelines/commit/ac3a4c65677a3bc7a3d5b1e264fba41178d4ab32
+    - fix: https://github.com/kubeflow/pipelines/pull/13127
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.17.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-r4mx-2gr2-8277
+    created: 2026-11-10T10:31:59.195912-05:00
+review_status: UNREVIEWED

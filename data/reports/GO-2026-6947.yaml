@@ -1,0 +1,65 @@
+id: GO-2026-6947
+modules:
+    - module: github.com/telepresenceio/telepresence/v2
+      versions:
+        - fixed: 2.31.0
+      vulnerable_at: 2.30.1
+      packages:
+        - package: github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager
+          symbols:
+            - service.Remain
+            - service.ReviewIntercept
+            - service.Depart
+            - service.serveHTTP
+            - service.ArriveAsAgent
+            - service.ReconnectAgent
+            - service.watchIntercepts
+            - service.CreateIntercept
+            - NewService
+          derived_symbols:
+            - Main
+            - MainWithEnv
+            - service.WatchIntercepts
+            - service.WatchInterceptsDelta
+        - package: github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager/state
+          symbols:
+            - State.RestoreAgent
+            - State.AddAgent
+        - package: github.com/telepresenceio/telepresence/v2/pkg/grpc/server
+          symbols:
+            - New
+        - package: github.com/telepresenceio/telepresence/v2/pkg/agentconfig
+          symbols:
+            - ContainerBuilder.AgentContainer
+            - AgentVolumes
+        - package: github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/agent
+          symbols:
+            - TalkToManager
+          derived_symbols:
+            - Main
+            - Sidecar
+            - StartServices
+            - TalkToManagerLoop
+            - containerState.AddPortHandler
+        - package: github.com/telepresenceio/telepresence/v2/pkg/client/k8s
+          symbols:
+            - Cluster.ConnectToManager
+summary: |-
+    Telepresence: Traffic Manager gRPC has no auth — any pod claims arbitrary
+    namespace and intercepts services, receiving victim environment secrets in github.com/telepresenceio/telepresence
+cves:
+    - CVE-2026-102340
+ghsas:
+    - GHSA-j8j4-rw65-56r6
+references:
+    - advisory: https://github.com/telepresenceio/telepresence/security/advisories/GHSA-j8j4-rw65-56r6
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-102340
+    - fix: https://github.com/telepresenceio/telepresence/commit/04ec3464fe8878fdc96420cdc8036edefa0dc9ae
+    - fix: https://github.com/telepresenceio/telepresence/commit/36458b65a010d2b316af48cd90e193ba190785d9
+    - fix: https://github.com/telepresenceio/telepresence/commit/6871235b674a6e843908d09696354c4b0f91578c
+    - fix: https://github.com/telepresenceio/telepresence/pull/4217
+    - web: https://github.com/telepresenceio/telepresence/releases/tag/v2.31.0
+source:
+    id: GHSA-j8j4-rw65-56r6
+    created: 2026-11-10T10:34:54.213443-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6947",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-102340",
+    "GHSA-j8j4-rw65-56r6"
+  ],
+  "summary": "Telepresence: Traffic Manager gRPC has no auth — any pod claims arbitrary namespace and intercepts services, receiving victim environment secrets in github.com/telepresenceio/telepresence",
+  "details": "Telepresence: Traffic Manager gRPC has no auth — any pod claims arbitrary namespace and intercepts services, receiving victim environment secrets in github.com/telepresenceio/telepresence",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/telepresenceio/telepresence/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.31.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager",
+            "symbols": [
+              "Main",
+              "MainWithEnv",
+              "NewService",
+              "service.ArriveAsAgent",
+              "service.CreateIntercept",
+              "service.Depart",
+              "service.ReconnectAgent",
+              "service.Remain",
+              "service.ReviewIntercept",
+              "service.WatchIntercepts",
+              "service.WatchInterceptsDelta",
+              "service.serveHTTP",
+              "service.watchIntercepts"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager/state",
+            "symbols": [
+              "State.AddAgent",
+              "State.RestoreAgent"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/pkg/grpc/server",
+            "symbols": [
+              "New"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/pkg/agentconfig",
+            "symbols": [
+              "AgentVolumes",
+              "ContainerBuilder.AgentContainer"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/agent",
+            "symbols": [
+              "Main",
+              "Sidecar",
+              "StartServices",
+              "TalkToManager",
+              "TalkToManagerLoop",
+              "containerState.AddPortHandler"
+            ]
+          },
+          {
+            "path": "github.com/telepresenceio/telepresence/v2/pkg/client/k8s",
+            "symbols": [
+              "Cluster.ConnectToManager"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/telepresenceio/telepresence/security/advisories/GHSA-j8j4-rw65-56r6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102340"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/commit/04ec3464fe8878fdc96420cdc8036edefa0dc9ae"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/commit/36458b65a010d2b316af48cd90e193ba190785d9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/commit/6871235b674a6e843908d09696354c4b0f91578c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/telepresenceio/telepresence/pull/4217"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/telepresenceio/telepresence/releases/tag/v2.31.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6947",
+    "review_status": "UNREVIEWED"
+  }
+}

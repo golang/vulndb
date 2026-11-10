@@ -1,0 +1,26 @@
+id: GO-2026-6943
+modules:
+    - module: github.com/traPtitech/traQ
+      versions:
+        - fixed: 1.0.0-rc.2.0.20260629134940-5510fe8aa9bb
+      vulnerable_at: 1.0.0-rc.2.0.20260629083846-16d735491331
+      packages:
+        - package: github.com/traPtitech/traQ/router/oauth2
+          symbols:
+            - Handler.AuthorizationEndpointHandler
+summary: |-
+    traQ: Privilege escalation by OAuth prompt=none request in
+    github.com/traPtitech/traQ
+cves:
+    - CVE-2026-63198
+ghsas:
+    - GHSA-8cfq-jgf7-8m27
+references:
+    - advisory: https://github.com/traPtitech/traQ/security/advisories/GHSA-8cfq-jgf7-8m27
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-63198
+    - fix: https://github.com/traPtitech/traQ/commit/5510fe8aa9bb15fc4755c78792381dbb03d576c3
+    - web: https://github.com/traPtitech/traQ/releases/tag/v3.28.3
+source:
+    id: GHSA-8cfq-jgf7-8m27
+    created: 2026-11-10T10:35:38.02221-05:00
+review_status: UNREVIEWED

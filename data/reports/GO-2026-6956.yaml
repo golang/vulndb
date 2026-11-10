@@ -1,0 +1,25 @@
+id: GO-2026-6956
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260909234119-62516d8c525f
+      vulnerable_at: 0.0.0-20260909195144-c8effaed6247
+summary: |-
+    Kubeflow Pipelines API server lacks authorization for shared pipeline uploads in
+    github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-77596
+ghsas:
+    - GHSA-rjr3-43j3-4q8g
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-rjr3-43j3-4q8g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77596
+    - fix: https://github.com/kubeflow/pipelines/commit/62516d8c525f146b754cb515cf441dd0290ad841
+    - fix: https://github.com/kubeflow/pipelines/pull/14352
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.18.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-rjr3-43j3-4q8g
+    created: 2026-11-10T10:33:24.591289-05:00
+review_status: UNREVIEWED

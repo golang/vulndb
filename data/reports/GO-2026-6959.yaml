@@ -1,0 +1,25 @@
+id: GO-2026-6959
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20251010122814-fedc25e3f725
+      vulnerable_at: 0.0.0-20251009181016-658da501c2e7
+summary: |-
+    Kubeflow Pipelines: Reflected XSS in the frontend pod information and events
+    error responses in github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-88986
+ghsas:
+    - GHSA-g3qx-frcg-j979
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-g3qx-frcg-j979
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88986
+    - fix: https://github.com/kubeflow/pipelines/commit/fedc25e3f7251933d4a37b964bc3e8176beea28e
+    - fix: https://github.com/kubeflow/pipelines/pull/12295
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.15.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-g3qx-frcg-j979
+    created: 2026-11-10T10:32:10.96588-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,38 @@
+id: GO-2026-6950
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260910172610-620d0cc89ae0
+      vulnerable_at: 0.0.0-20260910152041-1a414abec585
+      packages:
+        - package: github.com/kubeflow/pipelines/backend/src/cache/server
+          symbols:
+            - WatchPods
+            - getArgoTemplate
+            - generateCacheKeyFromTemplate
+            - getEnvBool
+            - intersectStructureWithSkeleton
+            - MutatePodIfCached
+            - patchCacheID
+        - package: github.com/kubeflow/pipelines/backend/src/cache/storage
+          symbols:
+            - ExecutionCacheStore.CreateExecutionCache
+            - ExecutionCacheStore.GetExecutionCache
+summary: |-
+    Kubeflow Pipelines: Cross-tenant execution-cache poisoning / output substitution
+    via a namespace-blind cache key in the cache webhook (multi-user) in
+    github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-88982
+ghsas:
+    - GHSA-2xwh-426q-42c5
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-2xwh-426q-42c5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88982
+    - fix: https://github.com/kubeflow/pipelines/commit/620d0cc89ae0d042a484a003f8ffe6e9a55d347e
+    - fix: https://github.com/kubeflow/pipelines/pull/14359
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.18.0
+source:
+    id: GHSA-2xwh-426q-42c5
+    created: 2026-11-10T10:34:26.230473-05:00
+review_status: UNREVIEWED

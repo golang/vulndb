@@ -1,0 +1,26 @@
+id: GO-2026-6952
+modules:
+    - module: www.velocidex.com/golang/velociraptor
+      versions:
+        - fixed: 0.77.2
+      vulnerable_at: 0.77.1
+summary: |-
+    Velociraptor: Low-priv analyst reads arbitrary server files via ungated sql()
+    VQL plugin in www.velocidex.com/golang/velociraptor
+cves:
+    - CVE-2026-85737
+ghsas:
+    - GHSA-9qq5-422f-33c2
+references:
+    - advisory: https://github.com/Velocidex/velociraptor/security/advisories/GHSA-9qq5-422f-33c2
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-85737
+    - fix: https://github.com/Velocidex/velociraptor/commit/d7de958e846d3742a7a3a8538fd463e4f12fc528
+    - fix: https://github.com/Velocidex/velociraptor/commit/f25390f8fbd00c888f0b7aaba2c061a51c3f7082
+    - web: https://github.com/Velocidex/velociraptor/pull/4952
+    - web: https://github.com/Velocidex/velociraptor/releases/tag/v0.77.2
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-9qq5-422f-33c2
+    created: 2026-11-10T10:34:04.6568-05:00
+review_status: UNREVIEWED

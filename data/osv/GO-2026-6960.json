@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6960",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-88985",
+    "GHSA-r4mx-2gr2-8277"
+  ],
+  "summary": "Kubeflow Pipelines: SQL injection through unvalidated pagination tokens in Kubeflow Pipelines API server in github.com/kubeflow/pipelines",
+  "details": "Kubeflow Pipelines: SQL injection through unvalidated pagination tokens in Kubeflow Pipelines API server in github.com/kubeflow/pipelines",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/kubeflow/pipelines",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.0.0-20260403210607-ac3a4c65677a"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/kubeflow/pipelines/security/advisories/GHSA-r4mx-2gr2-8277"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88985"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeflow/pipelines/commit/ac3a4c65677a3bc7a3d5b1e264fba41178d4ab32"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/kubeflow/pipelines/pull/13127"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/kubeflow/pipelines/releases/tag/2.17.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6960",
+    "review_status": "UNREVIEWED"
+  }
+}

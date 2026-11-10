@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6944",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-63197",
+    "GHSA-p74g-f95m-7fx7"
+  ],
+  "summary": "traQ: XSS in the User Uploaded File Retrieval API in github.com/traPtitech/traQ",
+  "details": "traQ: XSS in the User Uploaded File Retrieval API in github.com/traPtitech/traQ",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traPtitech/traQ",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-rc.2.0.20260627142846-3db29e777166"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/traPtitech/traQ/router/utils",
+            "symbols": [
+              "ServeFile"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/traPtitech/traQ/security/advisories/GHSA-p74g-f95m-7fx7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-63197"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/traPtitech/traQ/commit/3db29e7771661f6418d88d186d8ff7817f5d6b6e"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traPtitech/traQ/releases/tag/v3.28.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6944",
+    "review_status": "UNREVIEWED"
+  }
+}

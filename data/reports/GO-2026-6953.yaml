@@ -1,0 +1,25 @@
+id: GO-2026-6953
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260517162502-504d7797c1e0
+      vulnerable_at: 0.0.0-20260515190643-9af3b2adb838
+summary: |-
+    Kubeflow Pipelines — API server fetches a caller-supplied pipelineURL without
+    host validation in github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-88983
+ghsas:
+    - GHSA-f7vj-6669-qvv4
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-f7vj-6669-qvv4
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88983
+    - fix: https://github.com/kubeflow/pipelines/commit/504d7797c1e061327ddb2bcb8bc1c5dd4940cfc3
+    - fix: https://github.com/kubeflow/pipelines/pull/12750
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.17.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-f7vj-6669-qvv4
+    created: 2026-11-10T10:33:53.813502-05:00
+review_status: UNREVIEWED

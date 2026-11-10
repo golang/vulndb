@@ -1,0 +1,41 @@
+id: GO-2026-6945
+modules:
+    - module: github.com/umputun/remark42
+      versions:
+        - introduced: 1.0.0
+      unsupported_versions:
+        - last_affected: 1.2.0
+      vulnerable_at: 1.18.0
+    - module: github.com/umputun/remark42/backend
+      versions:
+        - fixed: 1.16.2
+      non_go_versions:
+        - introduced: 1.0.0
+      vulnerable_at: 1.16.1
+      packages:
+        - package: github.com/umputun/remark42/backend/app/cmd
+          symbols:
+            - ServerCommand.newServerApp
+        - package: github.com/umputun/remark42/backend/app/rest/api
+          symbols:
+            - Rest.routes
+summary: |-
+    Remark42: Rate limit bypass via unconditional trust of X-Forwarded-For/X-Real-IP
+    headers in direct-internet deployment in github.com/umputun/remark42
+cves:
+    - CVE-2026-77463
+ghsas:
+    - GHSA-56x6-q882-mf27
+references:
+    - advisory: https://github.com/umputun/remark42/security/advisories/GHSA-56x6-q882-mf27
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77463
+    - fix: https://github.com/umputun/remark42/commit/b1502801facd7782a1c70fd51f8ad5c2eb650d39
+    - fix: https://github.com/umputun/remark42/commit/e62b3c830d81659cf5d2687b0c8261da7d42fdab
+    - fix: https://github.com/umputun/remark42/pull/2116
+    - fix: https://github.com/umputun/remark42/pull/2118
+    - web: https://github.com/umputun/remark42/releases/tag/backend/v1.16.2
+    - web: https://remark42.com/docs/configuration/parameters/#trusted-proxies-and-client-ip
+source:
+    id: GHSA-56x6-q882-mf27
+    created: 2026-11-10T10:35:17.932451-05:00
+review_status: UNREVIEWED

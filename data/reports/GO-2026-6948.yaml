@@ -1,0 +1,234 @@
+id: GO-2026-6948
+modules:
+    - module: github.com/pocket-id/pocket-id/backend
+      versions:
+        - fixed: 0.0.0-20260622164202-8158452b3730
+      vulnerable_at: 0.0.0-20260621185242-dbbe2a403aa6
+      packages:
+        - package: github.com/pocket-id/pocket-id/backend/frontend
+          symbols:
+            - isOAuth2AuthorizationPostRequest
+            - RegisterFrontend
+            - rateLimitOnlyForOAuth2AuthorizationPostRequest
+        - package: github.com/pocket-id/pocket-id/backend/internal/utils
+          symbols:
+            - ValidateCallbackURLPattern
+        - package: github.com/pocket-id/pocket-id/backend/internal/common
+          symbols:
+            - OidcMissingAuthorizationCodeError.Error
+            - OidcMissingRefreshTokenError.Error
+            - OidcInvalidRequestURIError.Error
+            - OidcAuthorizationPendingError.Error
+            - OidcNoCallbackURLError.HttpStatusCode
+            - OidcConsentRequiredError.HttpStatusCode
+            - OidcClientAssertionInvalidError.HttpStatusCode
+            - OidcInvalidRequestURIError.HttpStatusCode
+            - OidcClientSecretInvalidError.Error
+            - OidcPARNotSupportedForPublicClientsError.Error
+            - OidcGrantTypeNotSupportedError.HttpStatusCode
+            - OidcInvalidAuthorizationCodeError.HttpStatusCode
+            - OidcInvalidAuthorizationCodeError.Error
+            - OidcMissingCodeChallengeError.Error
+            - OidcGrantTypeNotSupportedError.Error
+            - OidcInvalidRefreshTokenError.HttpStatusCode
+            - OidcMissingClientCredentialsError.HttpStatusCode
+            - OidcInteractionRequiredError.HttpStatusCode
+            - OidcLoginRequiredError.HttpStatusCode
+            - OidcMissingCodeChallengeError.HttpStatusCode
+            - OidcClientSecretInvalidError.HttpStatusCode
+            - NewOidcInvalidRequestError
+            - OidcMissingCallbackURLError.HttpStatusCode
+            - OidcMissingCallbackURLError.Error
+            - OidcClientNotFoundError.Error
+            - OidcAccountSelectionRequiredError.Error
+            - OidcInvalidCodeVerifierError.HttpStatusCode
+            - OidcInteractionRequiredError.Error
+            - OidcSlowDownError.HttpStatusCode
+            - OidcLoginRequiredError.Error
+            - OidcInvalidRequestError.HttpStatusCode
+            - OidcNoCallbackURLError.Error
+            - OidcClientAssertionInvalidError.Error
+            - OidcInvalidCodeVerifierError.Error
+            - OidcPARNotSupportedForPublicClientsError.HttpStatusCode
+            - OidcInvalidRequestError.Error
+            - OidcMissingRefreshTokenError.HttpStatusCode
+            - OidcMissingClientCredentialsError.Error
+            - OidcClientNotFoundError.HttpStatusCode
+            - OidcAuthorizationPendingError.HttpStatusCode
+            - OidcInvalidRefreshTokenError.Error
+            - OidcConsentRequiredError.Error
+            - OidcAccountSelectionRequiredError.HttpStatusCode
+            - OidcSlowDownError.Error
+            - OidcInvalidRequestError.Description
+            - OidcMissingAuthorizationCodeError.HttpStatusCode
+        - package: github.com/pocket-id/pocket-id/backend/internal/controller
+          symbols:
+            - OidcController.userInfoHandler
+            - OidcController.EndSessionHandler
+            - OidcController.deviceAuthorizationHandler
+            - WellKnownController.computeOIDCConfiguration
+            - NewOidcController
+            - OidcController.getDeviceCodeInfoHandler
+            - OidcController.createTokensHandler
+            - OidcController.EndSessionHandlerPost
+            - OidcController.introspectTokenHandler
+            - WebauthnController.reauthenticateHandler
+            - OidcController.authorizeCallbackURLHandler
+            - OidcController.parRequestInfoHandler
+            - isOidcPromptError
+            - OidcController.pushedAuthorizationRequestHandler
+            - parseBasicAuth
+            - OidcController.authorizeHandler
+            - OidcController.authorizationConfirmationRequiredHandler
+            - OidcController.verifyDeviceCodeHandler
+          derived_symbols:
+            - CustomClaimController.UpdateCustomClaimsForUserGroupHandler
+            - CustomClaimController.UpdateCustomClaimsForUserHandler
+            - NewApiKeyController
+            - NewAppConfigController
+            - NewAppImagesController
+            - NewAuditLogController
+            - NewCustomClaimController
+            - NewScimController
+            - NewUserController
+            - NewUserGroupController
+            - NewUserSignupController
+            - NewVersionController
+            - NewWebauthnController
+            - NewWellKnownController
+            - UserController.RequestOneTimeAccessEmailAsAdminHandler
+            - UserController.RequestOneTimeAccessEmailAsUnauthenticatedUserHandler
+        - package: github.com/pocket-id/pocket-id/backend/internal/service
+          symbols:
+            - OidcService.createTokenFromAuthorizationCode
+            - OidcService.CreateTokens
+            - OidcService.jwkSetForURL
+            - OidcService.introspectRefreshToken
+            - NewOidcService
+            - codeChallengeMethodIsSha256
+            - JwtService.BuildOAuthAccessToken
+            - OidcService.IntrospectToken
+            - JwtService.GetTokenType
+            - OidcService.addCallbackURLToClient
+            - OidcService.createAuthorizedClientInternal
+            - OidcService.ResolveAllowedCallbackURL
+            - ScimService.syncUser
+            - WebAuthnService.ConsumeReauthenticationToken
+            - JwtService.GenerateOAuthAccessToken
+            - OidcService.GetClientPreview
+            - JwtService.GenerateAccessToken
+            - JwtService.VerifyOAuthAccessToken
+            - OidcService.RevokeAuthorizedClient
+            - OidcService.createTokenFromClientCredentials
+            - OidcService.getAndConsumePushedAuthorizationRequest
+            - OidcService.applyPushedAuthorizationRequest
+            - OidcService.verifyClientCredentialsInternal
+            - validateCodeVerifier
+            - JwtService.GenerateOAuthRefreshToken
+            - resolveConfiguredCallbackURL
+            - GetAuthenticationMethod
+            - OidcService.GetUserClaimsForClient
+            - OidcService.VerifyDeviceCode
+            - OidcService.getJWKCache
+            - OidcService.verifyClientAssertionFromFederatedIdentities
+            - JwtService.GenerateIDToken
+            - OidcService.hasAuthorizedClientInternal
+            - OidcService.AuthorizationRequired
+            - OidcService.Authorize
+            - OidcService.getCallbackURL
+            - OidcService.CreatePushedAuthorizationRequest
+            - OidcService.CreateDeviceAuthorization
+            - OidcService.ResolveAuthorizeCallbackURL
+            - parsePromptParameter
+            - OidcService.IsClientAccessibleToUser
+            - OidcService.createRefreshToken
+            - SetAuthenticationMethods
+            - OidcService.ValidateEndSession
+            - JwtService.VerifyIdToken
+            - OidcService.HasAuthorizedClient
+            - OidcService.createAuthorizationCode
+            - OidcService.createTokenFromDeviceCode
+            - OidcService.GetPushedAuthorizationRequest
+            - OidcService.getUserClaims
+            - OidcService.getUserClaimsForClientInternal
+            - clientAuthCredentialsFromCreateTokensDto
+            - OidcService.getPushedAuthorizationRequestInternal
+            - OidcService.GetDeviceCodeInfo
+            - updateOIDCClientModelFromDto
+            - JwtService.BuildIDToken
+            - OidcService.getLogoutCallbackURL
+            - OidcService.introspectAccessToken
+            - JwtService.VerifyOAuthRefreshToken
+            - OidcService.createTokenFromRefreshToken
+            - IsUserGroupAllowedToAuthorize
+          derived_symbols:
+            - LdapService.SyncAll
+            - OidcService.CreateClient
+            - OidcService.UpdateClient
+            - OneTimeAccessService.ExchangeOneTimeAccessToken
+            - ScimService.SyncAll
+            - ScimService.SyncServiceProvider
+            - UserSignUpService.SignUp
+            - UserSignUpService.SignUpInitialAdmin
+            - WebAuthnService.CreateReauthenticationTokenWithAccessToken
+            - WebAuthnService.VerifyLogin
+        - package: github.com/pocket-id/pocket-id/backend/internal/job
+          symbols:
+            - DbCleanupJobs.clearOidcPushedAuthorizationRequests
+            - Scheduler.RegisterDbCleanupJobs
+            - DbCleanupJobs.clearOidcRefreshTokens
+            - DbCleanupJobs.clearOidcAuthorizationCodes
+          derived_symbols:
+            - ScimJobs.SyncScim
+        - package: github.com/pocket-id/pocket-id/backend/internal/dto
+          symbols:
+            - ValidateResponseMode
+            - ValidateCallbackURLPattern
+          derived_symbols:
+            - NormalizerJSONBinding.Bind
+            - ShouldBindWithNormalizedJSON
+            - UserCreateDto.Validate
+            - UserGroupCreateDto.Validate
+        - package: github.com/pocket-id/pocket-id/backend/internal/middleware
+          symbols:
+            - AuthMiddleware.Add
+            - JwtAuthMiddleware.Add
+            - BuildCSP
+            - generateNonce
+            - isCorsPath
+            - GetCSPNonce
+            - CspMiddleware.Add
+            - JwtAuthMiddleware.Verify
+        - package: github.com/pocket-id/pocket-id/backend/internal/model
+          symbols:
+            - OidcAuthorizationRequestParameters.Value
+            - OidcRefreshToken.Scopes
+            - OidcAuthorizationRequestParameters.Scan
+            - UserAuthorizedOidcClient.Scopes
+        - package: github.com/pocket-id/pocket-id/backend/internal/bootstrap
+          symbols:
+            - initServices
+            - registerRoutes
+          derived_symbols:
+            - Bootstrap
+            - ConnectDatabase
+            - InitStorage
+            - NewDatabase
+            - tlsCertProvider.StartWatching
+summary: |-
+    Pocket ID: The client credentials grant allows any OIDC client to obtain tokens
+    for arbitrary audiences in github.com/pocket-id/pocket-id/backend
+cves:
+    - CVE-2026-62662
+ghsas:
+    - GHSA-q4xm-p75h-h9p3
+references:
+    - advisory: https://github.com/pocket-id/pocket-id/security/advisories/GHSA-q4xm-p75h-h9p3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62662
+    - fix: https://github.com/pocket-id/pocket-id/commit/8158452b37304115c97c61c3a56082ce938ce6f0
+    - web: https://github.com/pocket-id/pocket-id/pull/1520
+    - web: https://github.com/pocket-id/pocket-id/releases/tag/v2.10.0
+source:
+    id: GHSA-q4xm-p75h-h9p3
+    created: 2026-11-10T10:34:44.468859-05:00
+review_status: UNREVIEWED

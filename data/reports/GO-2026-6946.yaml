@@ -1,0 +1,71 @@
+id: GO-2026-6946
+modules:
+    - module: github.com/telepresenceio/telepresence/v2
+      versions:
+        - fixed: 2.31.0
+      vulnerable_at: 2.30.1
+      packages:
+        - package: github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager
+          symbols:
+            - service.ReconnectClient
+            - service.watchIntercepts
+            - service.Remain
+            - service.ensureClientSession
+            - service.WatchWorkloads
+            - service.ArriveAsClient
+            - service.Depart
+            - service.MakeInterceptID
+            - service.LookupDNS
+            - service.CreateIntercept
+            - service.ArriveAsAgent
+            - service.ReconnectAgent
+            - NewService
+            - service.serveHTTP
+          derived_symbols:
+            - Main
+            - MainWithEnv
+            - service.EnsureAgent
+            - service.GetAgentConfig
+            - service.GetIntercept
+            - service.Lookup
+            - service.PrepareIntercept
+            - service.ReleaseAgent
+            - service.RemoveIntercept
+            - service.Tunnel
+            - service.WatchAgentPods
+            - service.WatchAgentPodsDelta
+            - service.WatchAgentPodsInNamespacesDelta
+            - service.WatchAgents
+            - service.WatchAgentsDelta
+            - service.WatchIntercepts
+            - service.WatchInterceptsDelta
+        - package: github.com/telepresenceio/telepresence/v2/pkg/client/k8s
+          symbols:
+            - Cluster.dialGRPC
+            - Cluster.ConnectToManager
+          derived_symbols:
+            - Cluster.ConnectToAgent
+        - package: github.com/telepresenceio/telepresence/v2/cmd/traffic/cmd/manager/state
+          symbols:
+            - State.RestoreClient
+            - State.Tunnel
+            - State.AddClient
+            - State.addClient
+summary: |-
+    Telepresence: Tunnel endpoint accepts caller-supplied session ID with no
+    ownership proof — active client sessions hijackable in github.com/telepresenceio/telepresence
+cves:
+    - CVE-2026-102339
+ghsas:
+    - GHSA-6j3h-rp73-6rvf
+references:
+    - advisory: https://github.com/telepresenceio/telepresence/security/advisories/GHSA-6j3h-rp73-6rvf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-102339
+    - fix: https://github.com/telepresenceio/telepresence/commit/1312482488b771742dbedd3015f9a81a27532de6
+    - fix: https://github.com/telepresenceio/telepresence/commit/36458b65a010d2b316af48cd90e193ba190785d9
+    - fix: https://github.com/telepresenceio/telepresence/pull/4217
+    - web: https://github.com/telepresenceio/telepresence/releases/tag/v2.31.0
+source:
+    id: GHSA-6j3h-rp73-6rvf
+    created: 2026-11-10T10:35:09.781767-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,25 @@
+id: GO-2026-6955
+modules:
+    - module: github.com/kubeflow/pipelines
+      versions:
+        - fixed: 0.0.0-20260420170029-186dd1f3b040
+      vulnerable_at: 0.0.0-20260418121423-04697ab9f66c
+summary: |-
+    Kubeflow Pipelines: RBAC bypass on shared pipelines allows any authenticated
+    user to delete or modify global pipelines in github.com/kubeflow/pipelines
+cves:
+    - CVE-2026-88984
+ghsas:
+    - GHSA-ghgh-57qv-h687
+references:
+    - advisory: https://github.com/kubeflow/pipelines/security/advisories/GHSA-ghgh-57qv-h687
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-88984
+    - fix: https://github.com/kubeflow/pipelines/commit/186dd1f3b0403af841c9b4ea7ab94f405339ef6c
+    - fix: https://github.com/kubeflow/pipelines/pull/13288
+    - web: https://github.com/kubeflow/pipelines/releases/tag/2.16.1
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-ghgh-57qv-h687
+    created: 2026-11-10T10:33:34.944838-05:00
+review_status: UNREVIEWED
