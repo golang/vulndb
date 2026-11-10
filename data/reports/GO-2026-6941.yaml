@@ -1,0 +1,54 @@
+id: GO-2026-6941
+modules:
+    - module: github.com/qri-io/jsonschema
+      versions:
+        - introduced: 0.2.0
+      vulnerable_at: 0.2.1
+      packages:
+        - package: github.com/qri-io/jsonschema
+          symbols:
+            - Properties.ValidateKeyword
+            - PatternProperties.ValidateKeyword
+            - AdditionalProperties.ValidateKeyword
+          derived_symbols:
+            - AdditionalItems.ValidateKeyword
+            - AllOf.ValidateKeyword
+            - AnyOf.ValidateKeyword
+            - Contains.ValidateKeyword
+            - DependentSchemas.ValidateKeyword
+            - Else.ValidateKeyword
+            - If.ValidateKeyword
+            - Items.ValidateKeyword
+            - Not.ValidateKeyword
+            - OneOf.ValidateKeyword
+            - PropertyNames.ValidateKeyword
+            - RecursiveRef.ValidateKeyword
+            - Ref.ValidateKeyword
+            - Schema.Validate
+            - Schema.ValidateBytes
+            - Schema.ValidateKeyword
+            - SchemaDependency.ValidateKeyword
+            - Then.ValidateKeyword
+            - UnevaluatedItems.ValidateKeyword
+            - UnevaluatedProperties.ValidateKeyword
+summary: |-
+    Bypass of additionalProperties validation via nested object property names in
+    github.com/qri-io/jsonschema
+description: |-
+    In github.com/qri-io/jsonschema, Properties.ValidateKeyword,
+    PatternProperties.ValidateKeyword, and AdditionalProperties.ValidateKeyword call
+    currentState.UpdateEvaluatedPropsAndItems(subState) after validating nested
+    object properties, merging the child object's evaluated property names into the
+    parent object's validation state. Consequently, any property on the parent
+    object that shares a name with a validated property in a nested child object is
+    treated as already evaluated on the parent, bypassing additionalProperties and
+    unevaluatedProperties validation on the parent object.
+credits:
+    - Jalmari Ikävalko (tzaeru)
+references:
+    - report: https://github.com/golang/vulndb/issues/6941
+    - web: https://github.com/qri-io/jsonschema/pull/133
+source:
+    id: go-security-team
+    created: 2026-11-10T10:35:42.85534-05:00
+review_status: REVIEWED

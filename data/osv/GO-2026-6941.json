@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6941",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "summary": "Bypass of additionalProperties validation via nested object property names in github.com/qri-io/jsonschema",
+  "details": "In github.com/qri-io/jsonschema, Properties.ValidateKeyword, PatternProperties.ValidateKeyword, and AdditionalProperties.ValidateKeyword call currentState.UpdateEvaluatedPropsAndItems(subState) after validating nested object properties, merging the child object's evaluated property names into the parent object's validation state. Consequently, any property on the parent object that shares a name with a validated property in a nested child object is treated as already evaluated on the parent, bypassing additionalProperties and unevaluatedProperties validation on the parent object.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/qri-io/jsonschema",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.2.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/qri-io/jsonschema",
+            "symbols": [
+              "AdditionalItems.ValidateKeyword",
+              "AdditionalProperties.ValidateKeyword",
+              "AllOf.ValidateKeyword",
+              "AnyOf.ValidateKeyword",
+              "Contains.ValidateKeyword",
+              "DependentSchemas.ValidateKeyword",
+              "Else.ValidateKeyword",
+              "If.ValidateKeyword",
+              "Items.ValidateKeyword",
+              "Not.ValidateKeyword",
+              "OneOf.ValidateKeyword",
+              "PatternProperties.ValidateKeyword",
+              "Properties.ValidateKeyword",
+              "PropertyNames.ValidateKeyword",
+              "RecursiveRef.ValidateKeyword",
+              "Ref.ValidateKeyword",
+              "Schema.Validate",
+              "Schema.ValidateBytes",
+              "Schema.ValidateKeyword",
+              "SchemaDependency.ValidateKeyword",
+              "Then.ValidateKeyword",
+              "UnevaluatedItems.ValidateKeyword",
+              "UnevaluatedProperties.ValidateKeyword"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "REPORT",
+      "url": "https://github.com/golang/vulndb/issues/6941"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/qri-io/jsonschema/pull/133"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Jalmari Ikävalko (tzaeru)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6941",
+    "review_status": "REVIEWED"
+  }
+}
