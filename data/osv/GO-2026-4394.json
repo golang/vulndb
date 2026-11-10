@@ -28,7 +28,45 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/otel/sdk/resource",
+            "symbols": [
+              "Default",
+              "Detect",
+              "Environment",
+              "Merge",
+              "New",
+              "NewSchemaless",
+              "NewWithAttributes",
+              "Resource.Encoded",
+              "Resource.MarshalJSON",
+              "Resource.String",
+              "cgroupContainerIDDetector.Detect",
+              "defaultServiceInstanceIDDetector.Detect",
+              "defaultServiceNameDetector.Detect",
+              "detectAttributes.Detect",
+              "fromEnv.Detect",
+              "host.Detect",
+              "hostIDDetector.Detect",
+              "hostIDReaderDarwin.read",
+              "osDescriptionDetector.Detect",
+              "osTypeDetector.Detect",
+              "processCommandArgsDetector.Detect",
+              "processExecutableNameDetector.Detect",
+              "processExecutablePathDetector.Detect",
+              "processOwnerDetector.Detect",
+              "processPIDDetector.Detect",
+              "processRuntimeDescriptionDetector.Detect",
+              "processRuntimeNameDetector.Detect",
+              "processRuntimeVersionDetector.Detect",
+              "stringDetector.Detect",
+              "telemetrySDK.Detect"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -37,7 +75,7 @@
       "url": "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-9h8m-3fm2-qjrq"
     },
     {
-      "type": "WEB",
+      "type": "FIX",
       "url": "https://github.com/open-telemetry/opentelemetry-go/commit/d45961bcda453fcbdb6469c22d6e88a1f9970a53"
     }
   ],

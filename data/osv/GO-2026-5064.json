@@ -7,26 +7,9 @@
     "CVE-2026-53492",
     "GHSA-33vj-92qq-66hc"
   ],
-  "summary": "containerd CRI checkpoint restore CDI annotation smuggling in github.com/containerd/containerd",
-  "details": "containerd CRI checkpoint restore CDI annotation smuggling in github.com/containerd/containerd",
+  "summary": "CRI checkpoint restore CDI annotation smuggling in github.com/containerd/containerd/v2",
+  "details": "CRI checkpoint restore CDI annotation smuggling in github.com/containerd/containerd/v2",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/containerd/containerd/v2",
@@ -57,17 +40,31 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/v2/internal/cri/server",
+            "symbols": [
+              "criService.CRImportCheckpoint",
+              "criService.CreateContainer"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-33vj-92qq-66hc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/861ffc1097685f9ecf13adaa381aca5fdf7ef0b4"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5064",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

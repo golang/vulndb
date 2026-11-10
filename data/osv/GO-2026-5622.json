@@ -7,26 +7,9 @@
     "CVE-2026-53489",
     "GHSA-rgh6-rfwx-v388"
   ],
-  "summary": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd",
-  "details": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd",
+  "summary": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd/v2",
+  "details": "Arbitrary host CRI log file read via symlink following in CRI checkpoint restore in github.com/containerd/containerd/v2",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/containerd/containerd/v2",
@@ -57,17 +40,32 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/v2/internal/cri/server",
+            "symbols": [
+              "criService.CRImportCheckpoint",
+              "criService.CreateContainer",
+              "criService.StartContainer"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-rgh6-rfwx-v388"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/8196411f24065533093be4c7ad874c23b06178f3"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-5622",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

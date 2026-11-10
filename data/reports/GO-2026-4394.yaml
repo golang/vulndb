@@ -5,6 +5,40 @@ modules:
         - introduced: 1.21.0
         - fixed: 1.40.0
       vulnerable_at: 1.39.0
+      packages:
+        - package: go.opentelemetry.io/otel/sdk/resource
+          symbols:
+            - hostIDReaderDarwin.read
+          derived_symbols:
+            - Default
+            - Detect
+            - Environment
+            - Merge
+            - New
+            - NewSchemaless
+            - NewWithAttributes
+            - Resource.Encoded
+            - Resource.MarshalJSON
+            - Resource.String
+            - cgroupContainerIDDetector.Detect
+            - defaultServiceInstanceIDDetector.Detect
+            - defaultServiceNameDetector.Detect
+            - detectAttributes.Detect
+            - fromEnv.Detect
+            - host.Detect
+            - hostIDDetector.Detect
+            - osDescriptionDetector.Detect
+            - osTypeDetector.Detect
+            - processCommandArgsDetector.Detect
+            - processExecutableNameDetector.Detect
+            - processExecutablePathDetector.Detect
+            - processOwnerDetector.Detect
+            - processPIDDetector.Detect
+            - processRuntimeDescriptionDetector.Detect
+            - processRuntimeNameDetector.Detect
+            - processRuntimeVersionDetector.Detect
+            - stringDetector.Detect
+            - telemetrySDK.Detect
 summary: |-
     OpenTelemetry Go SDK Vulnerable to Arbitrary Code Execution via PATH Hijacking
     in go.opentelemetry.io/otel/sdk
@@ -14,9 +48,7 @@ ghsas:
     - GHSA-9h8m-3fm2-qjrq
 references:
     - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-9h8m-3fm2-qjrq
-    - web: https://github.com/open-telemetry/opentelemetry-go/commit/d45961bcda453fcbdb6469c22d6e88a1f9970a53
-notes:
-    - failed to auto-populate symbols: no commits found for go.opentelemetry.io/otel/sdk
+    - fix: https://github.com/open-telemetry/opentelemetry-go/commit/d45961bcda453fcbdb6469c22d6e88a1f9970a53
 source:
     id: GHSA-9h8m-3fm2-qjrq
     created: 2026-02-12T14:16:28.946419-05:00

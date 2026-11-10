@@ -25,7 +25,18 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sigstore/timestamp-authority/pkg/api",
+            "symbols": [
+              "ParseJSONRequest",
+              "TimestampResponseHandler",
+              "getContentType"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -45,7 +56,18 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/sigstore/timestamp-authority/v2/pkg/api",
+            "symbols": [
+              "ParseJSONRequest",
+              "TimestampResponseHandler",
+              "getContentType"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -54,16 +76,12 @@
       "url": "https://github.com/sigstore/timestamp-authority/security/advisories/GHSA-4qg8-fj49-pxjh"
     },
     {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66564"
-    },
-    {
       "type": "FIX",
       "url": "https://github.com/sigstore/timestamp-authority/commit/0cae34e197d685a14904e0bad135b89d13b69421"
     }
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2025-4192",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
