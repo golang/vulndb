@@ -2,6 +2,19 @@ id: GO-2026-5102
 modules:
     - module: github.com/kumahq/kuma
       vulnerable_at: 0.0.0-20251106095714-766e8686c35a
+      packages:
+        - package: github.com/kumahq/kuma/pkg/api-server
+          symbols:
+            - NewApiServer
+          derived_symbols:
+            - ApiServer.Start
+            - SetupServer
+        - package: github.com/kumahq/kuma/pkg/api-server/authn
+          symbols:
+            - LocalhostAuthenticator
+        - package: github.com/kumahq/kuma/pkg/config/api-server
+          symbols:
+            - DefaultApiServerConfig
     - module: github.com/kumahq/kuma/v2
       versions:
         - fixed: 2.7.25
@@ -14,9 +27,20 @@ modules:
       non_go_versions:
         - introduced: 2.9.0
         - fixed: 2.9.15
-        - introduced: 2.11.0
-        - introduced: 2.12.0
       vulnerable_at: 2.13.4
+      packages:
+        - package: github.com/kumahq/kuma/v2/pkg/api-server
+          symbols:
+            - NewApiServer
+          derived_symbols:
+            - ApiServer.Start
+            - SetupServer
+        - package: github.com/kumahq/kuma/v2/pkg/api-server/authn
+          symbols:
+            - LocalhostAuthenticator
+        - package: github.com/kumahq/kuma/v2/pkg/config/api-server
+          symbols:
+            - DefaultApiServerConfig
 summary: |-
     Default kuma-cp leaks admin token cross-origin via CORS wildcard +
     LocalhostIsAdmin in github.com/kumahq/kuma
@@ -26,7 +50,6 @@ ghsas:
     - GHSA-3vcp-chfh-f6r2
 references:
     - advisory: https://github.com/kumahq/kuma/security/advisories/GHSA-3vcp-chfh-f6r2
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-45021
     - fix: https://github.com/kumahq/kuma/commit/8fefa8595d44eb68d922405702ed7a0826322907
     - fix: https://github.com/kumahq/kuma/pull/16416
     - fix: https://github.com/kumahq/kuma/pull/16423
@@ -37,4 +60,4 @@ references:
 source:
     id: GHSA-3vcp-chfh-f6r2
     created: 2026-07-21T19:46:27.265744-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
