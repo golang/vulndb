@@ -1,17 +1,32 @@
 id: GO-2025-3917
 modules:
     - module: github.com/neuvector/neuvector
-      non_go_versions:
-        - introduced: 5.0.0
-        - fixed: 5.4.6
-      vulnerable_at: 0.0.0-20250903232727-c2d83d9df18f
-summary: NeuVector has an insecure password storage vulnerable to rainbow attack in github.com/neuvector/neuvector
+      versions:
+        - fixed: 0.0.0-20250825191744-da1a462074c3
+      vulnerable_at: 0.0.0-20230727023453-1c4957d53911
+      packages:
+        - package: github.com/neuvector/neuvector/controller/rest
+        - package: github.com/neuvector/neuvector/controller/kv
+        - package: github.com/neuvector/neuvector/controller
+        - package: github.com/neuvector/neuvector/controller/resource
+        - package: github.com/neuvector/neuvector/controller/cache
+summary: |-
+    NeuVector has an insecure password storage and is vulnerable to rainbow attack
+    in github.com/neuvector/neuvector
 cves:
     - CVE-2025-53884
 ghsas:
     - GHSA-8ff6-pc43-jwv3
 references:
     - advisory: https://github.com/neuvector/neuvector/security/advisories/GHSA-8ff6-pc43-jwv3
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-53884
+    - fix: https://github.com/neuvector/neuvector/commit/addc9308b3a6359c9789a62ac6e73594c9a544d0
+    - fix: https://github.com/neuvector/neuvector/commit/da1a462074c3d7d426dba0901840fd0e2146f63a
+    - fix: https://github.com/neuvector/neuvector/pull/2084
+    - fix: https://github.com/neuvector/neuvector/pull/2085
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2025-53884
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
 source:
     id: GHSA-8ff6-pc43-jwv3
     created: 2025-09-05T19:32:41.772267466Z

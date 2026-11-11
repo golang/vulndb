@@ -1,17 +1,28 @@
 id: GO-2025-3919
 modules:
     - module: github.com/neuvector/neuvector
-      non_go_versions:
-        - introduced: 5.0.0
-        - fixed: 5.4.6
-      vulnerable_at: 0.0.0-20250903232727-c2d83d9df18f
-summary: NeuVector process with sensitive arguments lead to leakage in github.com/neuvector/neuvector
+      versions:
+        - fixed: 0.0.0-20250902144615-f9ddbdf42031
+      vulnerable_at: 0.0.0-20250902120838-1645fa2fa969
+      packages:
+        - package: github.com/neuvector/neuvector/controller/cache
+        - package: github.com/neuvector/neuvector/controller
+        - package: github.com/neuvector/neuvector/agent/probe
+        - package: github.com/neuvector/neuvector/agent
+summary: |-
+    NeuVector process with sensitive arguments lead to leakage in
+    github.com/neuvector/neuvector
 cves:
     - CVE-2025-54467
 ghsas:
     - GHSA-w54x-xfxg-4gxq
 references:
     - advisory: https://github.com/neuvector/neuvector/security/advisories/GHSA-w54x-xfxg-4gxq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-54467
+    - fix: https://github.com/neuvector/neuvector/commit/f9ddbdf420319cede3c490c1de03f48d953896ae
+    - web: https://bugzilla.suse.com/show_bug.cgi?id=CVE-2025-54467
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
 source:
     id: GHSA-w54x-xfxg-4gxq
     created: 2025-09-05T19:32:26.13629617Z
