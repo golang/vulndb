@@ -25,7 +25,18 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/pkg/authorization",
+            "symbols": [
+              "Ctx.AuthZRequest",
+              "drainBody",
+              "isChunked"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -42,7 +53,18 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/pkg/authorization",
+            "symbols": [
+              "Ctx.AuthZRequest",
+              "drainBody",
+              "isChunked"
+            ]
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -62,7 +84,18 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/v2/pkg/authorization",
+            "symbols": [
+              "Ctx.AuthZRequest",
+              "drainBody",
+              "isChunked"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -85,6 +118,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-4887",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

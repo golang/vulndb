@@ -2,12 +2,30 @@ id: GO-2026-4887
 modules:
     - module: github.com/docker/docker
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/docker/docker/pkg/authorization
+          symbols:
+            - Ctx.AuthZRequest
+            - isChunked
+            - drainBody
     - module: github.com/moby/moby
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/moby/moby/pkg/authorization
+          symbols:
+            - Ctx.AuthZRequest
+            - isChunked
+            - drainBody
     - module: github.com/moby/moby/v2
       versions:
         - fixed: 2.0.0-beta.8
       vulnerable_at: 2.0.0-beta.7
+      packages:
+        - package: github.com/moby/moby/v2/pkg/authorization
+          symbols:
+            - Ctx.AuthZRequest
+            - isChunked
+            - drainBody
 summary: Moby has AuthZ plugin bypass when provided oversized request bodies in github.com/docker/docker
 cves:
     - CVE-2026-34040
@@ -21,4 +39,4 @@ references:
 source:
     id: GHSA-x744-4wpc-v9h2
     created: 2026-03-31T13:08:34.334333-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED

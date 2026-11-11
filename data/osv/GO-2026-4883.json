@@ -25,7 +25,13 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/docker/docker/plugin"
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -42,7 +48,13 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/plugin"
+          }
+        ]
+      }
     },
     {
       "package": {
@@ -62,7 +74,13 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/moby/moby/v2/daemon/pkg/plugin"
+          }
+        ]
+      }
     }
   ],
   "references": [
@@ -85,6 +103,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-4883",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }

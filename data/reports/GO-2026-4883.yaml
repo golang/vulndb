@@ -2,12 +2,18 @@ id: GO-2026-4883
 modules:
     - module: github.com/docker/docker
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/docker/docker/plugin
     - module: github.com/moby/moby
       vulnerable_at: 28.5.2+incompatible
+      packages:
+        - package: github.com/moby/moby/plugin
     - module: github.com/moby/moby/v2
       versions:
         - fixed: 2.0.0-beta.8
       vulnerable_at: 2.0.0-beta.7
+      packages:
+        - package: github.com/moby/moby/v2/daemon/pkg/plugin
 summary: Moby has an Off-by-one error in its plugin privilege validation in github.com/docker/docker
 cves:
     - CVE-2026-33997
@@ -18,7 +24,9 @@ references:
     - fix: https://github.com/moby/moby/commit/f4d6f25bf0c3fa12d4968320a45685947756a22a
     - web: https://docs.docker.com/engine/extend/legacy_plugins
     - web: https://github.com/moby/moby/releases/tag/docker-v29.3.1
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
 source:
     id: GHSA-pxq6-2prw-chj9
     created: 2026-03-31T13:14:26.850993-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
