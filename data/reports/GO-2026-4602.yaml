@@ -9,12 +9,13 @@ modules:
       packages:
         - package: os
           symbols:
-            - File.ReadDir
-            - File.Readdir
+            - Root.Open
           derived_symbols:
-            - ReadDir
-            - dirFS.ReadDir
+            - OpenInRoot
+            - Root.ReadFile
+            - rootFS.Open
             - rootFS.ReadDir
+            - rootFS.ReadFile
 summary: FileInfo can escape from a Root in os
 description: |-
     On Unix platforms, when listing the contents of a directory using
