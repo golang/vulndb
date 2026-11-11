@@ -1,5 +1,22 @@
 id: GO-2025-3961
 modules:
+    - module: github.com/containers/buildah
+      versions:
+        - fixed: 1.27.6
+        - introduced: 1.28.0
+        - fixed: 1.33.12
+        - introduced: 1.34.0
+        - fixed: 1.35.5
+        - introduced: 1.36.0
+        - fixed: 1.37.6
+        - introduced: 1.38.0
+        - fixed: 1.38.1
+      vulnerable_at: 1.38.0
+      packages:
+        - package: github.com/containers/buildah
+        - package: github.com/containers/buildah/cmd/buildah
+        - package: github.com/containers/buildah/define
+        - package: github.com/containers/buildah/internal/volumes
     - module: github.com/containers/podman
       vulnerable_at: 1.9.3
     - module: github.com/containers/podman/v2
@@ -9,9 +26,9 @@ modules:
     - module: github.com/containers/podman/v4
       vulnerable_at: 4.9.5
     - module: github.com/containers/podman/v5
-      unsupported_versions:
-        - last_affected: 5.5.0
-      vulnerable_at: 5.6.1
+      versions:
+        - fixed: 5.3.2
+      vulnerable_at: 5.3.1
 summary: Podman Creates Temporary File with Insecure Permissions in github.com/containers/podman
 cves:
     - CVE-2025-4953
@@ -19,10 +36,19 @@ ghsas:
     - GHSA-m68q-4hqr-mc6f
 references:
     - advisory: https://github.com/advisories/GHSA-m68q-4hqr-mc6f
-    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2025-4953
+    - fix: https://github.com/containers/buildah/commit/25a3b385afd1b4166d739afb665df57752c46ccd
+    - fix: https://github.com/containers/buildah/commit/c30f5784da18628d80637d578d0ffc40a3189896
+    - fix: https://github.com/containers/podman/commit/50295e5e5d1a4583d26d5c6d5c0608cff498cc8d
+    - fix: https://github.com/containers/podman/commit/fe02e390afd01694163e7ca9582a401df5bea80c
+    - fix: https://github.com/containers/podman/commit/fe2b5da2cb297f0f1f4aa7c247c1b195a8b90345
+    - fix: https://github.com/containers/podman/pull/25069
+    - fix: https://github.com/containers/podman/pull/25173
+    - fix: https://github.com/containers/podman/pull/25208
     - web: https://access.redhat.com/security/cve/CVE-2025-4953
     - web: https://bugzilla.redhat.com/show_bug.cgi?id=2367235
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
 source:
     id: GHSA-m68q-4hqr-mc6f
     created: 2025-09-17T12:11:38.524496-04:00
-review_status: UNREVIEWED
+review_status: REVIEWED
