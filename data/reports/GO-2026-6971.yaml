@@ -1,0 +1,51 @@
+id: GO-2026-6971
+modules:
+    - module: github.com/pgEdge/pgedge-rag-server
+      versions:
+        - fixed: 1.0.1-0.20260729020411-a09d4872356b
+      vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/pgEdge/pgedge-rag-server/internal/config
+          symbols:
+            - applyDefaults
+            - Config.validatePipeline
+          derived_symbols:
+            - Config.Validate
+            - Load
+        - package: github.com/pgEdge/pgedge-rag-server/internal/database
+          symbols:
+            - Pool.FetchDocuments
+        - package: github.com/pgEdge/pgedge-rag-server/internal/server
+          symbols:
+            - BuildOpenAPISpec
+          derived_symbols:
+            - Server.ListenAndServe
+        - package: github.com/pgEdge/pgedge-rag-server/internal/pipeline
+          symbols:
+            - NewOrchestrator
+            - Orchestrator.Execute
+            - Orchestrator.ExecuteStream
+          derived_symbols:
+            - NewManager
+            - NewManagerWithLogger
+            - Pipeline.Execute
+            - Pipeline.ExecuteStream
+            - Pipeline.ExecuteStreamWithOptions
+            - Pipeline.ExecuteWithOptions
+summary: |-
+    pgEdge RAG Server unbounded corpus read allows resource exhaustion from
+    unauthenticated requests in github.com/pgEdge/pgedge-rag-server
+cves:
+    - CVE-2026-125327
+ghsas:
+    - GHSA-5qg5-rgp6-j5m5
+references:
+    - advisory: https://github.com/pgEdge/pgedge-rag-server/security/advisories/GHSA-5qg5-rgp6-j5m5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-125327
+    - fix: https://github.com/pgEdge/pgedge-rag-server/commit/a09d4872356b510c81f11591845445c33ff45a84
+    - fix: https://github.com/pgEdge/pgedge-rag-server/pull/44
+    - web: https://github.com/pgEdge/pgedge-rag-server/releases/tag/v2.0.0
+source:
+    id: GHSA-5qg5-rgp6-j5m5
+    created: 2026-11-13T11:52:42.582762-05:00
+review_status: UNREVIEWED

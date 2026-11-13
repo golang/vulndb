@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6971",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-125327",
+    "GHSA-5qg5-rgp6-j5m5"
+  ],
+  "summary": "pgEdge RAG Server unbounded corpus read allows resource exhaustion from unauthenticated requests in github.com/pgEdge/pgedge-rag-server",
+  "details": "pgEdge RAG Server unbounded corpus read allows resource exhaustion from unauthenticated requests in github.com/pgEdge/pgedge-rag-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pgEdge/pgedge-rag-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.1-0.20260729020411-a09d4872356b"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pgEdge/pgedge-rag-server/internal/config",
+            "symbols": [
+              "Config.Validate",
+              "Config.validatePipeline",
+              "Load",
+              "applyDefaults"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-rag-server/internal/database",
+            "symbols": [
+              "Pool.FetchDocuments"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-rag-server/internal/server",
+            "symbols": [
+              "BuildOpenAPISpec",
+              "Server.ListenAndServe"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-rag-server/internal/pipeline",
+            "symbols": [
+              "NewManager",
+              "NewManagerWithLogger",
+              "NewOrchestrator",
+              "Orchestrator.Execute",
+              "Orchestrator.ExecuteStream",
+              "Pipeline.Execute",
+              "Pipeline.ExecuteStream",
+              "Pipeline.ExecuteStreamWithOptions",
+              "Pipeline.ExecuteWithOptions"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pgEdge/pgedge-rag-server/security/advisories/GHSA-5qg5-rgp6-j5m5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125327"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/pgedge-rag-server/commit/a09d4872356b510c81f11591845445c33ff45a84"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/pgedge-rag-server/pull/44"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pgEdge/pgedge-rag-server/releases/tag/v2.0.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6971",
+    "review_status": "UNREVIEWED"
+  }
+}

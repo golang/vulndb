@@ -1,0 +1,84 @@
+id: GO-2026-6969
+modules:
+    - module: github.com/pgEdge/pgedge-go-llm-lib
+      versions:
+        - fixed: 0.1.2-0.20260729024727-7531a55d368b
+      vulnerable_at: 0.1.1
+      packages:
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/provider/gemini
+          symbols:
+            - client.ListModelsWithMetadata
+            - client.ChatStream
+            - mapError
+            - client.EmbedBatch
+            - client.Embed
+            - client.Chat
+          derived_symbols:
+            - client.ListModels
+            - client.Ping
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/provider/anthropic
+          symbols:
+            - client.ListModelsWithMetadata
+            - client.Chat
+            - client.ChatStream
+            - mapError
+          derived_symbols:
+            - client.ListModels
+            - client.Ping
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/provider/openai
+          symbols:
+            - client.Embed
+            - client.Chat
+            - client.chatResponses
+            - client.EmbedBatch
+            - mapError
+            - client.chatStreamResponses
+            - client.ChatStream
+            - client.ListModelsWithMetadata
+          derived_symbols:
+            - client.ListModels
+            - client.Ping
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/proxy
+          symbols:
+            - Proxy.writeError
+            - writeSSE
+            - Proxy.handleChatStream
+            - Proxy.handleHealth
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/provider/ollama
+          symbols:
+            - mapError
+          derived_symbols:
+            - client.Chat
+            - client.ChatStream
+            - client.Embed
+            - client.EmbedBatch
+            - client.ListModels
+            - client.ListModelsWithMetadata
+            - client.Ping
+        - package: github.com/pgEdge/pgedge-go-llm-lib/llm/provider/voyage
+          symbols:
+            - client.postJSON
+          derived_symbols:
+            - client.Embed
+            - client.EmbedBatch
+            - client.EmbedMultimodal
+            - client.Ping
+            - client.Rerank
+summary: |-
+    pgEdge Go LLM Library discloses provider API key fragments in error messages in
+    github.com/pgEdge/pgedge-go-llm-lib
+cves:
+    - CVE-2026-125328
+ghsas:
+    - GHSA-8835-xmqj-354h
+references:
+    - advisory: https://github.com/pgEdge/pgedge-go-llm-lib/security/advisories/GHSA-8835-xmqj-354h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-125328
+    - fix: https://github.com/pgEdge/pgedge-go-llm-lib/commit/7531a55d368b3a29cd173c792cc4609c4134b076
+    - fix: https://github.com/pgEdge/pgedge-go-llm-lib/commit/8bb9a6380d5f8db0124b51605759897034ad4da1
+    - fix: https://github.com/pgEdge/pgedge-go-llm-lib/pull/26
+    - web: https://github.com/pgEdge/pgedge-go-llm-lib/releases/tag/v0.2.0
+source:
+    id: GHSA-8835-xmqj-354h
+    created: 2026-11-13T11:52:56.959074-05:00
+review_status: UNREVIEWED

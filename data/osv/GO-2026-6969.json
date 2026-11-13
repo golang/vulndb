@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6969",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-125328",
+    "GHSA-8835-xmqj-354h"
+  ],
+  "summary": "pgEdge Go LLM Library discloses provider API key fragments in error messages in github.com/pgEdge/pgedge-go-llm-lib",
+  "details": "pgEdge Go LLM Library discloses provider API key fragments in error messages in github.com/pgEdge/pgedge-go-llm-lib",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pgEdge/pgedge-go-llm-lib",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.2-0.20260729024727-7531a55d368b"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/provider/gemini",
+            "symbols": [
+              "client.Chat",
+              "client.ChatStream",
+              "client.Embed",
+              "client.EmbedBatch",
+              "client.ListModels",
+              "client.ListModelsWithMetadata",
+              "client.Ping",
+              "mapError"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/provider/anthropic",
+            "symbols": [
+              "client.Chat",
+              "client.ChatStream",
+              "client.ListModels",
+              "client.ListModelsWithMetadata",
+              "client.Ping",
+              "mapError"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/provider/openai",
+            "symbols": [
+              "client.Chat",
+              "client.ChatStream",
+              "client.Embed",
+              "client.EmbedBatch",
+              "client.ListModels",
+              "client.ListModelsWithMetadata",
+              "client.Ping",
+              "client.chatResponses",
+              "client.chatStreamResponses",
+              "mapError"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/proxy",
+            "symbols": [
+              "Proxy.handleChatStream",
+              "Proxy.handleHealth",
+              "Proxy.writeError",
+              "writeSSE"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/provider/ollama",
+            "symbols": [
+              "client.Chat",
+              "client.ChatStream",
+              "client.Embed",
+              "client.EmbedBatch",
+              "client.ListModels",
+              "client.ListModelsWithMetadata",
+              "client.Ping",
+              "mapError"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/pgedge-go-llm-lib/llm/provider/voyage",
+            "symbols": [
+              "client.Embed",
+              "client.EmbedBatch",
+              "client.EmbedMultimodal",
+              "client.Ping",
+              "client.Rerank",
+              "client.postJSON"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pgEdge/pgedge-go-llm-lib/security/advisories/GHSA-8835-xmqj-354h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125328"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/pgedge-go-llm-lib/commit/7531a55d368b3a29cd173c792cc4609c4134b076"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/pgedge-go-llm-lib/commit/8bb9a6380d5f8db0124b51605759897034ad4da1"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/pgedge-go-llm-lib/pull/26"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pgEdge/pgedge-go-llm-lib/releases/tag/v0.2.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6969",
+    "review_status": "UNREVIEWED"
+  }
+}

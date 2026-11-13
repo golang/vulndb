@@ -1,0 +1,49 @@
+id: GO-2026-6973
+modules:
+    - module: github.com/pgEdge/control-plane
+      versions:
+        - fixed: 0.11.0
+      vulnerable_at: 0.11.0-rc.2
+      packages:
+        - package: github.com/pgEdge/control-plane/server/internal/api/apiv1
+          symbols:
+            - validateDatabaseSpec
+            - validateNode
+          derived_symbols:
+            - PostInitHandlers.CreateDatabase
+            - PostInitHandlers.UpdateDatabase
+        - package: github.com/pgEdge/control-plane/server/internal/database
+          symbols:
+            - DumpRolesResource.Create
+          derived_symbols:
+            - DumpRolesResource.Update
+        - package: github.com/pgEdge/control-plane/server/internal/orchestrator/common
+          symbols:
+            - PatroniConfigGenerator.pgIdent
+            - PatroniConfigGenerator.pgHba
+          derived_symbols:
+            - PatroniConfig.Create
+            - PatroniConfig.Update
+            - PatroniConfigGenerator.AuthMethod
+            - PatroniConfigGenerator.Generate
+        - package: github.com/pgEdge/control-plane/server/internal/postgres
+          symbols:
+            - DefaultGUCs
+summary: |-
+    pgEdge Control Plane generates pg_hba.conf with trust authentication for local
+    and loopback connections in github.com/pgEdge/control-plane
+cves:
+    - CVE-2026-125323
+ghsas:
+    - GHSA-vq9p-w6wv-cr25
+references:
+    - advisory: https://github.com/pgEdge/control-plane/security/advisories/GHSA-vq9p-w6wv-cr25
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-125323
+    - fix: https://github.com/pgEdge/control-plane/commit/88659f7388fc6c86125e60475aa83810171145b7
+    - fix: https://github.com/pgEdge/control-plane/pull/470
+    - web: https://github.com/pgEdge/control-plane/blob/main/changes/v0.11.0.md
+    - web: https://github.com/pgEdge/control-plane/releases/tag/v0.11.0
+source:
+    id: GHSA-vq9p-w6wv-cr25
+    created: 2026-11-13T11:52:20.102953-05:00
+review_status: UNREVIEWED

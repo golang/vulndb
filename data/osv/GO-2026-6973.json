@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6973",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-125323",
+    "GHSA-vq9p-w6wv-cr25"
+  ],
+  "summary": "pgEdge Control Plane generates pg_hba.conf with trust authentication for local and loopback connections in github.com/pgEdge/control-plane",
+  "details": "pgEdge Control Plane generates pg_hba.conf with trust authentication for local and loopback connections in github.com/pgEdge/control-plane",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pgEdge/control-plane",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.11.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pgEdge/control-plane/server/internal/api/apiv1",
+            "symbols": [
+              "PostInitHandlers.CreateDatabase",
+              "PostInitHandlers.UpdateDatabase",
+              "validateDatabaseSpec",
+              "validateNode"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/control-plane/server/internal/database",
+            "symbols": [
+              "DumpRolesResource.Create",
+              "DumpRolesResource.Update"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/control-plane/server/internal/orchestrator/common",
+            "symbols": [
+              "PatroniConfig.Create",
+              "PatroniConfig.Update",
+              "PatroniConfigGenerator.AuthMethod",
+              "PatroniConfigGenerator.Generate",
+              "PatroniConfigGenerator.pgHba",
+              "PatroniConfigGenerator.pgIdent"
+            ]
+          },
+          {
+            "path": "github.com/pgEdge/control-plane/server/internal/postgres",
+            "symbols": [
+              "DefaultGUCs"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pgEdge/control-plane/security/advisories/GHSA-vq9p-w6wv-cr25"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125323"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/control-plane/commit/88659f7388fc6c86125e60475aa83810171145b7"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pgEdge/control-plane/pull/470"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pgEdge/control-plane/blob/main/changes/v0.11.0.md"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pgEdge/control-plane/releases/tag/v0.11.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6973",
+    "review_status": "UNREVIEWED"
+  }
+}
