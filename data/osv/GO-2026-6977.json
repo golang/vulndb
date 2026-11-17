@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6977",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-62683",
+    "GHSA-pp88-jhwj-5qh5"
+  ],
+  "summary": "File Browser: Trailing-slash directory deletion leaves public shares active for recreated paths in github.com/filebrowser/filebrowser/v2",
+  "details": "File Browser: Trailing-slash directory deletion leaves public shares active for recreated paths in github.com/filebrowser/filebrowser/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/filebrowser/filebrowser/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.63.17"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/filebrowser/filebrowser/v2/storage/bolt",
+            "symbols": [
+              "shareBackend.DeleteWithPathPrefix"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/filebrowser/filebrowser/security/advisories/GHSA-pp88-jhwj-5qh5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/cve-2026-62683"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/filebrowser/filebrowser/commit/f30fca636c1af9ef401e9a82ff60391cb3db97e1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6977",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,30 @@
+id: GO-2026-6985
+modules:
+    - module: github.com/kubeshark/kubeshark
+      versions:
+        - introduced: 0.0.2-0.20260206182249-0bbbb473ea3f
+        - fixed: 0.0.2-0.20260812200004-a76a1920dc75
+      vulnerable_at: 0.0.2-0.20260812190123-ed9ce1b561c1
+      packages:
+        - package: github.com/kubeshark/kubeshark/cmd
+          symbols:
+            - mcpServer.callStartKubeshark
+          derived_symbols:
+            - Execute
+summary: |-
+    Kubeshark: MCP `start_kubeshark` argument injection via `pod_regex` → image
+    redirect → cluster takeover in github.com/kubeshark/kubeshark
+cves:
+    - CVE-2026-129236
+ghsas:
+    - GHSA-8vf2-hxg5-crqh
+references:
+    - advisory: https://github.com/kubeshark/kubeshark/security/advisories/GHSA-8vf2-hxg5-crqh
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-129236
+    - fix: https://github.com/kubeshark/kubeshark/commit/a76a1920dc7587be700a17f1592f58a9512ad214
+    - fix: https://github.com/kubeshark/kubeshark/pull/1957
+    - web: https://github.com/kubeshark/kubeshark/releases/tag/v53.4.0
+source:
+    id: GHSA-8vf2-hxg5-crqh
+    created: 2026-11-16T23:01:03.509046-05:00
+review_status: UNREVIEWED

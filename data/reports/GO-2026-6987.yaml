@@ -1,0 +1,25 @@
+id: GO-2026-6987
+modules:
+    - module: go.qbee.io/agent
+      versions:
+        - fixed: 0.0.0-20260908095235-eb7875f0a849
+      vulnerable_at: 0.0.0-20260908084212-7248dfed1ba2
+summary: |-
+    qbee-agent: Docker Compose build context Zip Slip writes outside context
+    directory in go.qbee.io/agent
+cves:
+    - CVE-2026-129237
+ghsas:
+    - GHSA-vx32-xf7g-9ghr
+references:
+    - advisory: https://github.com/qbee-io/qbee-agent/security/advisories/GHSA-vx32-xf7g-9ghr
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-129237
+    - fix: https://github.com/qbee-io/qbee-agent/commit/eb7875f0a849cb33325956d0b75e27061d7a7fa3
+    - fix: https://github.com/qbee-io/qbee-agent/pull/148
+    - web: https://github.com/qbee-io/qbee-agent/releases/tag/2026.41
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-vx32-xf7g-9ghr
+    created: 2026-11-16T23:00:42.501063-05:00
+review_status: UNREVIEWED

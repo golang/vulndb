@@ -1,0 +1,30 @@
+id: GO-2026-6986
+modules:
+    - module: github.com/kubeshark/kubeshark
+      versions:
+        - introduced: 0.0.2-0.20260304171723-eb7dc42b6ea0
+        - fixed: 0.0.2-0.20260812200004-a76a1920dc75
+      vulnerable_at: 0.0.2-0.20260812190123-ed9ce1b561c1
+      packages:
+        - package: github.com/kubeshark/kubeshark/cmd
+          symbols:
+            - mcpServer.callDownloadFile
+          derived_symbols:
+            - Execute
+summary: |-
+    Kubeshark: MCP `download_file` writes fetched bytes to an unvalidated
+    destination path in github.com/kubeshark/kubeshark
+cves:
+    - CVE-2026-129235
+ghsas:
+    - GHSA-gj7r-p794-hhq5
+references:
+    - advisory: https://github.com/kubeshark/kubeshark/security/advisories/GHSA-gj7r-p794-hhq5
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-129235
+    - fix: https://github.com/kubeshark/kubeshark/commit/a76a1920dc7587be700a17f1592f58a9512ad214
+    - fix: https://github.com/kubeshark/kubeshark/pull/1957
+    - web: https://github.com/kubeshark/kubeshark/releases/tag/v53.4.0
+source:
+    id: GHSA-gj7r-p794-hhq5
+    created: 2026-11-16T23:00:53.384073-05:00
+review_status: UNREVIEWED

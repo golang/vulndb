@@ -1,0 +1,26 @@
+id: GO-2026-6977
+modules:
+    - module: github.com/filebrowser/filebrowser/v2
+      versions:
+        - fixed: 2.63.17
+      vulnerable_at: 2.63.16
+      packages:
+        - package: github.com/filebrowser/filebrowser/v2/storage/bolt
+          symbols:
+            - shareBackend.DeleteWithPathPrefix
+summary: |-
+    File Browser: Trailing-slash directory deletion leaves public shares active for
+    recreated paths in github.com/filebrowser/filebrowser/v2
+cves:
+    - CVE-2026-62683
+ghsas:
+    - GHSA-pp88-jhwj-5qh5
+references:
+    - advisory: https://github.com/filebrowser/filebrowser/security/advisories/GHSA-pp88-jhwj-5qh5
+    - advisory: https://nvd.nist.gov/vuln/detail/cve-2026-62683
+    - fix: https://github.com/filebrowser/filebrowser/commit/f30fca636c1af9ef401e9a82ff60391cb3db97e1
+    - web: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.17
+source:
+    id: GHSA-pp88-jhwj-5qh5
+    created: 2026-11-16T23:01:12.246671-05:00
+review_status: UNREVIEWED
