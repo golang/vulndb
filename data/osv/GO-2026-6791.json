@@ -7,26 +7,9 @@
     "CVE-2026-95837",
     "GHSA-p7v4-vr35-mj6f"
   ],
-  "summary": "containerd CRI plugin: Checkpoint restore bypasses destination security context in github.com/containerd/containerd",
-  "details": "containerd CRI plugin: Checkpoint restore bypasses destination security context in github.com/containerd/containerd",
+  "summary": "Checkpoint restore bypasses destination security context in github.com/containerd/containerd/v2",
+  "details": "Checkpoint restore bypasses destination security context in github.com/containerd/containerd/v2",
   "affected": [
-    {
-      "package": {
-        "name": "github.com/containerd/containerd",
-        "ecosystem": "Go"
-      },
-      "ranges": [
-        {
-          "type": "SEMVER",
-          "events": [
-            {
-              "introduced": "0"
-            }
-          ]
-        }
-      ],
-      "ecosystem_specific": {}
-    },
     {
       "package": {
         "name": "github.com/containerd/containerd/v2",
@@ -51,17 +34,23 @@
           ]
         }
       ],
-      "ecosystem_specific": {}
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/v2/internal/cri/server",
+            "symbols": [
+              "criService.CRImportCheckpoint",
+              "criService.CreateContainer"
+            ]
+          }
+        ]
+      }
     }
   ],
   "references": [
     {
       "type": "ADVISORY",
       "url": "https://github.com/containerd/containerd/security/advisories/GHSA-p7v4-vr35-mj6f"
-    },
-    {
-      "type": "ADVISORY",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-95837"
     },
     {
       "type": "FIX",
@@ -74,6 +63,6 @@
   ],
   "database_specific": {
     "url": "https://pkg.go.dev/vuln/GO-2026-6791",
-    "review_status": "UNREVIEWED"
+    "review_status": "REVIEWED"
   }
 }
