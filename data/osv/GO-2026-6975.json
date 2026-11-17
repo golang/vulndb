@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6975",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-128086",
+    "GHSA-rrfc-gjm9-cgrj"
+  ],
+  "summary": "Memory allocation amplification in W3C baggage parsing in go.opentelemetry.io/otel",
+  "details": "Memory allocation amplification in W3C baggage parsing in go.opentelemetry.io/otel",
+  "affected": [
+    {
+      "package": {
+        "name": "go.opentelemetry.io/otel",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0-RC1"
+            },
+            {
+              "fixed": "1.47.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "go.opentelemetry.io/otel/baggage",
+            "symbols": [
+              "Parse",
+              "parseMember"
+            ]
+          },
+          {
+            "path": "go.opentelemetry.io/otel/propagation",
+            "symbols": [
+              "Baggage.Extract"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-rrfc-gjm9-cgrj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/commit/f09d1de32f4ac7e5ef16394533721106b1a57b89"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/pull/9024"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.47.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6975",
+    "review_status": "REVIEWED"
+  }
+}

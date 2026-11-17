@@ -1,0 +1,56 @@
+id: GO-2026-6974
+modules:
+    - module: go.opentelemetry.io/otel/sdk
+      versions:
+        - introduced: 1.33.0
+        - fixed: 1.47.0
+      vulnerable_at: 1.47.0-rc.1
+      packages:
+        - package: go.opentelemetry.io/otel/sdk/internal/attrnorm
+          symbols:
+            - truncate
+          derived_symbols:
+            - Truncate
+            - TruncateValue
+    - module: go.opentelemetry.io/otel/sdk/log
+      versions:
+        - introduced: 0.9.0
+        - fixed: 1.47.0
+      vulnerable_at: 1.47.0-rc.1
+      packages:
+        - package: go.opentelemetry.io/otel/sdk/log/internal/attrnorm
+          symbols:
+            - truncate
+          derived_symbols:
+            - Truncate
+            - TruncateValue
+    - module: go.opentelemetry.io/otel/trace
+      versions:
+        - introduced: 1.35.0
+        - fixed: 1.47.0
+      vulnerable_at: 1.47.0-rc.1
+      packages:
+        - package: go.opentelemetry.io/otel/trace
+          symbols:
+            - truncate
+          derived_symbols:
+            - autoSpan.AddEvent
+            - autoSpan.AddLink
+            - autoSpan.RecordError
+            - autoSpan.SetAttributes
+            - autoTracer.Start
+summary: AttributeValueLengthLimit bypass via U+FFFD runes in go.opentelemetry.io/otel/sdk
+cves:
+    - CVE-2026-128085
+ghsas:
+    - GHSA-q7gw-24fr-5p69
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-q7gw-24fr-5p69
+    - fix: https://github.com/open-telemetry/opentelemetry-go/commit/017b08c7f1018b619991aaf6b2299d4beb9da1d3
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/log/v1.47.0
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/sdk/v1.47.0
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/trace/v1.47.0
+source:
+    id: GHSA-q7gw-24fr-5p69
+    created: 2026-11-16T23:01:33.938556-05:00
+review_status: REVIEWED

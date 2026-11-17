@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6978",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-g2rq-85pp-c2j9"
+  ],
+  "summary": "CSRF protection bypass via _method override in github.com/mikehelmick/go-bananas",
+  "details": "middleware.MutateMethod accepts a _method override from the query string or request body and allows overriding the HTTP method to safe methods such as GET. When installed as router middleware ahead of middleware.HandleCSRF, a cross-site POST request with _method=GET is routed to the POST handler while HandleCSRF observes a GET request and skips CSRF token validation.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/mikehelmick/go-bananas",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/mikehelmick/go-bananas/middleware",
+            "symbols": [
+              "MutateMethod"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/mikehelmick/go-bananas/security/advisories/GHSA-g2rq-85pp-c2j9"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mikehelmick/go-bananas/commit/5b7640b0a46a4be3b02a3b90f511c5a0da6b219b"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/mikehelmick/go-bananas/commit/f2b0abd115b3fea1ac75bbe4eda4fb9b3d24f78f"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/mikehelmick/go-bananas/releases/tag/v1.0.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6978",
+    "review_status": "REVIEWED"
+  }
+}

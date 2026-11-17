@@ -1,0 +1,30 @@
+id: GO-2026-6975
+modules:
+    - module: go.opentelemetry.io/otel
+      versions:
+        - introduced: 1.0.0-RC1
+        - fixed: 1.47.0
+      vulnerable_at: 1.47.0-rc.1
+      packages:
+        - package: go.opentelemetry.io/otel/baggage
+          symbols:
+            - parseMember
+          derived_symbols:
+            - Parse
+        - package: go.opentelemetry.io/otel/propagation
+          symbols:
+            - Baggage.Extract
+summary: Memory allocation amplification in W3C baggage parsing in go.opentelemetry.io/otel
+cves:
+    - CVE-2026-128086
+ghsas:
+    - GHSA-rrfc-gjm9-cgrj
+references:
+    - advisory: https://github.com/open-telemetry/opentelemetry-go/security/advisories/GHSA-rrfc-gjm9-cgrj
+    - fix: https://github.com/open-telemetry/opentelemetry-go/commit/f09d1de32f4ac7e5ef16394533721106b1a57b89
+    - fix: https://github.com/open-telemetry/opentelemetry-go/pull/9024
+    - web: https://github.com/open-telemetry/opentelemetry-go/releases/tag/v1.47.0
+source:
+    id: GHSA-rrfc-gjm9-cgrj
+    created: 2026-11-16T23:01:22.137268-05:00
+review_status: REVIEWED

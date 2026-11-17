@@ -1,0 +1,40 @@
+id: GO-2026-6984
+modules:
+    - module: github.com/saracen/fastzip
+      versions:
+        - fixed: 0.2.1
+      vulnerable_at: 0.2.0
+      packages:
+        - package: github.com/saracen/fastzip
+          symbols:
+            - Extractor.createDirectory
+            - Extractor.createFile
+            - Extractor.createSymlink
+            - Extractor.updateFileMetadata
+          derived_symbols:
+            - Extractor.Extract
+          excluded_symbols:
+            - Archiver.Archive
+summary: |-
+    Extractor writes outside chroot through existing symbolic link in
+    github.com/saracen/fastzip
+description: |-
+    Extractor.Extract checks archive entry paths lexically against the destination
+    chroot and then creates files, directories, and symbolic links using path-based
+    os calls that follow symbolic links already present under the chroot, allowing
+    writes and metadata changes outside the destination directory.
+ghsas:
+    - GHSA-8gwq-33fg-g56p
+credits:
+    - real-kicktheball
+    - jamesb5959
+references:
+    - advisory: https://github.com/saracen/fastzip/security/advisories/GHSA-8gwq-33fg-g56p
+    - fix: https://github.com/saracen/fastzip/commit/99c2a5cf69d769da532c6ebb6a26a67a817f6101
+    - web: https://github.com/saracen/fastzip/releases/tag/v0.2.1
+    - web: https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/7500
+    - web: https://gitlab.com/gitlab-org/gitlab-runner/-/work_items/39687
+source:
+    id: go-security-team
+    created: 2026-11-16T23:01:09.41987-05:00
+review_status: REVIEWED
