@@ -1,0 +1,25 @@
+id: GO-2026-6989
+modules:
+    - module: go.qbee.io/agent
+      versions:
+        - fixed: 0.0.0-20260615134032-0fdf8e411de5
+      vulnerable_at: 0.0.0-20260430083334-99a0b5a56bb0
+summary: |-
+    qbee-agent: Local Privilege Escalation and Arbitrary File Tampering via Symlink
+    Following in createFile helper in go.qbee.io/agent
+cves:
+    - CVE-2026-62336
+ghsas:
+    - GHSA-xhv5-8fpq-g7hf
+references:
+    - advisory: https://github.com/qbee-io/qbee-agent/security/advisories/GHSA-xhv5-8fpq-g7hf
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62336
+    - fix: https://github.com/qbee-io/qbee-agent/commit/0fdf8e411de5d0c142ae2590cf1c54bdfc2e529a
+    - fix: https://github.com/qbee-io/qbee-agent/pull/131
+    - web: https://github.com/qbee-io/qbee-agent/releases/tag/2026.27
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-xhv5-8fpq-g7hf
+    created: 2026-11-18T14:25:48.428826-05:00
+review_status: UNREVIEWED
