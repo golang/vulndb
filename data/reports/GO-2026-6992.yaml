@@ -1,0 +1,32 @@
+id: GO-2026-6992
+modules:
+    - module: github.com/authzed/spicedb
+      versions:
+        - introduced: 1.40.0
+        - fixed: 1.57.1
+      vulnerable_at: 1.57.0
+      packages:
+        - package: github.com/authzed/spicedb/internal/graph
+          symbols:
+            - ConcurrentChecker.checkDirect
+          derived_symbols:
+            - ConcurrentChecker.Check
+summary: Expired relationships included in permission checks in github.com/authzed/spicedb
+description: |-
+    ConcurrentChecker.checkDirect miscounts direct subjects without expiration when
+    a relation unions a subject type using expiration with a non-terminal relation
+    on the same subject type. Permission checks over that relation skip datastore
+    expiration filtering and can include expired relationships until they are
+    garbage collected.
+ghsas:
+    - GHSA-w278-32qg-48q5
+credits:
+    - Sathwik Yadlapati
+references:
+    - advisory: https://github.com/authzed/spicedb/security/advisories/GHSA-w278-32qg-48q5
+    - fix: https://github.com/authzed/spicedb/commit/7074da7242e5aedfeb4586d93a403eca45388ada
+    - web: https://github.com/authzed/spicedb/releases/tag/v1.57.1
+source:
+    id: go-security-team
+    created: 2026-11-18T14:25:44.577015-05:00
+review_status: REVIEWED

@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-6991",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "GHSA-p45x-hwmp-fvrj"
+  ],
+  "summary": "Profile namespace restriction bypass in github.com/projectsveltos/addon-controller",
+  "details": "ProfileReconciler does not restrict the namespace of spec.helmCharts[].valuesFrom, spec.patchesFrom, or spec.templateResourceRefs to the Profile's own namespace when copying a namespace-scoped Profile into a ClusterSummary. A user permitted to create Profiles in one namespace can read ConfigMaps, Secrets, and other resources from arbitrary namespaces in the management cluster.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/projectsveltos/addon-controller",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.21.0"
+            },
+            {
+              "fixed": "1.16.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/projectsveltos/addon-controller/controllers",
+            "symbols": [
+              "ProfileReconciler.Reconcile",
+              "ProfileReconciler.limitReferencesToNamespace"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/projectsveltos/addon-controller/security/advisories/GHSA-p45x-hwmp-fvrj"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectsveltos/addon-controller/commit/322df3d7b26f56fe498bd4daf8edd47fda399f85"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectsveltos/addon-controller/commit/4db3799738d8f8d5700c1c07e75bb917cf754b65"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectsveltos/addon-controller/pull/2063"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/projectsveltos/addon-controller/pull/2064"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/projectsveltos/addon-controller/releases/tag/v1.16.1"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Sathwik Yadlapati"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-6991",
+    "review_status": "REVIEWED"
+  }
+}

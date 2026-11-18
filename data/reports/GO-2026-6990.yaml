@@ -1,0 +1,55 @@
+id: GO-2026-6990
+modules:
+    - module: github.com/dapr/dapr
+      versions:
+        - introduced: 1.11.0
+        - fixed: 1.17.18
+        - introduced: 1.18.0-rc.1
+        - fixed: 1.18.9
+        - introduced: 1.19.0-rc.1
+        - fixed: 1.19.0-rc.7
+      vulnerable_at: 1.19.0-rc.6
+      packages:
+        - package: github.com/dapr/dapr/pkg/operator/api
+          symbols:
+            - apiServer.GetConfiguration
+            - apiServer.GetHTTPEndpoint
+            - apiServer.GetResiliency
+            - apiServer.ListHTTPEndpoints
+            - apiServer.ListMCPServers
+            - apiServer.ListResiliency
+            - apiServer.ListSubscriptionsV2
+            - apiServer.ListWorkflowAccessPolicy
+          derived_symbols:
+            - apiServer.ComponentUpdate
+            - apiServer.ConfigurationUpdate
+            - apiServer.HTTPEndpointUpdate
+            - apiServer.ListSubscriptions
+            - apiServer.MCPServerUpdate
+            - apiServer.ResiliencyUpdate
+            - apiServer.Run
+            - apiServer.SubscriptionUpdate
+            - apiServer.WorkflowAccessPolicyUpdate
+summary: Operator discloses resources and secrets scoped to other apps in github.com/dapr/dapr
+description: |-
+    In Kubernetes mode, the Dapr operator returns HTTPEndpoint, MCPServer,
+    Resiliency, Subscription, and WorkflowAccessPolicy resources in a namespace
+    without filtering by the calling app ID's scopes, and GetConfiguration serves
+    any Configuration in the namespace by name. Any workload with a Dapr identity in
+    the namespace can read resolved Kubernetes secrets from HTTPEndpoint, MCPServer,
+    and Configuration resources scoped to other applications in the same namespace.
+ghsas:
+    - GHSA-99h8-29cw-6j59
+credits:
+    - Sathwik Yadlapati
+references:
+    - advisory: https://github.com/dapr/dapr/security/advisories/GHSA-99h8-29cw-6j59
+    - fix: https://github.com/dapr/dapr/commit/37fb2fb515694d6e04ca882cfca6e465b7e49208
+    - fix: https://github.com/dapr/dapr/commit/7b4c3832127d09af128e1d8f121117a1ffbc502f
+    - fix: https://github.com/dapr/dapr/commit/d26af14803a52fba37a98078c2a4f5fab2ce3ed3
+    - fix: https://github.com/dapr/dapr/commit/f690800842ba9eddf4b290705514f34d17a6f8d4
+    - fix: https://github.com/dapr/dapr/pull/10890
+source:
+    id: go-security-team
+    created: 2026-11-18T14:25:45.844969-05:00
+review_status: REVIEWED

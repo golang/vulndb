@@ -1,0 +1,38 @@
+id: GO-2026-6991
+modules:
+    - module: github.com/projectsveltos/addon-controller
+      versions:
+        - introduced: 0.21.0
+        - fixed: 1.16.1
+      vulnerable_at: 1.16.0
+      vulnerable_at_requires:
+        - github.com/opencontainers/go-digest@v1.0.1-0.20260914153615-3650f26df2a1
+      packages:
+        - package: github.com/projectsveltos/addon-controller/controllers
+          symbols:
+            - ProfileReconciler.limitReferencesToNamespace
+          derived_symbols:
+            - ProfileReconciler.Reconcile
+summary: Profile namespace restriction bypass in github.com/projectsveltos/addon-controller
+description: |-
+    ProfileReconciler does not restrict the namespace of
+    spec.helmCharts[].valuesFrom, spec.patchesFrom, or spec.templateResourceRefs to
+    the Profile's own namespace when copying a namespace-scoped Profile into a
+    ClusterSummary. A user permitted to create Profiles in one namespace can read
+    ConfigMaps, Secrets, and other resources from arbitrary namespaces in the
+    management cluster.
+ghsas:
+    - GHSA-p45x-hwmp-fvrj
+credits:
+    - Sathwik Yadlapati
+references:
+    - advisory: https://github.com/projectsveltos/addon-controller/security/advisories/GHSA-p45x-hwmp-fvrj
+    - fix: https://github.com/projectsveltos/addon-controller/commit/322df3d7b26f56fe498bd4daf8edd47fda399f85
+    - fix: https://github.com/projectsveltos/addon-controller/commit/4db3799738d8f8d5700c1c07e75bb917cf754b65
+    - fix: https://github.com/projectsveltos/addon-controller/pull/2063
+    - fix: https://github.com/projectsveltos/addon-controller/pull/2064
+    - web: https://github.com/projectsveltos/addon-controller/releases/tag/v1.16.1
+source:
+    id: go-security-team
+    created: 2026-11-18T14:25:45.092644-05:00
+review_status: REVIEWED
