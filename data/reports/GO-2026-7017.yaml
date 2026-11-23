@@ -1,0 +1,28 @@
+id: GO-2026-7017
+modules:
+    - module: kubevirt.io/kubevirt
+      versions:
+        - fixed: 1.10.0-rc.0
+      vulnerable_at: 1.10.0-beta.0
+summary: |-
+    KubeVirt virt-api port-forward handler vulnerable to SSRF via guest-controlled
+    VMI IP address in kubevirt.io/kubevirt
+cves:
+    - CVE-2026-13318
+ghsas:
+    - GHSA-cgm6-wvp9-4g5h
+references:
+    - advisory: https://github.com/advisories/GHSA-cgm6-wvp9-4g5h
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-13318
+    - web: https://access.redhat.com/security/cve/CVE-2026-13318
+    - web: https://bugzilla.redhat.com/show_bug.cgi?id=2492659
+    - fix: https://github.com/kubevirt/kubevirt/commit/0f5fef3309417f454565412f56f571f48358853f
+    - fix: https://github.com/kubevirt/kubevirt/commit/df419a0f20aa7ddc9f4512431c3aed9a642ad1e1
+    - web: https://github.com/kubevirt/kubevirt/pull/18753
+    - web: https://github.com/kubevirt/kubevirt/releases/tag/v1.10.0-rc.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-cgm6-wvp9-4g5h
+    created: 2026-11-23T10:56:27.130084-05:00
+review_status: UNREVIEWED

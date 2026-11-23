@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7005",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-130007",
+    "GHSA-m932-63jc-4jqq"
+  ],
+  "summary": "k8s-mcp-server: Missing authentication on default SSE/HTTP transport allows unauthenticated Kubernetes tool execution in github.com/reza-gholizade/k8s-mcp-server",
+  "details": "k8s-mcp-server: Missing authentication on default SSE/HTTP transport allows unauthenticated Kubernetes tool execution in github.com/reza-gholizade/k8s-mcp-server",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/reza-gholizade/k8s-mcp-server",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/reza-gholizade/k8s-mcp-server",
+            "symbols": [
+              "main"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/reza-gholizade/k8s-mcp-server/security/advisories/GHSA-m932-63jc-4jqq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-130007"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/reza-gholizade/k8s-mcp-server/commit/817d81005369837e0c034962785851ca4dec9a76"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/reza-gholizade/k8s-mcp-server/pull/134"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/reza-gholizade/k8s-mcp-server/issues/131"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/reza-gholizade/k8s-mcp-server/releases/tag/v1.1.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7005",
+    "review_status": "UNREVIEWED"
+  }
+}

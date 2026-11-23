@@ -1,0 +1,41 @@
+id: GO-2026-7012
+modules:
+    - module: github.com/daptin/daptin
+      versions:
+        - fixed: 0.12.30
+      vulnerable_at: 0.12.29
+      packages:
+        - package: github.com/daptin/daptin/server/resource
+          symbols:
+            - DbResource.PaginatedFindAllWithoutFilters
+          derived_symbols:
+            - ActionExchangeHandler.ExecuteTarget
+            - ActiveTaskInstance.Run
+            - DaptinImapMailBox.SearchMessages
+            - DbResource.FindAll
+            - DbResource.HandleActionRequest
+            - DbResource.PaginatedFindAll
+            - DbResource.PaginatedFindAllWithTransaction
+            - ExchangeExecution.Execute
+            - MeteringMiddleware.InterceptAfter
+            - MeteringService.Record
+            - NewTaskScheduler
+            - StreamProcessor.PaginatedFindAll
+            - exchangeMiddleware.InterceptAfter
+            - exchangeMiddleware.InterceptBefore
+summary: |-
+    Daptin: Unauthenticated SQL Injection via the `sort` query parameter on every
+    entity list endpoint in github.com/daptin/daptin
+cves:
+    - CVE-2026-77367
+ghsas:
+    - GHSA-hq2p-f2vj-v3cm
+references:
+    - advisory: https://github.com/daptin/daptin/security/advisories/GHSA-hq2p-f2vj-v3cm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-77367
+    - fix: https://github.com/daptin/daptin/commit/b0bcc1318832b9055781f032853ef9d2264652cf
+    - web: https://github.com/daptin/daptin/releases/tag/v0.12.30
+source:
+    id: GHSA-hq2p-f2vj-v3cm
+    created: 2026-11-23T10:57:22.784628-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,28 @@
+id: GO-2026-7005
+modules:
+    - module: github.com/reza-gholizade/k8s-mcp-server
+      versions:
+        - fixed: 1.1.0
+      vulnerable_at: 1.0.25
+      packages:
+        - package: github.com/reza-gholizade/k8s-mcp-server
+          symbols:
+            - main
+summary: |-
+    k8s-mcp-server: Missing authentication on default SSE/HTTP transport allows
+    unauthenticated Kubernetes tool execution in github.com/reza-gholizade/k8s-mcp-server
+cves:
+    - CVE-2026-130007
+ghsas:
+    - GHSA-m932-63jc-4jqq
+references:
+    - advisory: https://github.com/reza-gholizade/k8s-mcp-server/security/advisories/GHSA-m932-63jc-4jqq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-130007
+    - fix: https://github.com/reza-gholizade/k8s-mcp-server/commit/817d81005369837e0c034962785851ca4dec9a76
+    - fix: https://github.com/reza-gholizade/k8s-mcp-server/pull/134
+    - report: https://github.com/reza-gholizade/k8s-mcp-server/issues/131
+    - web: https://github.com/reza-gholizade/k8s-mcp-server/releases/tag/v1.1.0
+source:
+    id: GHSA-m932-63jc-4jqq
+    created: 2026-11-23T10:58:39.413337-05:00
+review_status: UNREVIEWED

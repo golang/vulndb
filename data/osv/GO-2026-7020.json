@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7020",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-104129",
+    "GHSA-v9v2-98xq-627c"
+  ],
+  "summary": "pREST _groupby function-expression SQL injection (incomplete fix of CVE-2025-58450) in github.com/prest/prest",
+  "details": "pREST _groupby function-expression SQL injection (incomplete fix of CVE-2025-58450) in github.com/prest/prest",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/prest/prest",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/prest/prest/adapters/postgres",
+            "symbols": [
+              "Postgres.GroupByClause"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/prest/prest/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.4.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/prest/prest/v2/adapters/postgres",
+            "symbols": [
+              "isSafeSQLExpression",
+              "postgres.GroupByClause"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/prest/prest/security/advisories/GHSA-v9v2-98xq-627c"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104129"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/prest/prest/commit/084348fa82701b098492fc520557ff290b7691e2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/prest/prest/commit/73e4b2aea81e2dbd33942efcb1a313fe3b151a41"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/prest/prest/pull/1014"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/prest/prest/releases/tag/v2.4.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7020",
+    "review_status": "UNREVIEWED"
+  }
+}

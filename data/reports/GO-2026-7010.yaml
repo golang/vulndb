@@ -1,0 +1,170 @@
+id: GO-2026-7010
+modules:
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.12.12
+        - introduced: 2.14.0-RC.1
+        - fixed: 2.14.3
+      vulnerable_at: 2.14.2
+      packages:
+        - package: github.com/nats-io/nats-server/v2/server
+          symbols:
+            - mqttDeliverMsgCbQoS12
+            - mqttAccountSessionManager.serializeRetainedMsgsForSub
+          derived_symbols:
+            - Account.AddServiceImport
+            - Account.AddServiceImportWithClaim
+            - Account.DisableJetStream
+            - Account.EnableJetStream
+            - Account.RestoreStream
+            - Account.TrackServiceExport
+            - Account.TrackServiceExportWithSampling
+            - Account.UnTrackServiceExport
+            - CacheDirAccResolver.Reload
+            - CacheDirAccResolver.Start
+            - ConfigureOptions
+            - DeleteRange.Range
+            - DeleteSlice.Range
+            - DirAccResolver.Fetch
+            - DirAccResolver.Reload
+            - DirAccResolver.Start
+            - DirAccResolver.Store
+            - DirJWTStore.Merge
+            - DirJWTStore.Pack
+            - DirJWTStore.PackWalk
+            - DirJWTStore.Reload
+            - DirJWTStore.SaveAcc
+            - DirJWTStore.SaveAct
+            - New
+            - NewCacheDirAccResolver
+            - NewDirAccResolver
+            - NewExpiringDirJWTStore
+            - NewServer
+            - NewServerFromConfig
+            - Options.ProcessConfigFile
+            - Options.ProcessConfigString
+            - ProcessConfigFile
+            - Run
+            - Server.AcceptLoop
+            - Server.AccountStatz
+            - Server.Accountz
+            - Server.ActivePeers
+            - Server.Connz
+            - Server.DisableJetStream
+            - Server.DisconnectClientByID
+            - Server.EnableJetStream
+            - Server.Gatewayz
+            - Server.HandleAccountStatz
+            - Server.HandleAccountz
+            - Server.HandleConnz
+            - Server.HandleGatewayz
+            - Server.HandleHealthz
+            - Server.HandleIPQueuesz
+            - Server.HandleJsz
+            - Server.HandleSubsz
+            - Server.HandleVarz
+            - Server.Healthz
+            - Server.InProcessConn
+            - Server.Ipqueuesz
+            - Server.JetStreamEnabledForDomain
+            - Server.JetStreamIsStreamAssigned
+            - Server.JetStreamIsStreamCurrent
+            - Server.JetStreamSnapshotMeta
+            - Server.JetStreamSnapshotStream
+            - Server.JetStreamStepdownConsumer
+            - Server.JetStreamStepdownStream
+            - Server.Jsz
+            - Server.JszAccount
+            - Server.LameDuckShutdown
+            - Server.LookupAccount
+            - Server.LookupOrRegisterAccount
+            - Server.NumLoadedAccounts
+            - Server.NumSubscriptions
+            - Server.RegisterAccount
+            - Server.Reload
+            - Server.ReloadOptions
+            - Server.SetDefaultSystemAccount
+            - Server.SetSystemAccount
+            - Server.Shutdown
+            - Server.ShutdownJetStream
+            - Server.Start
+            - Server.StartHTTPMonitoring
+            - Server.StartHTTPSMonitoring
+            - Server.StartMonitoring
+            - Server.StartProfiler
+            - Server.StartRouting
+            - Server.Subsz
+            - Server.UpdateAccountClaims
+            - Server.Varz
+            - checkpoint.InstallSnapshot
+            - client.RegisterNkeyUser
+            - client.RegisterUser
+            - clusterOption.Apply
+            - fileStore.AllLastSeqs
+            - fileStore.Compact
+            - fileStore.Delete
+            - fileStore.EraseMsg
+            - fileStore.MultiLastSeqs
+            - fileStore.Purge
+            - fileStore.PurgeEx
+            - fileStore.RegisterStorageUpdates
+            - fileStore.RemoveMsg
+            - fileStore.Snapshot
+            - fileStore.State
+            - fileStore.Stop
+            - fileStore.StoreMsg
+            - fileStore.StoreRawMsg
+            - fileStore.SyncDeleted
+            - fileStore.Truncate
+            - fileStore.UpdateConfig
+            - leafNodeOption.Apply
+            - maxConnOption.Apply
+            - memStore.AllLastSeqs
+            - memStore.Compact
+            - memStore.Delete
+            - memStore.EraseMsg
+            - memStore.MultiLastSeqs
+            - memStore.Purge
+            - memStore.PurgeEx
+            - memStore.RemoveMsg
+            - memStore.State
+            - memStore.Stop
+            - memStore.StoreMsg
+            - memStore.StoreRawMsg
+            - memStore.SyncDeleted
+            - memStore.Truncate
+            - memStore.UpdateConfig
+            - mqttMaxAckPendingReload.Apply
+            - proxiesReload.Apply
+            - raft.AdjustClusterSize
+            - raft.Delete
+            - raft.DrainAndReplaySnapshot
+            - raft.ForwardProposal
+            - raft.InstallSnapshot
+            - raft.PauseApply
+            - raft.Propose
+            - raft.ProposeKnownPeers
+            - raft.ProposeMulti
+            - raft.RecreateInternalSubs
+            - raft.Reset
+            - raft.ResumeApply
+            - raft.SendSnapshot
+            - raft.StepDown
+            - raft.UpdateKnownPeers
+            - routesOption.Apply
+summary: NATS Server MQTT retained messages and QoS replay bypass subscription deny rules in github.com/nats-io/nats-server/v2
+cves:
+    - CVE-2026-58209
+ghsas:
+    - GHSA-7qmq-8cc4-hxwg
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-7qmq-8cc4-hxwg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58209
+    - fix: https://github.com/nats-io/nats-server/commit/181b1f51f40b9954c57e9d478e051fb257679356
+    - fix: https://github.com/nats-io/nats-server/commit/1c429b6fdc5afd4188cc5faf1127f6334896cd87
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.12.12
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.14.3
+source:
+    id: GHSA-7qmq-8cc4-hxwg
+    created: 2026-11-23T10:57:42.541294-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7006",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-130008",
+    "GHSA-q433-mp6c-8v4f"
+  ],
+  "summary": "sqlite-mcp: Read-only mode bypass via statement chaining and SQL injection in describe_table in github.com/StacklokLabs/sqlite-mcp",
+  "details": "sqlite-mcp: Read-only mode bypass via statement chaining and SQL injection in describe_table in github.com/StacklokLabs/sqlite-mcp",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/StacklokLabs/sqlite-mcp",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/StacklokLabs/sqlite-mcp/internal/database",
+            "symbols": [
+              "DB.Execute",
+              "DB.GetTableSchema",
+              "DB.GetTables",
+              "DB.Query",
+              "New"
+            ]
+          },
+          {
+            "path": "github.com/StacklokLabs/sqlite-mcp/internal/tools",
+            "symbols": [
+              "QueryTools.HandleTool",
+              "QueryTools.handleExecuteQuery",
+              "QueryTools.handleExecuteStatement"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/StacklokLabs/sqlite-mcp/security/advisories/GHSA-q433-mp6c-8v4f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-130008"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/StacklokLabs/sqlite-mcp/commit/1da5a6582a4f9d90c778db5687ddcd0c39d2c1ec"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/StacklokLabs/sqlite-mcp/commit/3c244d61cc0a9c0cc5e4d74719c1dc83edcfa339"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/StacklokLabs/sqlite-mcp/pull/112"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/StacklokLabs/sqlite-mcp/releases/tag/v0.1.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7006",
+    "review_status": "UNREVIEWED"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7015",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-102945",
+    "GHSA-v6w5-38cf-pcv8"
+  ],
+  "summary": "Aether Project amf: panic on an unrecovered NGAP goroutine in github.com/omec-project/amf",
+  "details": "Aether Project amf: panic on an unrecovered NGAP goroutine in github.com/omec-project/amf",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/omec-project/amf",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.7.1-0.20260725031321-d28042aaaea0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/omec-project/amf/security/advisories/GHSA-v6w5-38cf-pcv8"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102945"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/omec-project/amf/commit/d28042aaaea0221c5ea93c3e069a1dd5e7436f4c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/omec-project/amf/pull/767"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/omec-project/amf/releases/tag/v3.1.6"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7015",
+    "review_status": "UNREVIEWED"
+  }
+}

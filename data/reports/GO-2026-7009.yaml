@@ -1,0 +1,32 @@
+id: GO-2026-7009
+modules:
+    - module: github.com/bep/imagemeta
+      versions:
+        - fixed: 0.17.3
+      vulnerable_at: 0.17.2
+      packages:
+        - package: github.com/bep/imagemeta
+          symbols:
+            - imageDecoderPNG.decode
+            - resolveCodedCharacterSet
+            - streamReader.readNFromRIntoBufE
+            - decompressZTXt
+          derived_symbols:
+            - Decode
+summary: |-
+    bep/imagemeta: Unbounded memory allocation decoding PNG `zTXt` "Raw profile type
+    iptc" chunks in github.com/bep/imagemeta
+cves:
+    - CVE-2026-103025
+ghsas:
+    - GHSA-7hvw-3c2q-45qg
+references:
+    - advisory: https://github.com/bep/imagemeta/security/advisories/GHSA-7hvw-3c2q-45qg
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-103025
+    - fix: https://github.com/bep/imagemeta/commit/2289fdf83fcd238d86f72e65c588da687c998437
+    - fix: https://github.com/bep/imagemeta/pull/69
+    - web: https://github.com/bep/imagemeta/releases/tag/v0.17.3
+source:
+    id: GHSA-7hvw-3c2q-45qg
+    created: 2026-11-23T10:57:51.931957-05:00
+review_status: UNREVIEWED

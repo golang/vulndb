@@ -1,0 +1,39 @@
+id: GO-2026-6994
+modules:
+    - module: github.com/defilantech/llmkube
+      versions:
+        - fixed: 0.9.0
+      vulnerable_at: 0.8.28
+      packages:
+        - package: github.com/defilantech/llmkube/internal/controller
+          symbols:
+            - InferenceServiceReconciler.constructDeployment
+            - InferenceServiceReconciler.Reconcile
+            - ModelReconciler.probeHTTPSource
+            - ModelReconciler.downloadModel
+            - buildModelStorageConfig
+            - isLocalSource
+            - isRemoteHTTPSource
+            - getLocalPath
+            - ModelReconciler.parseRemoteGGUFMetadata
+            - ModelReconciler.Reconcile
+            - remoteContentLength
+        - package: github.com/defilantech/llmkube/cmd
+          symbols:
+            - main
+          derived_symbols:
+            - init#1
+summary: 'LLMKube: Arbitrary Host File Read via Model.spec.source hostPath Injection in github.com/defilantech/llmkube'
+cves:
+    - CVE-2026-68903
+ghsas:
+    - GHSA-jw3m-8q7m-f35r
+references:
+    - advisory: https://github.com/defilantech/LLMKube/security/advisories/GHSA-jw3m-8q7m-f35r
+    - fix: https://github.com/defilantech/LLMKube/commit/ec2647fd4557962a971a1bc9435790b8e77ce961
+    - web: https://github.com/defilantech/LLMKube/pull/981
+    - web: https://github.com/defilantech/LLMKube/releases/tag/v0.9.0
+source:
+    id: GHSA-jw3m-8q7m-f35r
+    created: 2026-11-23T11:01:24.12007-05:00
+review_status: UNREVIEWED

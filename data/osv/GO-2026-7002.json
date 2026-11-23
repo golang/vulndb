@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7002",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-76101",
+    "GHSA-j282-pjg5-j643"
+  ],
+  "summary": "keystore-go: Keystore integrity and password verification bypass via stripped trailing digest in Decode() in github.com/pavel-v-chernykh/keystore-go",
+  "details": "keystore-go: Keystore integrity and password verification bypass via stripped trailing digest in Decode() in github.com/pavel-v-chernykh/keystore-go",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/pavel-v-chernykh/keystore-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/pavel-v-chernykh/keystore-go",
+            "symbols": [
+              "Decode"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/pavlo-v-chernykh/keystore-go/security/advisories/GHSA-j282-pjg5-j643"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76101"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/pavlo-v-chernykh/keystore-go/commit/af93effd832cf1aef7794e69c31e1b668e17b851"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pavlo-v-chernykh/keystore-go/releases/tag/v3.0.0"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7002",
+    "review_status": "UNREVIEWED"
+  }
+}

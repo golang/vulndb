@@ -1,0 +1,29 @@
+id: GO-2026-7019
+modules:
+    - module: github.com/phires/go-guerrilla
+      versions:
+        - fixed: 1.6.7-1
+      vulnerable_at: 1.6.6
+      packages:
+        - package: github.com/phires/go-guerrilla
+          symbols:
+            - server.handleClient
+          derived_symbols:
+            - Daemon.Start
+            - guerrilla.Start
+            - server.Start
+summary: go-guerrilla crashes on a bare XCLIENT command (7-byte slice off-by-one panic) in github.com/phires/go-guerrilla
+cves:
+    - CVE-2026-115578
+ghsas:
+    - GHSA-hghq-53p7-c582
+references:
+    - advisory: https://github.com/phires/go-guerrilla/security/advisories/GHSA-hghq-53p7-c582
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-115578
+    - fix: https://github.com/phires/go-guerrilla/commit/b6deed97ff70f52bf34c386d33967694e7330d33
+    - fix: https://github.com/phires/go-guerrilla/commit/f0d0f2c40dcacf212e3a6a055ae67f7b412affc4
+    - web: https://github.com/phires/go-guerrilla/releases/tag/v1.6.7-1
+source:
+    id: GHSA-hghq-53p7-c582
+    created: 2026-11-23T10:54:34.858795-05:00
+review_status: UNREVIEWED

@@ -1,0 +1,22 @@
+id: GO-2026-7004
+modules:
+    - module: github.com/junegunn/fzf
+      versions:
+        - fixed: 0.74.5
+      vulnerable_at: 0.74.4
+summary: |-
+    fzf: Predictable FIFO path in zsh completion allows local symlink attack /
+    arbitrary file overwrite as the victim user (_fzf_feed_fifo) in github.com/junegunn/fzf
+cves:
+    - CVE-2026-121717
+ghsas:
+    - GHSA-7rj6-7pqx-v7rm
+references:
+    - advisory: https://github.com/junegunn/fzf/security/advisories/GHSA-7rj6-7pqx-v7rm
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-121717
+    - fix: https://github.com/junegunn/fzf/commit/cbc11e4d9591e1fa47fb9d8711b18b74d625746e
+    - web: https://github.com/junegunn/fzf/releases/tag/v0.74.5
+source:
+    id: GHSA-7rj6-7pqx-v7rm
+    created: 2026-11-23T10:58:52.460495-05:00
+review_status: UNREVIEWED

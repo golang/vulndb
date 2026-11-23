@@ -1,0 +1,26 @@
+id: GO-2026-6995
+modules:
+    - module: github.com/OliveTin/OliveTin
+      versions:
+        - fixed: 0.0.0-20260728155752-e5d29b68da66
+      vulnerable_at: 0.0.0-20260708190051-d0075a7a8d44
+summary: 'OliveTin: Second-Order OS Command Injection via shellAfterCompleted in github.com/OliveTin/OliveTin'
+cves:
+    - CVE-2026-75506
+ghsas:
+    - GHSA-vc6p-m6vx-6cwq
+references:
+    - advisory: https://github.com/OliveTin/OliveTin/security/advisories/GHSA-vc6p-m6vx-6cwq
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-75506
+    - fix: https://github.com/OliveTin/OliveTin/commit/4ef86abee7aac4e4ec4a3200c7ca491ca3501065
+    - fix: https://github.com/OliveTin/OliveTin/commit/e5d29b68da66fd7f99072d6afd336dee2c28876c
+    - fix: https://github.com/OliveTin/OliveTin/pull/1070
+    - fix: https://github.com/OliveTin/OliveTin/pull/1088
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.17.0
+    - web: https://github.com/OliveTin/OliveTin/releases/tag/3000.18.1
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-vc6p-m6vx-6cwq
+    created: 2026-11-23T11:01:04.219321-05:00
+review_status: UNREVIEWED

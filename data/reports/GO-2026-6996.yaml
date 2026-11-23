@@ -1,0 +1,30 @@
+id: GO-2026-6996
+modules:
+    - module: chainguard.dev/sdk
+      versions:
+        - fixed: 0.1.107
+      vulnerable_at: 0.1.106
+      packages:
+        - package: chainguard.dev/sdk/auth/aws
+          symbols:
+            - GenerateToken
+            - verifyConf.valid
+            - newDefaultConfig
+            - VerifyToken
+summary: |-
+    Chainguard SDK: AWS SigV4 token replay in auth/aws.VerifyToken —
+    Chainguard-Audience/Chainguard-Identity binding headers not required in
+    SignedHeaders in chainguard.dev/sdk
+cves:
+    - CVE-2026-71861
+ghsas:
+    - GHSA-wq26-3j2m-4hvv
+references:
+    - advisory: https://github.com/chainguard-dev/sdk/security/advisories/GHSA-wq26-3j2m-4hvv
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-71861
+    - fix: https://github.com/chainguard-dev/sdk/commit/d27997d62aaffe85f905cce4cbe8cdebbd5e24eb
+    - web: https://github.com/chainguard-dev/sdk/releases/tag/v0.1.107
+source:
+    id: GHSA-wq26-3j2m-4hvv
+    created: 2026-11-23T11:00:52.284035-05:00
+review_status: UNREVIEWED

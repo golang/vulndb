@@ -1,0 +1,26 @@
+id: GO-2026-7002
+modules:
+    - module: github.com/pavel-v-chernykh/keystore-go
+      unsupported_versions:
+        - last_affected: 2.1.0
+      vulnerable_at: 2.1.0+incompatible
+      packages:
+        - package: github.com/pavel-v-chernykh/keystore-go
+          symbols:
+            - Decode
+summary: |-
+    keystore-go: Keystore integrity and password verification bypass via stripped
+    trailing digest in Decode() in github.com/pavel-v-chernykh/keystore-go
+cves:
+    - CVE-2026-76101
+ghsas:
+    - GHSA-j282-pjg5-j643
+references:
+    - advisory: https://github.com/pavlo-v-chernykh/keystore-go/security/advisories/GHSA-j282-pjg5-j643
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-76101
+    - fix: https://github.com/pavlo-v-chernykh/keystore-go/commit/af93effd832cf1aef7794e69c31e1b668e17b851
+    - web: https://github.com/pavlo-v-chernykh/keystore-go/releases/tag/v3.0.0
+source:
+    id: GHSA-j282-pjg5-j643
+    created: 2026-11-23T10:59:12.813659-05:00
+review_status: UNREVIEWED

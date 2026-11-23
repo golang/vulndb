@@ -1,0 +1,215 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7025",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-58254",
+    "GHSA-p3j5-5hrq-p75h"
+  ],
+  "summary": "nats-server Leaf node connections bypass Nats-Trace-Dest permission check in github.com/nats-io/nats-server/v2",
+  "details": "nats-server Leaf node connections bypass Nats-Trace-Dest permission check in github.com/nats-io/nats-server/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/nats-io/nats-server/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.12.8"
+            },
+            {
+              "introduced": "2.14.0-RC.1"
+            },
+            {
+              "fixed": "2.14.3"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/nats-io/nats-server/v2/server",
+            "symbols": [
+              "Account.AddServiceImport",
+              "Account.AddServiceImportWithClaim",
+              "Account.DisableJetStream",
+              "Account.EnableJetStream",
+              "Account.RestoreStream",
+              "Account.TrackServiceExport",
+              "Account.TrackServiceExportWithSampling",
+              "Account.UnTrackServiceExport",
+              "CacheDirAccResolver.Reload",
+              "CacheDirAccResolver.Start",
+              "ConfigureOptions",
+              "DeleteRange.Range",
+              "DeleteSlice.Range",
+              "DirAccResolver.Fetch",
+              "DirAccResolver.Reload",
+              "DirAccResolver.Start",
+              "DirAccResolver.Store",
+              "DirJWTStore.Merge",
+              "DirJWTStore.Pack",
+              "DirJWTStore.PackWalk",
+              "DirJWTStore.Reload",
+              "DirJWTStore.SaveAcc",
+              "DirJWTStore.SaveAct",
+              "New",
+              "NewCacheDirAccResolver",
+              "NewDirAccResolver",
+              "NewExpiringDirJWTStore",
+              "NewServer",
+              "NewServerFromConfig",
+              "Options.ProcessConfigFile",
+              "Options.ProcessConfigString",
+              "ProcessConfigFile",
+              "Run",
+              "Server.AcceptLoop",
+              "Server.AccountStatz",
+              "Server.Accountz",
+              "Server.ActivePeers",
+              "Server.Connz",
+              "Server.DisableJetStream",
+              "Server.DisconnectClientByID",
+              "Server.EnableJetStream",
+              "Server.Gatewayz",
+              "Server.HandleAccountStatz",
+              "Server.HandleAccountz",
+              "Server.HandleConnz",
+              "Server.HandleGatewayz",
+              "Server.HandleHealthz",
+              "Server.HandleIPQueuesz",
+              "Server.HandleJsz",
+              "Server.HandleSubsz",
+              "Server.HandleVarz",
+              "Server.Healthz",
+              "Server.InProcessConn",
+              "Server.Ipqueuesz",
+              "Server.JetStreamEnabledForDomain",
+              "Server.JetStreamIsStreamAssigned",
+              "Server.JetStreamIsStreamCurrent",
+              "Server.JetStreamSnapshotMeta",
+              "Server.JetStreamSnapshotStream",
+              "Server.JetStreamStepdownConsumer",
+              "Server.JetStreamStepdownStream",
+              "Server.Jsz",
+              "Server.JszAccount",
+              "Server.LameDuckShutdown",
+              "Server.LookupAccount",
+              "Server.LookupOrRegisterAccount",
+              "Server.NumLoadedAccounts",
+              "Server.NumSubscriptions",
+              "Server.RegisterAccount",
+              "Server.Reload",
+              "Server.ReloadOptions",
+              "Server.SetDefaultSystemAccount",
+              "Server.SetSystemAccount",
+              "Server.Shutdown",
+              "Server.ShutdownJetStream",
+              "Server.Start",
+              "Server.StartHTTPMonitoring",
+              "Server.StartHTTPSMonitoring",
+              "Server.StartMonitoring",
+              "Server.StartProfiler",
+              "Server.StartRouting",
+              "Server.Subsz",
+              "Server.UpdateAccountClaims",
+              "Server.Varz",
+              "checkpoint.InstallSnapshot",
+              "client.RegisterNkeyUser",
+              "client.RegisterUser",
+              "client.initMsgTrace",
+              "clusterOption.Apply",
+              "fileStore.AllLastSeqs",
+              "fileStore.Compact",
+              "fileStore.Delete",
+              "fileStore.EraseMsg",
+              "fileStore.MultiLastSeqs",
+              "fileStore.Purge",
+              "fileStore.PurgeEx",
+              "fileStore.RegisterStorageUpdates",
+              "fileStore.RemoveMsg",
+              "fileStore.Snapshot",
+              "fileStore.State",
+              "fileStore.Stop",
+              "fileStore.StoreMsg",
+              "fileStore.StoreRawMsg",
+              "fileStore.SyncDeleted",
+              "fileStore.Truncate",
+              "fileStore.UpdateConfig",
+              "leafNodeOption.Apply",
+              "maxConnOption.Apply",
+              "memStore.AllLastSeqs",
+              "memStore.Compact",
+              "memStore.Delete",
+              "memStore.EraseMsg",
+              "memStore.MultiLastSeqs",
+              "memStore.Purge",
+              "memStore.PurgeEx",
+              "memStore.RemoveMsg",
+              "memStore.State",
+              "memStore.Stop",
+              "memStore.StoreMsg",
+              "memStore.StoreRawMsg",
+              "memStore.SyncDeleted",
+              "memStore.Truncate",
+              "memStore.UpdateConfig",
+              "mqttMaxAckPendingReload.Apply",
+              "proxiesReload.Apply",
+              "raft.AdjustClusterSize",
+              "raft.Delete",
+              "raft.DrainAndReplaySnapshot",
+              "raft.ForwardProposal",
+              "raft.InstallSnapshot",
+              "raft.PauseApply",
+              "raft.Propose",
+              "raft.ProposeKnownPeers",
+              "raft.ProposeMulti",
+              "raft.RecreateInternalSubs",
+              "raft.Reset",
+              "raft.ResumeApply",
+              "raft.SendSnapshot",
+              "raft.StepDown",
+              "raft.UpdateKnownPeers",
+              "routesOption.Apply"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/nats-io/nats-server/security/advisories/GHSA-p3j5-5hrq-p75h"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58254"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/nats-io/nats-server/commit/cbe845932980b71563efac5cfa4cc751c88936cd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nats-io/nats-server/releases/tag/v2.12.8"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nats-io/nats-server/releases/tag/v2.14.3"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7025",
+    "review_status": "UNREVIEWED"
+  }
+}

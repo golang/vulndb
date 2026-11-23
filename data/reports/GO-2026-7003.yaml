@@ -1,0 +1,24 @@
+id: GO-2026-7003
+modules:
+    - module: github.com/zzet/gortex
+      versions:
+        - fixed: 0.55.0
+      vulnerable_at: 0.54.1
+summary: |-
+    Gortex: Arbitrary file write / repo-confinement escape in `write_file` /
+    `edit_file` / `move_inline` MCP tools → code execution in github.com/zzet/gortex
+cves:
+    - CVE-2026-62964
+ghsas:
+    - GHSA-w42c-h7hr-f67p
+references:
+    - advisory: https://github.com/zzet/gortex/security/advisories/GHSA-w42c-h7hr-f67p
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-62964
+    - fix: https://github.com/zzet/gortex/commit/5ba2f066dd6dcd726c4e61b74851862dc596d994
+    - web: https://github.com/zzet/gortex/releases/tag/v0.55.0
+notes:
+    - 'Failed to auto-populate symbols: build errors during analysis'
+source:
+    id: GHSA-w42c-h7hr-f67p
+    created: 2026-11-23T10:59:02.263902-05:00
+review_status: UNREVIEWED

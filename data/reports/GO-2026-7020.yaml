@@ -1,0 +1,38 @@
+id: GO-2026-7020
+modules:
+    - module: github.com/prest/prest
+      unsupported_versions:
+        - last_affected: 1.5.5
+      vulnerable_at: 1.5.5
+      packages:
+        - package: github.com/prest/prest/adapters/postgres
+          symbols:
+            - Postgres.GroupByClause
+    - module: github.com/prest/prest/v2
+      versions:
+        - fixed: 2.4.0
+      vulnerable_at: 2.3.0
+      packages:
+        - package: github.com/prest/prest/v2/adapters/postgres
+          symbols:
+            - isSafeSQLExpression
+          derived_symbols:
+            - postgres.GroupByClause
+summary: |-
+    pREST _groupby function-expression SQL injection (incomplete fix of
+    CVE-2025-58450) in github.com/prest/prest
+cves:
+    - CVE-2026-104129
+ghsas:
+    - GHSA-v9v2-98xq-627c
+references:
+    - advisory: https://github.com/prest/prest/security/advisories/GHSA-v9v2-98xq-627c
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-104129
+    - fix: https://github.com/prest/prest/commit/084348fa82701b098492fc520557ff290b7691e2
+    - fix: https://github.com/prest/prest/commit/73e4b2aea81e2dbd33942efcb1a313fe3b151a41
+    - fix: https://github.com/prest/prest/pull/1014
+    - web: https://github.com/prest/prest/releases/tag/v2.4.0
+source:
+    id: GHSA-v9v2-98xq-627c
+    created: 2026-11-23T10:54:22.243259-05:00
+review_status: UNREVIEWED

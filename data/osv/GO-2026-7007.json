@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7007",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-95839",
+    "GHSA-vwhp-8p66-mq4f"
+  ],
+  "summary": "containerd image-triggered daemon crash via malformed digest in subject-annotated descriptor in github.com/containerd/containerd/v2",
+  "details": "containerd image-triggered daemon crash via malformed digest in subject-annotated descriptor in github.com/containerd/containerd/v2",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/containerd/containerd/v2",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.2.10"
+            },
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.3.7"
+            },
+            {
+              "introduced": "2.4.0"
+            },
+            {
+              "fixed": "2.4.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/containerd/containerd/v2/core/images",
+            "symbols": [
+              "SetChildrenLabels",
+              "SetChildrenMappedLabels"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/containerd/containerd/security/advisories/GHSA-vwhp-8p66-mq4f"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-95839"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/20a3b31390653d7a83fdaeb0c318b01a263c9d9a"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/2181d7baa2a303ea2082e5c0f1a7697787b61ef2"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/2455fec2f7bfa63adb1f993c63ba0cea9cdedb8c"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/containerd/containerd/commit/a2eb01f667b320b00ec218216f26f7b79197d4cd"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containerd/containerd/releases/tag/v2.2.10"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containerd/containerd/releases/tag/v2.3.7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/containerd/containerd/releases/tag/v2.4.2"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7007",
+    "review_status": "UNREVIEWED"
+  }
+}

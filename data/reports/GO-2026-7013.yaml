@@ -1,0 +1,37 @@
+id: GO-2026-7013
+modules:
+    - module: github.com/nats-io/nats-server/v2
+      versions:
+        - fixed: 2.12.12
+        - introduced: 2.14.0-RC.1
+        - fixed: 2.14.3
+      vulnerable_at: 2.14.2
+      packages:
+        - package: github.com/nats-io/nats-server/v2/server
+          symbols:
+            - Server.wsUpgrade
+          derived_symbols:
+            - Run
+            - Server.Start
+            - Server.StartHTTPMonitoring
+            - Server.StartHTTPSMonitoring
+            - Server.StartMonitoring
+            - Server.StartProfiler
+summary: |-
+    NATS Server: MQTT-over-WebSocket Path Can Crash WebSocket-Only JetStream Servers
+    Before MQTT Is Enabled in github.com/nats-io/nats-server/v2
+cves:
+    - CVE-2026-58208
+ghsas:
+    - GHSA-p957-7v2w-g93g
+references:
+    - advisory: https://github.com/nats-io/nats-server/security/advisories/GHSA-p957-7v2w-g93g
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-58208
+    - fix: https://github.com/nats-io/nats-server/commit/73b3dd9a5ea0fa7bf08b702338676355b29b5fb4
+    - fix: https://github.com/nats-io/nats-server/commit/837536b98b3a9280b993282155ff2bdd3ca38c30
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.12.12
+    - web: https://github.com/nats-io/nats-server/releases/tag/v2.14.3
+source:
+    id: GHSA-p957-7v2w-g93g
+    created: 2026-11-23T10:57:13.408727-05:00
+review_status: UNREVIEWED

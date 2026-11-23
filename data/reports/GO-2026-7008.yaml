@@ -1,0 +1,22 @@
+id: GO-2026-7008
+modules:
+    - module: github.com/junegunn/fzf
+      versions:
+        - fixed: 0.74.5
+      vulnerable_at: 0.74.4
+summary: |-
+    fzf: Arbitrary command execution via bash arithmetic expansion on unvalidated
+    layout size in fzf-tmux (-l/-u attached value) in github.com/junegunn/fzf
+cves:
+    - CVE-2026-121716
+ghsas:
+    - GHSA-w6x2-f5m4-xw82
+references:
+    - advisory: https://github.com/junegunn/fzf/security/advisories/GHSA-w6x2-f5m4-xw82
+    - advisory: https://nvd.nist.gov/vuln/detail/CVE-2026-121716
+    - fix: https://github.com/junegunn/fzf/commit/f126ff29549e0983f571fbc32dddcfbede251aa7
+    - web: https://github.com/junegunn/fzf/releases/tag/v0.74.5
+source:
+    id: GHSA-w6x2-f5m4-xw82
+    created: 2026-11-23T10:58:02.743363-05:00
+review_status: UNREVIEWED
