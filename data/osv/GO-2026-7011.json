@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7011",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-103033",
+    "GHSA-gfwj-45pc-w6r5"
+  ],
+  "summary": "Nil-map panic in parseServerSignature on malformed VerificationData in github.com/altcha-org/altcha-lib-go",
+  "details": "In v1 of github.com/altcha-org/altcha-lib-go, parseServerSignature only initializes ServerSignatureVerificationData.Extra when url.ParseQuery returns a nil error. Because url.ParseQuery returns partial results alongside a non-nil error on malformed percent-escapes, a crafted VerificationData value triggers a nil-map write panic before signature verification is performed.\n\nThe v2 module (github.com/altcha-org/altcha-lib-go/v2) is not affected.",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/altcha-org/altcha-lib-go",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/altcha-org/altcha-lib-go",
+            "symbols": [
+              "VerifyServerSignature",
+              "VerifyServerSignatureSafe",
+              "parseServerSignature"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/altcha-org/altcha-lib-go/security/advisories/GHSA-gfwj-45pc-w6r5"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/altcha-org/altcha-lib-go/commit/2c4fc27a7b2d5b89f7175676445efcacc564c27c"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/altcha-org/altcha-lib-go/releases/tag/v2.1.0"
+    }
+  ],
+  "credits": [
+    {
+      "name": "Arpit Jain (@arpitjain099)"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7011",
+    "review_status": "REVIEWED"
+  }
+}

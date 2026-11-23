@@ -1,0 +1,35 @@
+id: GO-2026-7023
+modules:
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - introduced: 0.5.0
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+      packages:
+        - package: github.com/git-lfs/git-lfs/v3/lfshttp
+          symbols:
+            - newRequestForRetry
+          derived_symbols:
+            - Client.Do
+            - Client.DoWithAccess
+            - Client.DoWithRedirect
+summary: Git LFS may leak HTTP headers after redirections in github.com/git-lfs/git-lfs
+cves:
+    - CVE-2026-69261
+ghsas:
+    - GHSA-x7xj-4j4f-88xr
+references:
+    - advisory: https://github.com/git-lfs/git-lfs/security/advisories/GHSA-x7xj-4j4f-88xr
+    - fix: https://github.com/git-lfs/git-lfs/commit/12c92e05b3433494d4b8695943e7e230744d77d9
+    - fix: https://github.com/git-lfs/git-lfs/commit/256d371024e6d2cf19efe675d8b9ad089785d0a1
+    - fix: https://github.com/git-lfs/git-lfs/commit/537203a1fa08fdde4c16288fb039174ff0e692bb
+    - fix: https://github.com/git-lfs/git-lfs/commit/d65324a7d5104c7a5dcb8c4959933695c8bc10fa
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v3.8.1
+source:
+    id: GHSA-x7xj-4j4f-88xr
+    created: 2026-11-23T10:46:33.829118-05:00
+review_status: REVIEWED

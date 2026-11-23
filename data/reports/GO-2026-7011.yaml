@@ -1,0 +1,36 @@
+id: GO-2026-7011
+modules:
+    - module: github.com/altcha-org/altcha-lib-go
+      vulnerable_at: 1.0.0
+      packages:
+        - package: github.com/altcha-org/altcha-lib-go
+          symbols:
+            - parseServerSignature
+          derived_symbols:
+            - VerifyServerSignature
+            - VerifyServerSignatureSafe
+summary: |-
+    Nil-map panic in parseServerSignature on malformed VerificationData in
+    github.com/altcha-org/altcha-lib-go
+description: |-
+    In v1 of github.com/altcha-org/altcha-lib-go, parseServerSignature only
+    initializes ServerSignatureVerificationData.Extra when url.ParseQuery returns a
+    nil error. Because url.ParseQuery returns partial results alongside a non-nil
+    error on malformed percent-escapes, a crafted VerificationData value triggers a
+    nil-map write panic before signature verification is performed.
+
+    The v2 module (github.com/altcha-org/altcha-lib-go/v2) is not affected.
+cves:
+    - CVE-2026-103033
+ghsas:
+    - GHSA-gfwj-45pc-w6r5
+credits:
+    - Arpit Jain (@arpitjain099)
+references:
+    - advisory: https://github.com/altcha-org/altcha-lib-go/security/advisories/GHSA-gfwj-45pc-w6r5
+    - fix: https://github.com/altcha-org/altcha-lib-go/commit/2c4fc27a7b2d5b89f7175676445efcacc564c27c
+    - web: https://github.com/altcha-org/altcha-lib-go/releases/tag/v2.1.0
+source:
+    id: GHSA-gfwj-45pc-w6r5
+    created: 2026-11-23T10:57:32.433622-05:00
+review_status: REVIEWED

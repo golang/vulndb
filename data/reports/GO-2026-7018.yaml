@@ -1,0 +1,26 @@
+id: GO-2026-7018
+modules:
+    - module: github.com/fabiolb/fabio
+      versions:
+        - fixed: 1.7.3
+      vulnerable_at: 1.7.2
+      packages:
+        - package: github.com/fabiolb/fabio/proxy
+          symbols:
+            - HTTPProxy.ServeHTTP
+summary: |-
+    Fabio: Access-control bypass through unnormalized request paths in
+    github.com/fabiolb/fabio
+cves:
+    - CVE-2026-104099
+ghsas:
+    - GHSA-4hrh-34w3-5ww8
+references:
+    - advisory: https://github.com/fabiolb/fabio/security/advisories/GHSA-4hrh-34w3-5ww8
+    - fix: https://github.com/fabiolb/fabio/commit/f00ce1a446a4b7a3bccbefbb7bfe4a5e0e3fd817
+    - web: https://github.com/fabiolb/fabio/releases/tag/v1.7.3
+    - web: https://github.com/fabiolb/fabio/releases/tag/v1.8.0
+source:
+    id: GHSA-4hrh-34w3-5ww8
+    created: 2026-11-23T10:54:46.003612-05:00
+review_status: REVIEWED

@@ -1,0 +1,136 @@
+id: GO-2026-7022
+modules:
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - introduced: 1.3.0
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+      packages:
+        - package: github.com/git-lfs/git-lfs/v3/config
+          symbols:
+            - readGitConfig
+          derived_symbols:
+            - Configuration.AutoDetectRemoteEnabled
+            - Configuration.BasicTransfersOnly
+            - Configuration.Cleanup
+            - Configuration.CurrentAuthor
+            - Configuration.CurrentAuthorTimestamp
+            - Configuration.CurrentCommitter
+            - Configuration.CurrentCommitterTimestamp
+            - Configuration.CurrentRef
+            - Configuration.EachLFSObject
+            - Configuration.Extensions
+            - Configuration.FetchExcludePaths
+            - Configuration.FetchIncludePaths
+            - Configuration.Filesystem
+            - Configuration.FindGitGlobalKey
+            - Configuration.FindGitLocalKey
+            - Configuration.FindGitSystemKey
+            - Configuration.FindGitWorktreeKey
+            - Configuration.ForceProgress
+            - Configuration.HookDir
+            - Configuration.InRepo
+            - Configuration.IsDefaultRemote
+            - Configuration.LFSObjectDir
+            - Configuration.LFSObjectExists
+            - Configuration.LFSStorageDir
+            - Configuration.LocalGitDir
+            - Configuration.LocalGitStorageDir
+            - Configuration.LocalLogDir
+            - Configuration.LocalReferenceDirs
+            - Configuration.LocalWorkingDir
+            - Configuration.PushRemote
+            - Configuration.Remote
+            - Configuration.Remotes
+            - Configuration.RepositoryPermissions
+            - Configuration.SearchAllRemotesEnabled
+            - Configuration.SetGitGlobalKey
+            - Configuration.SetGitLocalKey
+            - Configuration.SetGitSystemKey
+            - Configuration.SetGitWorktreeKey
+            - Configuration.SetLockableFilesReadOnly
+            - Configuration.SetValidPushRemote
+            - Configuration.SetValidRemote
+            - Configuration.SkipDownloadErrors
+            - Configuration.SortedExtensions
+            - Configuration.TempDir
+            - Configuration.TransferBatchSize
+            - Configuration.TusTransfersAllowed
+            - Configuration.UnsetGitGlobalSection
+            - Configuration.UnsetGitLocalKey
+            - Configuration.UnsetGitLocalSection
+            - Configuration.UnsetGitSystemSection
+            - Configuration.UnsetGitWorktreeSection
+            - OsFetcher.Get
+            - OsFetcher.GetAll
+            - URLConfig.Bool
+            - URLConfig.Get
+            - URLConfig.GetAll
+            - delayedEnvironment.All
+            - delayedEnvironment.Bool
+            - delayedEnvironment.Get
+            - delayedEnvironment.GetAll
+            - delayedEnvironment.Int
+            - delayedEnvironment.Int64
+            - delayedEnvironment.Load
+            - environment.Bool
+            - environment.Get
+            - environment.GetAll
+            - environment.Int
+            - environment.Int64
+        - package: github.com/git-lfs/git-lfs/v3/tq
+          symbols:
+            - configureCustomAdapters
+          derived_symbols:
+            - Batch
+            - Meter.LoggerFromEnv
+            - Meter.LoggerToFile
+            - NewTransferQueue
+            - SSHAdapter.Begin
+            - SSHAdapter.DoTransfer
+            - adapterBase.Begin
+            - basicDownloadAdapter.DoTransfer
+            - basicUploadAdapter.DoTransfer
+            - customAdapter.Begin
+            - customAdapter.DoTransfer
+            - lazyManifest.APIClient
+            - lazyManifest.ConcurrentTransfers
+            - lazyManifest.GetAdapterNames
+            - lazyManifest.GetDownloadAdapterNames
+            - lazyManifest.GetUploadAdapterNames
+            - lazyManifest.IsStandaloneTransfer
+            - lazyManifest.MaxRetries
+            - lazyManifest.MaxRetryDelay
+            - lazyManifest.MaxRetryTime
+            - lazyManifest.NewAdapter
+            - lazyManifest.NewAdapterOrDefault
+            - lazyManifest.NewDownloadAdapter
+            - lazyManifest.NewUploadAdapter
+            - lazyManifest.RegisterNewAdapterFunc
+            - lazyManifest.Upgrade
+            - tqClient.Batch
+            - tusUploadAdapter.DoTransfer
+summary: |-
+    Git LFS may execute arbitrary commands via crafted Git LFS configurations in
+    github.com/git-lfs/git-lfs
+cves:
+    - CVE-2026-105803
+ghsas:
+    - GHSA-x72p-hmqp-46hw
+references:
+    - advisory: https://github.com/git-lfs/git-lfs/security/advisories/GHSA-x72p-hmqp-46hw
+    - fix: https://github.com/git-lfs/git-lfs/commit/1ecddd431e63c551ae11c153df0e07f37d2b44ef
+    - fix: https://github.com/git-lfs/git-lfs/commit/45c0c51c8a2d41a7d361b79f3d37f4fec46acc68
+    - fix: https://github.com/git-lfs/git-lfs/commit/5182fdeccb834ed887746a557d0c736013704f39
+    - fix: https://github.com/git-lfs/git-lfs/commit/62a727e7af1b0de0237c4d288ec0e977613df064
+    - fix: https://github.com/git-lfs/git-lfs/commit/c5b3bff4e863022057557ad4be2ce5b5922b1a84
+    - fix: https://github.com/git-lfs/git-lfs/commit/dcfb09ff56eec5825f3e95dbefbfdd520ec76d44
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v3.8.1
+source:
+    id: GHSA-x72p-hmqp-46hw
+    created: 2026-11-23T10:49:44.713826-05:00
+review_status: REVIEWED

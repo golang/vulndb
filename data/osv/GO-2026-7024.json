@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7024",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-105802",
+    "GHSA-xrgv-7vx6-5vx6"
+  ],
+  "summary": "Git LFS may execute arbitrary commands via crafted Git configurations in github.com/git-lfs/git-lfs",
+  "details": "Git LFS may execute arbitrary commands via crafted Git configurations in github.com/git-lfs/git-lfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.8.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/git-lfs/git-lfs/v3/git",
+            "symbols": [
+              "Configuration.FileSource",
+              "Configuration.RevisionSource",
+              "Configuration.Source",
+              "Configuration.Sources"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/git-lfs/git-lfs/security/advisories/GHSA-xrgv-7vx6-5vx6"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/1b2672aaa29016e8004369df1406d2a73057f45f"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/39b73aa4db821fea6f0da8320128e5e1b919942d"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/git-lfs/git-lfs/releases/tag/v3.8.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7024",
+    "review_status": "REVIEWED"
+  }
+}

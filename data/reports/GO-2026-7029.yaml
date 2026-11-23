@@ -1,0 +1,35 @@
+id: GO-2026-7029
+modules:
+    - module: github.com/emersion/go-smtp
+      versions:
+        - introduced: 0.15.0
+        - fixed: 0.25.1
+      vulnerable_at: 0.25.0
+      packages:
+        - package: github.com/emersion/go-smtp
+          symbols:
+            - Conn.handleBdat
+          derived_symbols:
+            - Server.ListenAndServe
+            - Server.ListenAndServeTLS
+            - Server.Serve
+summary: Unbounded memory allocation during BDAT transaction in github.com/emersion/go-smtp
+description: |-
+    Conn.handleBdat disables the line length limit on the connection reader while
+    reading a BDAT chunk and only restored it on error or on the final BDAT LAST
+    chunk. A remote client that sends another command between two BDAT commands in
+    a transaction bypasses Server.MaxLineLength, allowing unbounded memory
+    allocation and denial of service.
+credits:
+    - Qiyi Deng, Wuhan University
+    - Min Shi, Wuhan University
+    - Yongkang Xiao, Wuhan University
+    - Jing Chen, Wuhan University
+references:
+    - fix: https://github.com/emersion/go-smtp/commit/eb903bcc09670a2b04a7b5f210c29c465289df1a
+    - report: https://github.com/golang/vulndb/issues/7029
+    - web: https://github.com/emersion/go-smtp/releases/tag/v0.25.1
+source:
+    id: go-security-team
+    created: 2026-11-23T10:43:55.654298-05:00
+review_status: REVIEWED

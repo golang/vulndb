@@ -1,0 +1,34 @@
+id: GO-2026-7026
+modules:
+    - module: github.com/openshift/hive
+      versions:
+        - fixed: 1.1.17-0.20261120183521-b2be2f46a66d
+      vulnerable_at: 1.1.17-0.20261114011311-5dc463306404
+      packages:
+        - package: github.com/openshift/hive/pkg/controller/clusterclaim
+          symbols:
+            - ReconcileClusterClaim.Reconcile
+          skip_fix: build errors during static analysis
+summary: Cross-namespace ClusterClaim assignment bypass in github.com/openshift/hive
+description: |-
+    ReconcileClusterClaim.Reconcile assigns hive-claim-owner RBAC to a
+    ClusterDeployment named by the user-controlled ClusterClaim.spec.namespace field
+    without verifying that the ClusterDeployment belongs to a ClusterPool in the
+    claim's namespace. A tenant can target a same-named ClusterClaim in another
+    namespace's ClusterPool and obtain read access to that cluster's admin
+    kubeconfig and password secrets.
+cves:
+    - CVE-2026-120472
+ghsas:
+    - GHSA-x2qr-3j78-f43f
+credits:
+    - Sathwik Yadlapati
+references:
+    - advisory: https://github.com/advisories/GHSA-x2qr-3j78-f43f
+    - fix: https://github.com/openshift/hive/commit/b2be2f46a66d38ec585c451869e506b410f366d5
+    - fix: https://github.com/openshift/hive/pull/3002
+    - web: https://access.redhat.com/security/cve/CVE-2026-120472
+source:
+    id: go-security-team
+    created: 2026-11-23T10:43:58.094298-05:00
+review_status: REVIEWED

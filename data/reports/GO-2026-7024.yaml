@@ -1,0 +1,35 @@
+id: GO-2026-7024
+modules:
+    - module: github.com/git-lfs/git-lfs
+      versions:
+        - introduced: 0.6.0
+      vulnerable_at: 1.5.6
+    - module: github.com/git-lfs/git-lfs/v3
+      versions:
+        - introduced: 3.0.0
+        - fixed: 3.8.1
+      vulnerable_at: 3.8.0
+      packages:
+        - package: github.com/git-lfs/git-lfs/v3/git
+          symbols:
+            - Configuration.Source
+            - Configuration.RevisionSource
+            - Configuration.FileSource
+          derived_symbols:
+            - Configuration.Sources
+summary: |-
+    Git LFS may execute arbitrary commands via crafted Git configurations in
+    github.com/git-lfs/git-lfs
+cves:
+    - CVE-2026-105802
+ghsas:
+    - GHSA-xrgv-7vx6-5vx6
+references:
+    - advisory: https://github.com/git-lfs/git-lfs/security/advisories/GHSA-xrgv-7vx6-5vx6
+    - fix: https://github.com/git-lfs/git-lfs/commit/1b2672aaa29016e8004369df1406d2a73057f45f
+    - fix: https://github.com/git-lfs/git-lfs/commit/39b73aa4db821fea6f0da8320128e5e1b919942d
+    - web: https://github.com/git-lfs/git-lfs/releases/tag/v3.8.1
+source:
+    id: GHSA-xrgv-7vx6-5vx6
+    created: 2026-11-23T10:44:34.337665-05:00
+review_status: REVIEWED

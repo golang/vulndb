@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.3.1",
+  "id": "GO-2026-7021",
+  "modified": "0001-01-01T00:00:00Z",
+  "published": "0001-01-01T00:00:00Z",
+  "aliases": [
+    "CVE-2026-69260",
+    "GHSA-w3f2-pr6x-wwjc"
+  ],
+  "summary": "Git LFS may attempt arbitrary remote commands via crafted SSH URLs in github.com/git-lfs/git-lfs",
+  "details": "Git LFS may attempt arbitrary remote commands via crafted SSH URLs in github.com/git-lfs/git-lfs",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.5.0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {}
+    },
+    {
+      "package": {
+        "name": "github.com/git-lfs/git-lfs/v3",
+        "ecosystem": "Go"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.0.0"
+            },
+            {
+              "fixed": "3.8.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "github.com/git-lfs/git-lfs/v3/ssh",
+            "symbols": [
+              "GetLFSExeAndArgs",
+              "NewSSHTransfer",
+              "SSHTransfer.Connection",
+              "SSHTransfer.SetConnectionCount",
+              "SSHTransfer.SetConnectionCountAtLeast",
+              "SSHTransfer.Shutdown"
+            ]
+          },
+          {
+            "path": "github.com/git-lfs/git-lfs/v3/lfshttp",
+            "symbols": [
+              "Client.NewRequest",
+              "EndpointFromBareSshUrl",
+              "EndpointFromSshUrl",
+              "sshAuthClient.Resolve",
+              "sshCache.Resolve"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/git-lfs/git-lfs/security/advisories/GHSA-w3f2-pr6x-wwjc"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/091a95a796739bd0b8f59d8deeea79a452959508"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/92d81117d465469a61dcb78546dd3d88806b25fd"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/af5f4579ac1155734bb08f00ca92b9e89f8b51df"
+    },
+    {
+      "type": "FIX",
+      "url": "https://github.com/git-lfs/git-lfs/commit/d90ed66f2d465f8b3ba5fd6e4ac3c711c9e0a2d6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/git-lfs/git-lfs/releases/tag/v3.8.1"
+    }
+  ],
+  "database_specific": {
+    "url": "https://pkg.go.dev/vuln/GO-2026-7021",
+    "review_status": "REVIEWED"
+  }
+}
