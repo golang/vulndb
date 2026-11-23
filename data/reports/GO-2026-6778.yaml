@@ -1,6 +1,8 @@
 id: GO-2026-6778
 modules:
     - module: github.com/distribution/distribution
+      versions:
+        - fixed: 2.8.4-0.20260923142519-db037680f2ac+incompatible
       vulnerable_at: 2.8.3+incompatible
       packages:
         - package: github.com/distribution/distribution/registry/client
@@ -15,6 +17,8 @@ modules:
           symbols:
             - manifests.Get
     - module: github.com/docker/distribution
+      versions:
+        - fixed: 2.8.4-0.20260923142519-db037680f2ac+incompatible
       vulnerable_at: 2.8.3+incompatible
       packages:
         - package: github.com/docker/distribution/registry/client
@@ -31,6 +35,7 @@ references:
     - advisory: https://github.com/distribution/distribution/security/advisories/GHSA-685w-q87j-wqw3
     - fix: https://github.com/distribution/distribution/commit/8f91c26c8888a95a36c2357a6e30bc15d4dd76d3
     - fix: https://github.com/distribution/distribution/commit/960439b09f342cdeb8f1c0e18e8c7349bdcfbf80
+    - fix: https://github.com/distribution/distribution/commit/db037680f2ac9bac55e1366358a66a613bb0ffff
     - web: https://github.com/distribution/distribution/releases/tag/v3.1.2
 source:
     id: GHSA-685w-q87j-wqw3
